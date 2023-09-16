@@ -4,7 +4,7 @@ This is a workspace that represents client side of the application.
 
 ### Link to the project design
 
-
+[e-Learning Education Management](https://www.figma.com/file/noAcUUrKvZYpDaVqFhR3D2/e-Learning-Education-Management-SaaS-Dashboard---Omnicreativora-(Community)?type=design&node-id=202%3A31633&mode=design&t=tSryBGsyA3f8TyDr-1)
 
 ### Commands
 
