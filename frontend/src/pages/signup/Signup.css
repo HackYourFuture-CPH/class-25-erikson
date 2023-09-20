@@ -1,0 +1,101 @@
+.signup-form form h2 {
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 45.6px;
+}
+
+.signup-layout {
+  padding: 40px 40px 0 40px;
+}
+
+.top {
+  display: flex;
+  justify-content: left;
+}
+
+.top img {
+  height: 30px;
+  width: 176px;
+}
+
+.form-img {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.signup-form {
+  height: 472px;
+  width: 275px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.signup-form form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.right img {
+  height: 625px;
+  width: 735px;
+}
+
+.row-wrap {
+  display: flex;
+  justify-content: space-between;
+  height: 75px;
+}
+
+.row-wrap .input-group {
+  width: 125px;
+}
+
+.redirect {
+  margin: 10px;
+}
+
+.signin-link {
+  text-decoration: none;
+  color: blue;
+}
+
+.remember-checkbox {
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+.remember-me label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .form-img {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .right img {
+    height: 310px;
+    width: 347px;
+  }
+}
+
+@media screen and (max-width: 376px){
+  .right img {
+    width: 205p;
+  }
+}
