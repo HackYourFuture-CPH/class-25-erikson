@@ -12,6 +12,7 @@ import Password from "./pages/password/Password";
 import Dashboard from "./pages/dashboard/Dashboard";
 import "./App.css";
 
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <React.Fragment>

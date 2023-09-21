@@ -60,6 +60,7 @@
   width: 125px;
 }
 
+
 .redirect {
   margin: 10px;
 }
@@ -94,7 +95,7 @@
   }
 }
 
-@media screen and (max-width: 376px){
+@media screen and (max-width: 376px) {
   .right img {
     width: 205p;
   }
