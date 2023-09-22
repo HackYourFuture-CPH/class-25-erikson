@@ -47,9 +47,14 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    try {
     await login(email, password, rememberMe);
     rememberMe ? setPassword("") : resetForm();
     navigate("/dashboard");
+    }
+    catch (error) {
+      console.error('An error occurred:', error);
+    }
   };
 
   return (
@@ -122,7 +127,7 @@ const Login: React.FC = () => {
             </form>
           </div>
           <p className="redirect">
-            Don't have an account?{" "}
+            Don't have an account?
             <Link to="/signup" className="signup-link">
               Sign Up
             </Link>
