@@ -1,37 +1,11 @@
 import React, { ChangeEvent, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { create } from 'zustand';
 import useSignup from '../../hooks/useSignup';
-import "./Signup.css";
+import useSignupStore from '../../store/signuppage.store';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
-type SignupStore = {
-  userType: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  setUserType: (type: string) => void;
-  setFirstName: (name: string) => void;
-  setLastName: (name: string) => void;
-  setEmail: (email: string) => void;
-  setPassword: (password: string) => void;
-};
-
-const useSignupStore = create<SignupStore>((set) => ({
-  userType: 'Student',
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  setUserType: (type) => set({ userType: type }),
-  setFirstName: (name) => set({ firstName: name }),
-  setLastName: (name) => set({ lastName: name }),
-  setEmail: (email) => set({ email: email }),
-  setPassword: (password) => set({ password: password }),
-}));
+import "./Signup.css";
 
 const Signup: React.FC = () => {
   const {
@@ -45,17 +19,19 @@ const Signup: React.FC = () => {
     setEmail,
     password,
     setPassword,
+    rememberMe,
+    setRememberMe
   } = useSignupStore();
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserType((event.target as HTMLInputElement).value);
-  };
 
   const { signup, error } = useSignup();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     await signup(email, password);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserType((event.target as HTMLInputElement).value);
   };
 
   return (
@@ -147,7 +123,14 @@ const Signup: React.FC = () => {
 
               <div className="remember-me">
                 <label>
-                  <input type="checkbox" className="remember-checkbox"/>
+                <input
+                  className="remember-checkbox"
+                  type="checkbox"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setRememberMe(e.target.checked)
+                  }
+                  checked={rememberMe}
+                />
                   Remember me
                 </label>
               </div>

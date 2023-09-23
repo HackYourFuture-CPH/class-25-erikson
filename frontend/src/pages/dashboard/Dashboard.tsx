@@ -6,7 +6,6 @@ const Dashboard: React.FC = () => {
 
   const handleLogout = async (): Promise<void> => {
     await logout();
-    window.location.href = '/login';
   };
 
   return (

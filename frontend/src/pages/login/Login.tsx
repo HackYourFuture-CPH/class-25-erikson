@@ -1,60 +1,17 @@
-import React, { ChangeEvent, FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { create } from "zustand";
-import useLogin from "../../hooks/useLogin";
+import React, { ChangeEvent, FormEvent } from 'react';
+import { Link } from 'react-router-dom';
+import useLogin from '../../hooks/useLogin';
+import useLoginStore from '../../store/loginpage.store';
 import "./Login.css";
-type LoginStore = {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-  setEmail: (email: string) => void;
-  setPassword: (password: string) => void;
-  setRememberMe: (remember: boolean) => void;
-  resetForm: () => void;
-};
-
-const useLoginStore = create<LoginStore>((set) => ({
-  email: localStorage.getItem("rememberedEmail") || "",
-  password: "",
-  rememberMe: false,
-  setEmail: (email) => set({ email }),
-  setPassword: (password) => set({ password }),
-  setRememberMe: (rememberMe) => {
-    set((state) => {
-      if (rememberMe === true) {
-        localStorage.setItem("rememberedEmail", state.email);
-      } else {
-        localStorage.removeItem("rememberedEmail");
-      }
-      return { ...state, rememberMe };
-    });
-  },
-  resetForm: () => set({ email: "", password: "", rememberMe: false }),
-}));
 
 const Login: React.FC = () => {
-  const {
-    email,
-    setEmail,
-    password,
-    setPassword,
-    rememberMe,
-    setRememberMe,
-    resetForm,
-  } = useLoginStore();
+  const { email, setEmail, password, setPassword, rememberMe, setRememberMe, resetForm } = useLoginStore();
   const { login, error } = useLogin();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    try {
     await login(email, password, rememberMe);
-    rememberMe ? setPassword("") : resetForm();
-    navigate("/dashboard");
-    }
-    catch (error) {
-      console.error('An error occurred:', error);
-    }
+    rememberMe ? setPassword('') : resetForm();
   };
 
   return (
