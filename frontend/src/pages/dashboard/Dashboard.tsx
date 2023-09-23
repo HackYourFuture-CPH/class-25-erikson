@@ -1,11 +1,10 @@
 import React from 'react';
-import useLogout from '../../hooks/useLogout';
+import signout from '../../hooks/signout';
 
 const Dashboard: React.FC = () => {
-  const logout = useLogout();
 
   const handleLogout = async (): Promise<void> => {
-    await logout();
+    await signout();
   };
 
   return (

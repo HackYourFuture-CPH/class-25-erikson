@@ -5,7 +5,7 @@ export interface AuthContextStore {
   setUser: (user: User | null) => void;
 }
 
-export interface LoginSignupState {
+export interface ErrorState {
   error: string | null;
   setError: (error: string | null) => void;
 };

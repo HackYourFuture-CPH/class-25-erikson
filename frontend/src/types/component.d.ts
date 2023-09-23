@@ -13,11 +13,6 @@ export interface PasswordStore {
   setEmail: (email: string) => void;
 };
 
-export interface SignupState {
-  error: string | null;
-  setError: (error: string | null) => void;
-};
-
 export interface SignupStore {
   userType: string;
   firstName: string;
