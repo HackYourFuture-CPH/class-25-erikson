@@ -10,7 +10,7 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    await login(email, password, rememberMe);
+    await login(email, password);
     rememberMe ? setPassword('') : resetForm();
   };
 
