@@ -1,8 +1,8 @@
 import { auth, createUserWithEmailAndPassword, sendEmailVerification } from '../firebase/config';
-import useSignupState from '../store/signup.store';
+import useErrorState from '../store/error.store';
 
 const useSignup = () => {
-  const { error, setError } = useSignupState();
+  const { error, setError } = useErrorState();
 
   const signup = async (email: string, password: string) => {
     try {

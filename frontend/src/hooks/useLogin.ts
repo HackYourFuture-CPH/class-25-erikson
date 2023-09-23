@@ -1,10 +1,10 @@
 import { auth, signInWithEmailAndPassword } from '../firebase/config';
-import useLoginState from '../store/login.store';
+import useErrorState from '../store/error.store';
 
 const useLogin = () => {
-  const { error, setError } = useLoginState();
+  const { error, setError } = useErrorState();
 
-  const login = async (email: string, password: string, rememberMe: boolean) => {
+  const login = async (email: string, password: string) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setError(null);
