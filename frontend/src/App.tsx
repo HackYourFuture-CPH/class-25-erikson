@@ -1,28 +1,62 @@
-import React from 'react';
-import './App.css';
-import useBearStore from './store/example.store';
-import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
-import useTestHook from './hooks/test.hook';
+import { ReactNode } from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate
+} from "react-router-dom";
+import Signup from "./pages/signup/Signup";
+import Login from "./pages/login/Login";
+import Password from "./pages/password/Password";
+import Dashboard from "./pages/dashboard/Dashboard";
+import { useAuthContext } from "./hooks/useAuthContext";
+import "./App.css";
 
-function App() {
-  const {bears, increase} = useBearStore();
+function App(): JSX.Element {
+  const { user } = useAuthContext();
 
-  useTestHook();
+  const renderPage = ( authenticated: ReactNode, notAuthenticated: ReactNode ): ReactNode => {
+    return user ? authenticated : notAuthenticated;
+  };
 
-  return (
-    <div className="App">
-      <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          The amount of Bears {bears}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" onClick={() => increase(1)}>Increase Bears</Button>
-      </CardActions>
-    </Card>
-    </div>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: renderPage(
+        <Navigate to="/dashboard" replace />,
+        <Navigate to="/login" replace />
+      )
+    },
+    {
+      path: "/signup",
+      element: renderPage(
+        <Navigate to="/dashboard" replace />,
+        <Signup />
+      )
+    },
+    {
+      path: "/login",
+      element: renderPage(
+        <Navigate to="/dashboard" replace />,
+        <Login />
+      )
+    },
+    {
+      path: "/password",
+      element: renderPage(
+        <Navigate to="/dashboard" replace />,
+        <Password />
+      )
+    },
+    {
+      path: "/dashboard",
+      element: renderPage(
+        <Dashboard />,
+        <Navigate to="/login" replace />
+      )
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
