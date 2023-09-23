@@ -2,10 +2,11 @@ import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   createUserWithEmailAndPassword,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  sendPasswordResetEmail,
-  sendEmailVerification
+  fetchSignInMethodsForEmail,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -23,8 +24,9 @@ const auth = getAuth(app);
 export {
   auth,
   createUserWithEmailAndPassword,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  sendPasswordResetEmail,
-  sendEmailVerification
+  fetchSignInMethodsForEmail,
+  sendPasswordResetEmail
 };
