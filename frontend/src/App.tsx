@@ -1,31 +1,61 @@
-import React from "react";
+import { ReactNode } from "react";
 import {
   createBrowserRouter,
-  createRoutesFromElements,
-  Route,
   RouterProvider,
-  Navigate,
+  Navigate
 } from "react-router-dom";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Password from "./pages/password/Password";
 import Dashboard from "./pages/dashboard/Dashboard";
+import { useAuthContext } from "./hooks/useAuthContext";
 import "./App.css";
 
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <React.Fragment>
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/password" element={<Password />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/" element={<Navigate to="/login" replace />} />
-    </React.Fragment>
-  )
-);
-
 function App(): JSX.Element {
+  const { user } = useAuthContext();
+
+  const renderPage = ( authenticated: ReactNode, notAuthenticated: ReactNode ): ReactNode => {
+    return user ? authenticated : notAuthenticated;
+  };
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: renderPage(
+        <Navigate to="/dashboard" replace />,
+        <Navigate to="/login" replace />
+      )
+    },
+    {
+      path: "/signup",
+      element: renderPage(
+        <Navigate to="/dashboard" replace />,
+        <Signup />
+      )
+    },
+    {
+      path: "/login",
+      element: renderPage(
+        <Navigate to="/dashboard" replace />,
+        <Login />
+      )
+    },
+    {
+      path: "/password",
+      element: renderPage(
+        <Navigate to="/dashboard" replace />,
+        <Password />
+      )
+    },
+    {
+      path: "/dashboard",
+      element: renderPage(
+        <Dashboard />,
+        <Navigate to="/login" replace />
+      )
+    },
+  ]);
+
   return <RouterProvider router={router} />;
 }
 
