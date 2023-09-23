@@ -1,15 +1,5 @@
-import { create } from 'zustand';
 import { auth, signInWithEmailAndPassword } from '../firebase/config';
-
-type LoginState = {
-  error: string | null;
-  setError: (error: string | null) => void;
-};
-
-const useLoginState = create<LoginState>((set) => ({
-  error: null,
-  setError: (error) => set({ error }),
-}));
+import useLoginState from '../store/login.store';
 
 const useLogin = () => {
   const { error, setError } = useLoginState();
