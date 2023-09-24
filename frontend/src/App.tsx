@@ -15,7 +15,7 @@ function App(): JSX.Element {
   const { user } = useAuthContext();
 
   const renderPage = ( authenticated: ReactNode, notAuthenticated: ReactNode ): ReactNode => {
-    return user ? authenticated : notAuthenticated;
+    return user?.emailVerified ? authenticated : notAuthenticated;
   };
 
   const router = createBrowserRouter([
