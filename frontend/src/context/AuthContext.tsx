@@ -9,11 +9,13 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   const { user, setUser } = useAuthContextStore();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
-      if (authUser) {
-        setUser(authUser);
-      } else {
+    const unsubscribe = onAuthStateChanged(auth, (verifiedUser) => {
+      if (verifiedUser?.emailVerified) {
+        setUser(verifiedUser);
+      }
+      else {
         setUser(null);
+        auth.signOut();
       }
     });
 
