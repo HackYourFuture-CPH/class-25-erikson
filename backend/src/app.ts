@@ -3,6 +3,7 @@ import cors from "cors";
 import bodyParser from 'body-parser';
 import router from './routes';
 import path from 'path';
+import { testDB } from './controllers/test';
 
 const app: Express = express();
 const uiBuildPath = path.join(__dirname, "../../frontend/build/");
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api', router);
+app.get("/testdb", testDB);
 
 if (process.env.API_PATH) {
   app.use(process.env.API_PATH, router);
