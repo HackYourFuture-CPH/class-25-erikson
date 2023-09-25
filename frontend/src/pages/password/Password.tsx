@@ -15,6 +15,9 @@ const Password: React.FC = () => {
     await resetPassword(email);
   };
 
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const btnClassName = (emailRegex.test(email)) ? 'valid-btn' : 'invalid-btn';
+  
   return (
     <div className="password-layout">
       
@@ -43,7 +46,7 @@ const Password: React.FC = () => {
               </label>
             </div>
 
-            <button className="btn" type="submit">
+            <button className={btnClassName} type="submit">
               Reset Password
             </button>
 
