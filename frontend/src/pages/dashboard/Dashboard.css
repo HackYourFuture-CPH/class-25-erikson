@@ -1,0 +1,60 @@
+/* Define the styles for the sidebar */
+.sidebar {
+  width: 258px; /* Width set to 258px */
+  height: 1354px; /* Height set to 1354px */
+  gap: 10px; /* Gap set to 10px */
+  background-color: rgba(17, 13, 89, 1); /* Background color for the sidebar */
+  padding: 20px; /* Padding inside the sidebar */
+  /* You can add more styles as needed */
+}
+
+.dashboard-logo {
+  background-color: rgba(17, 13, 89, 1);
+  color: #fff;
+  padding: 0px;
+}
+.dashboard-logo img {
+  background-color: rgba(17, 13, 89, 1);
+  color: #fff;
+}
+
+.sidebar-menu {
+  margin-top: 20px;
+  width: Fixed (226px);
+  height: Hug(405px);
+}
+.sidebar-menu img {
+  width:  (226px);
+  height:  (45px);
+  border-radius: 8px;
+  padding: 10px 6px 10px 10px;
+ 
+  
+}
+
+.sidebar-menu div:hover {
+  background-color: rgb(255, 255, 255);
+  color: rgba(17, 13, 89, 1);
+  border-radius: 8px;
+  gap: 5px;
+}
+.sidebar-item a {
+  display: flex;
+  align-items:center;
+  color: white;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.sidebar-item a:hover{
+  color: rgba(17, 13, 89, 1);
+ 
+  
+}
+.top-bar{
+  
+width: 1182px;
+height: 64px;
+left: 258px;
+background-color: #F1F2F4;
+}

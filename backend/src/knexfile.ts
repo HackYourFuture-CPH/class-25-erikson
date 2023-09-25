@@ -1,5 +1,5 @@
 // Update with your config settings.
-require('dotenv').config({ path: '.env.development.local' });
+require('dotenv').config({path: '.env.development.local' });
 export const config: Record<string, any> = {
   development: {
     client: 'postgres',
