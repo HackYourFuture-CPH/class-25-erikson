@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import { ErrorState } from "../types";
 
-const useErrorState = create<ErrorState>((set) => ({
+const useErrorLoginState = create<ErrorState>((set) => ({
   error: null,
   setError: (error) => set({ error }),
 }));
 
-export default useErrorState;
+export default useErrorLoginState;

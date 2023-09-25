@@ -5,7 +5,6 @@ import {
   sendEmailVerification,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  fetchSignInMethodsForEmail,
   sendPasswordResetEmail
 } from 'firebase/auth';
 
@@ -27,6 +26,5 @@ export {
   sendEmailVerification,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  fetchSignInMethodsForEmail,
   sendPasswordResetEmail
 };
