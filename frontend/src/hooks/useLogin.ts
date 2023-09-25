@@ -6,9 +6,16 @@ const useLogin = () => {
 
   const login = async (email: string, password: string) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      setError(null);
+      const userCredential =  await signInWithEmailAndPassword(auth, email, password);
+      const user =userCredential.user; 
+      if(user && user.emailVerified){
+        setError(null);
+      }
+      else if ( user && !user.emailVerified){
+        setError('Email is not verified . Please check your email for verification link');
+      }
     }
+    
     catch (err: any) {
       setError(err.message);
     }
