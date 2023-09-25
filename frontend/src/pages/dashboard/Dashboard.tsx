@@ -1,6 +1,7 @@
 import React from 'react';
 import signout from '../../hooks/signout';
 import './Dashboard.css';
+import SearchIcon from '@mui/icons-material/Search';
 const Dashboard: React.FC = () => {
 
   const handleLogout = async (): Promise<void> => {
@@ -76,8 +77,8 @@ const Dashboard: React.FC = () => {
       </nav>
         <div className='top-bar'>
         <form>
-        <label >Search:</label>
-        <input type="text" id="search" name="search" placeholder="Enter your search query"/>
+          <SearchIcon className='search-icon'></SearchIcon>
+        <input className='search search-icon'  type="text" id="search" name="search" placeholder="Search Anything"/>
        </form>
         </div>
       

@@ -1,3 +1,8 @@
+.dashboard-layout{
+  display: flex;
+}
+
+
 /* Define the styles for the sidebar */
 .sidebar {
   width: 258px; /* Width set to 258px */
@@ -57,4 +62,21 @@ width: 1182px;
 height: 64px;
 left: 258px;
 background-color: #F1F2F4;
+}
+
+.search{
+ width:  456px;
+height: 41px;
+margin-top: 12px;
+margin-left: 24px;
+padding: 10px 12px 10px 12px;
+border-radius: 8px;
+gap: 10px;
+border: none;
+}
+
+.search-icon{
+  background-size: 30px 30px; /* Adjust the size as needed */
+  padding-left: 30px; 
+  z-index: 1;
 }
