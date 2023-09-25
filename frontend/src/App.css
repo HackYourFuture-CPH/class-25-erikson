@@ -37,7 +37,6 @@ h2, span, p {
   color: #8d9296;
 }
 
-.signup-form form .btn,
 .container form .btn {
   height: 45px;
   border: none;
@@ -48,7 +47,6 @@ h2, span, p {
   font-weight: 600;
 }
 
-.signup-form form .btn:active,
 .container form .btn:active {
   background-color: #F18524;
 }
