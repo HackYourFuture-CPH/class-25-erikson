@@ -2,9 +2,6 @@ import React, { ChangeEvent, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import useSignup from '../../hooks/useSignup';
 import useSignupStore from '../../store/signuppage.store';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import "./Signup.css";
 
 const Signup: React.FC = () => {
@@ -30,12 +27,7 @@ const Signup: React.FC = () => {
     await signup(email, password);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserType((event.target as HTMLInputElement).value);
-  };
-
   return (
-
     <div className="signup-layout">
       <div className="top">
         <img src="images/auth-logo.png" alt="logo" />
@@ -46,23 +38,27 @@ const Signup: React.FC = () => {
             <form onSubmit={handleSubmit}>
               <h2>Signup</h2>
               <p className="gray">Select subscription</p>
-              <RadioGroup 
-                row
-                value={userType}
-                onChange={handleChange}
-              >
-                <FormControlLabel
-                  control={<Radio />}
-                  value="Student"
-                  label="Student"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  value="Mentor"
-                  label="Mentor"
-                />
-              </RadioGroup>
+              <div className="radio-group">
+                <label> 
+                  <input 
+                    type="radio"
+                    value="Student"
+                    checked={userType === "Student"}
+                    onChange={() => setUserType("Student")}
+                  />
+                  Student
+                </label>
 
+                <label> 
+                  <input 
+                    type="radio"
+                    value="Mentor"
+                    checked={userType === "Mentor"}
+                    onChange={() => setUserType("Mentor")}
+                  />
+                  Mentor
+                </label>
+              </div>
               <div className="row-wrap">
                 <div className="input-group">
                   <label>
