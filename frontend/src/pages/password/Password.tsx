@@ -19,7 +19,7 @@ const Password: React.FC = () => {
     <div className="password-layout">
       
       <div className="top">
-        <img src="images/auth-logo.png" alt="logo" />
+        <img src="images/auth-logo.svg" alt="logo" />
       </div>
 
       <div className="container">
@@ -53,7 +53,7 @@ const Password: React.FC = () => {
         </div>
 
         <div className="restore-pswrd">
-          <img src="images/restore-pswrd.png" alt="restoring of pass" />
+          <img src="images/restore-pswrd.svg" alt="restoring of pass" />
         </div>
       </div>
     </div>

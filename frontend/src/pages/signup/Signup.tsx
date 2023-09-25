@@ -30,7 +30,7 @@ const Signup: React.FC = () => {
   return (
     <div className="signup-layout">
       <div className="top">
-        <img src="images/auth-logo.png" alt="logo" />
+        <img src="images/auth-logo.svg" alt="logo" />
       </div>
       <div className="form-img">
         <div className="left">
@@ -144,7 +144,7 @@ const Signup: React.FC = () => {
         </div>
 
         <div className="right">
-            <img src="images/hands-show.png" alt="hands-show" />
+            <img src="images/hands-show.svg" alt="hands-show" />
         </div>
 
       </div>
