@@ -17,6 +17,7 @@
     "start": "concurrently \"npm run start --workspace=frontend\" \"npm run dev --workspace=backend\""
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "concurrently": "^5.1.0"
   },
   "dependencies": {
