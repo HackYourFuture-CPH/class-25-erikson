@@ -1,8 +1,9 @@
 import React, { ChangeEvent, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useSignup from '../../hooks/useSignup';
 import useSignupStore from '../../store/signuppage.store';
 import "./Signup.css";
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const Signup: React.FC = () => {
   const {
@@ -21,10 +22,16 @@ const Signup: React.FC = () => {
   } = useSignupStore();
 
   const { signup, error } = useSignup();
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
+
+  if (user?.emailVerified) {
+    navigate("/dashboard", { replace: true });
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    await signup(email, password);
+    await signup(email, password, firstName);
   };
 
   return (
@@ -67,7 +74,7 @@ const Signup: React.FC = () => {
                       required
                       type="text"
                       onChange={(e: ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
-                      value={firstName}
+                      value={firstName.trimStart()}
                       className="text-input"
                       placeholder="First name"
                     />
@@ -81,7 +88,7 @@ const Signup: React.FC = () => {
                       required
                       type="text"
                       onChange={(e: ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
-                      value={lastName}
+                      value={lastName.trim()}
                       className="text-input"
                       placeholder="Last name"
                     />
@@ -110,7 +117,7 @@ const Signup: React.FC = () => {
                     required
                     type="password"
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                    value={password}
+                    value={password.trim()}
                     className="text-input"
                     placeholder="Enter password"
                   />
