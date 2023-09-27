@@ -9,7 +9,7 @@ const addLesson = async (req: Request, res: Response) => {
     const courseExists = await db('course').select(1).where({id: courseId}).first();
     
     if(!courseExists) {
-      return res.status(404).json({ message: 'Course not found' })
+      return res.status(404).json({ message: 'Course not found' });
     }
 
     await db('lesson').insert({
@@ -19,10 +19,30 @@ const addLesson = async (req: Request, res: Response) => {
       course_id : courseId
     });
 
-    res.status(201).json({ message: 'Lesson succesfully added!' })
+    res.status(201).json({ message: 'Lesson succesfully added!' });
   } catch (error) {
     res.status(500).json({ error: `Lesson creation failed: ${error}` })
   }
 }
 
-export {addLesson};
+const addResource = async (req: Request, res: Response) => {
+  try {
+    const lessonId = req.params.id;
+    const { url } = req.body; 
+
+    const lessonExists = await db('lesson').select(1).where({ id: lessonId }).first();
+    if(!lessonExists) {
+      return res.status(404).json({ message: 'Lesson not found' });
+    }
+
+    await db('resource').insert({ url, lesson_id: lessonId });
+    res.status(200).json({ message: 'Resource succesfully added!' });
+  } catch (error) {
+    res.status(500).json({ error: `Failed to add a resource: ${error}` });
+  }
+}
+
+export {
+  addLesson,
+  addResource
+};

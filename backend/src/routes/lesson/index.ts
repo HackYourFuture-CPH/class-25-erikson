@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { addLesson } from "../../controllers/lesson";
+import { addLesson, addResource } from "../../controllers/lesson";
 
 const lesson = Router();
 
-lesson.post('/:id/add_lesson', addLesson);
+lesson.post('/:id/add_lesson', addLesson); //id - course id
+lesson.post('/:id/add_resource', addResource) // id - lesson id
 
 export default lesson;
