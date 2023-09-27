@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node ./server/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q ./server/index.js\""
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q ./server/index.js\"",
+    "typescript": "tsc --noEmit"
   },
   "author": "Yurii Pakhariev",
   "license": "ISC",
