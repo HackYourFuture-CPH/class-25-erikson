@@ -10,6 +10,7 @@ import Password from "./pages/password/Password";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { useAuthContext } from "./hooks/useAuthContext";
 import "./App.css";
+import CourseDetails from "./components/courseDetails/CourseDetails";
 
 function App(): JSX.Element {
   const { user } = useAuthContext();
@@ -51,6 +52,13 @@ function App(): JSX.Element {
       path: "/dashboard",
       element: renderPage(
         <Dashboard />,
+        <Navigate to="/login" replace />
+      )
+    },
+    {
+      path: "/course/:id",
+      element: renderPage(
+        <CourseDetails />,
         <Navigate to="/login" replace />
       )
     },
