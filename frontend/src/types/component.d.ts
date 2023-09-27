@@ -6,12 +6,12 @@ export interface LoginStore {
   setPassword: (password: string) => void;
   setRememberMe: (remember: boolean) => void;
   resetForm: () => void;
-};
+}
 
 export interface PasswordStore {
   email: string;
   setEmail: (email: string) => void;
-};
+}
 
 export interface SignupStore {
   userType: string;
@@ -26,4 +26,4 @@ export interface SignupStore {
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
   setRememberMe: (remember: boolean) => void;
-};
+}

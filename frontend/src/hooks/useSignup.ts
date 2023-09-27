@@ -13,8 +13,7 @@ const useSignup = () => {
         await sendEmailVerification(user);
         setError('A verification link has been sent to your e-mail.');
       }
-    }
-    catch (err: any) {
+    } catch (err: any) {
       setError(err.message);
     }
   };

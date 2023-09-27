@@ -7,7 +7,9 @@
   background-color: white;
 }
 
-h2, span, p {
+h2,
+span,
+p {
   font-family: 'Poppins', sans-serif;
 }
 
@@ -17,7 +19,6 @@ h2, span, p {
   font-size: 17px;
   line-height: 22px;
 }
-
 
 .text-input {
   width: 100%;
@@ -30,7 +31,7 @@ h2, span, p {
 }
 
 .input-group label {
-  color: #55555F;
+  color: #55555f;
 }
 
 .input-group input::placeholder {
@@ -44,11 +45,11 @@ h2, span, p {
   border-radius: 8px;
   padding: 12px 20px 12px 20px;
   background-color: #c9cacb;
-  color: #F1F2F4;
+  color: #f1f2f4;
   font-weight: 600;
 }
 
 .signup-form form .btn:active,
 .container form .btn:active {
-  background-color: #F18524;
+  background-color: #f18524;
 }

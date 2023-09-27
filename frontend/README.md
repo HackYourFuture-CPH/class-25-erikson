@@ -1,25 +1,29 @@
 ### Frontend of the project
 
-This is a workspace that represents client side of the application. 
+This is a workspace that represents client side of the application.
 
 ### Link to the project design
 
-[e-Learning Education Management](https://www.figma.com/file/noAcUUrKvZYpDaVqFhR3D2/e-Learning-Education-Management-SaaS-Dashboard---Omnicreativora-(Community)?type=design&node-id=202%3A31633&mode=design&t=tSryBGsyA3f8TyDr-1)
+[e-Learning Education Management](<https://www.figma.com/file/noAcUUrKvZYpDaVqFhR3D2/e-Learning-Education-Management-SaaS-Dashboard---Omnicreativora-(Community)?type=design&node-id=202%3A31633&mode=design&t=tSryBGsyA3f8TyDr-1>)
 
 ### Commands
 
 1. Compiles the code from the typescript to javascript and creates static files for the project
-``` bash
+
+```bash
 npm run build
 ```
+
 2. Starts the development server and runs the application
-``` bash
+
+```bash
 npm start
 ```
 
 ### Dependencies
 
 Main dependencies for the client are:
+
 1. [React](https://react.dev/reference/react)
 2. [Typescript](https://www.typescriptlang.org/docs/)
 3. [Axios](https://axios-http.com/docs/intro)
