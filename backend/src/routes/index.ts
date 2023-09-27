@@ -9,4 +9,5 @@ router.use('/auth', auth);
 router.use('/user', registration)
 router.use('/courses', course);
 
+
 export default router;

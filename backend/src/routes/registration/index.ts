@@ -1,11 +1,10 @@
 import {Router} from 'express';
 import admin from 'firebase-admin';
-import {register } from "../../controllers/registration";
+import {register, getUserById } from "../../controllers/registration";
 
 
 const registration = Router();
 registration.post('/signup',register);
-
-
+registration.post('/', getUserById);
 
 export default registration;
