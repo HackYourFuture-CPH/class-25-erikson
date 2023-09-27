@@ -1,5 +1,6 @@
 import React from 'react';
 import signout from '../../hooks/signout';
+import StudentDashboard from '../../components/courses/Students';
 
 const Dashboard: React.FC = () => {
 
@@ -11,6 +12,7 @@ const Dashboard: React.FC = () => {
     <div>
       <h1>Dashboard</h1>
       <button onClick={handleLogout}>Logout</button>
+      <StudentDashboard />
     </div>
   );
 };
