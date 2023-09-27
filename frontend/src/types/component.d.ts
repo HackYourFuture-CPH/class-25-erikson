@@ -27,3 +27,19 @@ export interface SignupStore {
   setPassword: (password: string) => void;
   setRememberMe: (remember: boolean) => void;
 };
+
+export interface FilterStore {
+  selectedFilter: string;
+  setSelectedFilter: (filter: string) => void;
+};
+
+export interface CourseStore {
+  selectedCourse: number | null;
+  showAbout: boolean;
+  showReviews: boolean;
+  showResources: boolean;
+  selectCourse: (courseId: number) => void;
+  toggleAbout: () => void;
+  toggleReviews: () => void;
+  toggleResources: () => void;
+}
