@@ -83,7 +83,6 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
         <div className='top-bar'>
         <form>
-        <SearchIcon className='search-icon'></SearchIcon>
         <input className='search'  type="text" id="search" name="search" placeholder="Search Anything"/>
        </form>
 

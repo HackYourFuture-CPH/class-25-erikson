@@ -1,5 +1,5 @@
 import useFilterStore from "../../store/filter.store";
-
+import "./Filters.css";
 const Filters: React.FC = () => {
   const { selectedFilter, setSelectedFilter } = useFilterStore();
 
@@ -10,7 +10,7 @@ const Filters: React.FC = () => {
       {filterButtons.map((filter) => (
         <button
           key={filter}
-          className={selectedFilter === filter ? 'active' : ''}
+          className={selectedFilter === filter ? 'active' : ''} 
           onClick={() => setSelectedFilter(filter)}
         >
           {filter}
