@@ -36,19 +36,3 @@ h2, span, p {
 .input-group input::placeholder {
   color: #8d9296;
 }
-
-.signup-form form .btn,
-.container form .btn {
-  height: 45px;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 20px 12px 20px;
-  background-color: #c9cacb;
-  color: #F1F2F4;
-  font-weight: 600;
-}
-
-.signup-form form .btn:active,
-.container form .btn:active {
-  background-color: #F18524;
-}
