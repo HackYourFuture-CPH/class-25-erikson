@@ -1,5 +1,7 @@
 import React from 'react';
 import signout from '../../hooks/signout';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuthContext();
