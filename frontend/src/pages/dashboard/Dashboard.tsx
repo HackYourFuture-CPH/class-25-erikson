@@ -3,6 +3,7 @@ import signout from '../../hooks/signout';
 import StudentDashboard from '../../components/courses/Students';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
+import DashboardWrapper from './DashboardWrapper';
 
 const Dashboard: React.FC = () => {
   const { user, setUser } = useAuthContext();
@@ -19,11 +20,13 @@ const Dashboard: React.FC = () => {
   };
 
   return (
+    <DashboardWrapper>
     <div>
-      <h1>Hey { user?.displayName }, Welcome to the e-learning-platform.</h1>
+      <h1> { user?.displayName }</h1>
       <button onClick={handleLogout}>Logout</button>
       <StudentDashboard />
     </div>
+    </DashboardWrapper>
   );
 };
 
