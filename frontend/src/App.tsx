@@ -1,42 +1,42 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate
-} from "react-router-dom";
-import Signup from "./pages/signup/Signup";
-import Login from "./pages/login/Login";
-import Password from "./pages/password/Password";
-import Dashboard from "./pages/dashboard/Dashboard";
-import "./App.css";
-import CourseDetails from "./pages/course/CourseDetails";
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
+import Signup from './pages/signup/Signup';
+import Login from './pages/login/Login';
+import Password from './pages/password/Password';
+import Dashboard from './pages/dashboard/Dashboard';
+import './App.css';
+import CourseDetails from './pages/course/CourseDetails';
+import AddCourseForm from './pages/form/Form';
 
 function App(): JSX.Element {
-
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: <Navigate to="/courses" replace />
+      path: '/',
+      element: <Navigate to='/courses' replace />,
     },
     {
-      path: "/signup",
-      element: <Signup />
+      path: '/signup',
+      element: <Signup />,
     },
     {
-      path: "/login",
-      element: <Login />
+      path: '/login',
+      element: <Login />,
     },
     {
-      path: "/password",
-      element: <Password />
+      path: '/password',
+      element: <Password />,
     },
     {
-      path: "/courses",
-      element: <Dashboard />
+      path: '/courses',
+      element: <Dashboard />,
     },
     {
-      path: "/course/:id",
-      element: <CourseDetails />
-    }
+      path: '/add-course',
+      element: <AddCourseForm />,
+    },
+    {
+      path: '/course/:id',
+      element: <CourseDetails />,
+    },
   ]);
 
   return <RouterProvider router={router} />;
