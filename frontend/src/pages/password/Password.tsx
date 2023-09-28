@@ -1,13 +1,20 @@
 import React, { ChangeEvent, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useReset from '../../hooks/useReset';
 import usePasswordStore from '../../store/resetpage.store';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import "./Password.css";
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const Password: React.FC = () => {
   const { email, setEmail } = usePasswordStore();
   const { resetPassword, error, successMessage } = useReset()
+  const { user } = useAuthContext();
+  const navigate = useNavigate()
+
+  if (user?.emailVerified) {
+    navigate("/dashboard", { replace: true })
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();

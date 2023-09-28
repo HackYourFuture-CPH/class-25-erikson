@@ -1,8 +1,9 @@
-import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { ChangeEvent, FormEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import useSignup from '../../hooks/useSignup';
 import useSignupStore from '../../store/signuppage.store';
 import "./Signup.css";
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const Signup: React.FC = () => {
   const {
@@ -21,26 +22,22 @@ const Signup: React.FC = () => {
   } = useSignupStore();
 
   const { signup, error } = useSignup();
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
 
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  useEffect(() => {
-    const reqFields = [userType, firstName, lastName, email, password];
-    const isNotEmpty = reqFields.every((field) => field !== '');
-    setIsFormValid(isNotEmpty);
-  }, [userType, firstName, lastName, email, password]);
-
-  const btnClass = isFormValid ? 'valid-btn' : 'invalid-btn';
+  if (user?.emailVerified) {
+    navigate("/dashboard", { replace: true });
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    await signup(email, password);
+    await signup(email, password, firstName);
   };
 
   return (
     <div className="signup-layout">
       <div className="top">
-        <img src="images/auth-logo.svg" alt="logo" />
+        <img src="images/auth-logo.png" alt="logo" />
       </div>
       <div className="form-img">
         <div className="left">
@@ -77,7 +74,7 @@ const Signup: React.FC = () => {
                       required
                       type="text"
                       onChange={(e: ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
-                      value={firstName}
+                      value={firstName.trimStart()}
                       className="text-input"
                       placeholder="First name"
                     />
@@ -91,7 +88,7 @@ const Signup: React.FC = () => {
                       required
                       type="text"
                       onChange={(e: ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
-                      value={lastName}
+                      value={lastName.trim()}
                       className="text-input"
                       placeholder="Last name"
                     />
@@ -120,7 +117,7 @@ const Signup: React.FC = () => {
                     required
                     type="password"
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                    value={password}
+                    value={password.trim()}
                     className="text-input"
                     placeholder="Enter password"
                   />
@@ -141,7 +138,7 @@ const Signup: React.FC = () => {
                 </label>
               </div>
 
-              <button className={btnClass} type="submit">
+              <button className="btn" type="submit">
                 Sign up
               </button>
 
@@ -154,7 +151,7 @@ const Signup: React.FC = () => {
         </div>
 
         <div className="right">
-            <img src="images/hands-show.svg" alt="hands-show" />
+            <img src="images/hands-show.png" alt="hands-show" />
         </div>
 
       </div>
