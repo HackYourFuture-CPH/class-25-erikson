@@ -50,6 +50,16 @@
   width: 735px;
 }
 
+.radio-group {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.radio-group input {
+  margin: 0 5px 0 0;
+}
+
 .row-wrap {
   display: flex;
   justify-content: space-between;
@@ -59,7 +69,6 @@
 .row-wrap .input-group {
   width: 125px;
 }
-
 
 .redirect {
   margin: 10px;
@@ -80,6 +89,26 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+
+.invalid-btn {
+  height: 45px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px 12px 20px;
+  color: #F1F2F4;
+  font-weight: 600;
+  background-color: #c9cacb;
+}
+
+.valid-btn {
+  height: 45px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px 12px 20px;
+  background-color: #F18524;
+  color: #F1F2F4;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 768px) {

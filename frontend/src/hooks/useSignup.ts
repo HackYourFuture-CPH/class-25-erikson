@@ -1,18 +1,25 @@
-import { auth, createUserWithEmailAndPassword, sendEmailVerification } from '../firebase/config';
-import useErrorState from '../store/error.store';
+import { auth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from '../firebase/config';
+import useErrorSignupState from '../store/errorsignup.store';
 
 const useSignup = () => {
-  const { error, setError } = useErrorState();
+  const { error, setError } = useErrorSignupState();
 
-  const signup = async (email: string, password: string) => {
+  const signup = async (email: string, password: string, firstName: string) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+      const capitalizedFirstWords = firstName.trim().split(' ').map((word) => {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      const displayName = capitalizedFirstWords.join(' ')
 
       if (user) {
         await sendEmailVerification(user);
+        await updateProfile(user, {
+          displayName
+        })
+        setError('A verification link has been sent to your e-mail.');
       }
-      setError(null);
     }
     catch (err: any) {
       setError(err.message);

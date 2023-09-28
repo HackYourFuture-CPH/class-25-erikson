@@ -1,11 +1,9 @@
 import React, { ChangeEvent, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useSignup from '../../hooks/useSignup';
 import useSignupStore from '../../store/signuppage.store';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import "./Signup.css";
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const Signup: React.FC = () => {
   const {
@@ -24,18 +22,19 @@ const Signup: React.FC = () => {
   } = useSignupStore();
 
   const { signup, error } = useSignup();
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
+
+  if (user?.emailVerified) {
+    navigate("/dashboard", { replace: true });
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    await signup(email, password);
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserType((event.target as HTMLInputElement).value);
+    await signup(email, password, firstName);
   };
 
   return (
-
     <div className="signup-layout">
       <div className="top">
         <img src="images/auth-logo.png" alt="logo" />
@@ -46,23 +45,27 @@ const Signup: React.FC = () => {
             <form onSubmit={handleSubmit}>
               <h2>Signup</h2>
               <p className="gray">Select subscription</p>
-              <RadioGroup 
-                row
-                value={userType}
-                onChange={handleChange}
-              >
-                <FormControlLabel
-                  control={<Radio />}
-                  value="Student"
-                  label="Student"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  value="Mentor"
-                  label="Mentor"
-                />
-              </RadioGroup>
+              <div className="radio-group">
+                <label> 
+                  <input 
+                    type="radio"
+                    value="Student"
+                    checked={userType === "Student"}
+                    onChange={() => setUserType("Student")}
+                  />
+                  Student
+                </label>
 
+                <label> 
+                  <input 
+                    type="radio"
+                    value="Mentor"
+                    checked={userType === "Mentor"}
+                    onChange={() => setUserType("Mentor")}
+                  />
+                  Mentor
+                </label>
+              </div>
               <div className="row-wrap">
                 <div className="input-group">
                   <label>
@@ -71,7 +74,7 @@ const Signup: React.FC = () => {
                       required
                       type="text"
                       onChange={(e: ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
-                      value={firstName}
+                      value={firstName.trimStart()}
                       className="text-input"
                       placeholder="First name"
                     />
@@ -85,7 +88,7 @@ const Signup: React.FC = () => {
                       required
                       type="text"
                       onChange={(e: ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
-                      value={lastName}
+                      value={lastName.trim()}
                       className="text-input"
                       placeholder="Last name"
                     />
@@ -114,7 +117,7 @@ const Signup: React.FC = () => {
                     required
                     type="password"
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                    value={password}
+                    value={password.trim()}
                     className="text-input"
                     placeholder="Enter password"
                   />

@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -8,60 +7,36 @@ import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Password from "./pages/password/Password";
 import Dashboard from "./pages/dashboard/Dashboard";
-import { useAuthContext } from "./hooks/useAuthContext";
 import "./App.css";
 import CourseDetails from "./components/courseDetails/CourseDetails";
 
 function App(): JSX.Element {
-  const { user } = useAuthContext();
-
-  const renderPage = ( authenticated: ReactNode, notAuthenticated: ReactNode ): ReactNode => {
-    return user ? authenticated : notAuthenticated;
-  };
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: renderPage(
-        <Navigate to="/dashboard" replace />,
-        <Navigate to="/login" replace />
-      )
+      element: <Navigate to="/dashboard" replace />
     },
     {
       path: "/signup",
-      element: renderPage(
-        <Navigate to="/dashboard" replace />,
-        <Signup />
-      )
+      element: <Signup />
     },
     {
       path: "/login",
-      element: renderPage(
-        <Navigate to="/dashboard" replace />,
-        <Login />
-      )
+      element: <Login />
     },
     {
       path: "/password",
-      element: renderPage(
-        <Navigate to="/dashboard" replace />,
-        <Password />
-      )
+      element: <Password />
     },
     {
       path: "/dashboard",
-      element: renderPage(
-        <Dashboard />,
-        <Navigate to="/login" replace />
-      )
+      element: <Dashboard />
     },
     {
       path: "/course/:id",
-      element: renderPage(
-        <CourseDetails />,
-        <Navigate to="/login" replace />
-      )
-    },
+      element: <CourseDetails />
+    }
   ]);
 
   return <RouterProvider router={router} />;
