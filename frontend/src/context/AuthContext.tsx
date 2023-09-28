@@ -12,8 +12,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const unsubscribe = onAuthStateChanged(auth, (verifiedUser) => {
       if (verifiedUser?.emailVerified) {
         setUser(verifiedUser);
-      }
-      else {
+      } else {
         setUser(null);
         auth.signOut();
       }
@@ -22,7 +21,5 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     return () => unsubscribe();
   }, [setUser]);
 
-  return (
-    <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
 };

@@ -7,7 +7,9 @@
   background-color: white;
 }
 
-h2, span, p {
+h2,
+span,
+p {
   font-family: 'Poppins', sans-serif;
 }
 
@@ -17,7 +19,6 @@ h2, span, p {
   font-size: 17px;
   line-height: 22px;
 }
-
 
 .text-input {
   width: 100%;
@@ -30,7 +31,7 @@ h2, span, p {
 }
 
 .input-group label {
-  color: #55555F;
+  color: #55555f;
 }
 
 .input-group input::placeholder {
