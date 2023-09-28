@@ -15,13 +15,13 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
      <div className='dashboard-layout'>
       <nav className='sidebar'>
        <div className='dashboard-logo'>
-        <img src="images/dashboard.png" alt="dashboard" />
+        <img src="images/dashboard.svg" alt="dashboard" />
        </div>
 
         <div className='sidebar-menu'>
          <div className='sidebar-item'>
          <a href="#">
-         <img src="images/Sidebar-Icon.png" alt="dashboard2" />
+         <img src="images/dashboard2.svg" alt="dashboard2" />
          <p>Dashboard</p>
         </a>
        
@@ -29,7 +29,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
          <div className='sidebar-item'>
          <a href="#">
-        <img src="images/Activity.png" alt="dashboard2" />
+        <img src="images/goals.svg" alt="dashboard2" />
         <p>Goals</p>
         </a>
        
@@ -38,7 +38,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
          <div className='sidebar-item'>
          <a href="#"> 
-        <img src="images/Video.png" alt="live schedule" />
+        <img src="images/video.svg" alt="live schedule" />
         <p>Live Schedule</p>
         </a>
         
@@ -47,7 +47,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
          <div className='sidebar-item'>
 
          <a href="#">
-        <img src="images/Calendar.png" alt="class schedule" />
+        <img src="images/calendar.svg" alt="class schedule" />
         <p>Class Schedule</p>
         </a>
        
@@ -55,7 +55,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
          <div className='sidebar-item'>
          <a href="#">
-        <img src="images/Bookmark.png" alt="course" />
+        <img src="images/bookmark.svg" alt="course" />
         <p>Course</p>
         </a>
         
@@ -63,7 +63,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
          <div className='sidebar-item'>
          <a href="#">
-        <img src="images/Document.png" alt="resources" />
+        <img src="images/document.svg" alt="resources" />
        
          <p>Resources</p>
          </a>
@@ -71,7 +71,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
          <div className='sidebar-item'>
          <a href="#">
-        <img src="images/Folder.png" alt="directory" />
+        <img src="images/folder.svg" alt="directory" />
         <p>Directory</p>
         </a>
          </div>
