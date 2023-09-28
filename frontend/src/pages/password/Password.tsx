@@ -13,7 +13,7 @@ const Password: React.FC = () => {
   const navigate = useNavigate()
 
   if (user?.emailVerified) {
-    navigate("/dashboard", { replace: true })
+    navigate("/courses", { replace: true })
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {

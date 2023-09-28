@@ -5,7 +5,7 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
-  const { user } = useAuthContext();
+  const { user, setUser } = useAuthContext();
   const navigate = useNavigate();
 
   if (!user?.emailVerified) {
@@ -13,7 +13,9 @@ const Dashboard: React.FC = () => {
   }
 
   const handleLogout = async (): Promise<void> => {
+    setUser(null);
     await signout();
+    navigate("/login", { replace: true })
   };
 
   return (

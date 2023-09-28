@@ -8,14 +8,14 @@ import Login from "./pages/login/Login";
 import Password from "./pages/password/Password";
 import Dashboard from "./pages/dashboard/Dashboard";
 import "./App.css";
-import CourseDetails from "./components/courseDetails/CourseDetails";
+import CourseDetails from "./pages/course/CourseDetails";
 
 function App(): JSX.Element {
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Navigate to="/dashboard" replace />
+      element: <Navigate to="/courses" replace />
     },
     {
       path: "/signup",
@@ -30,7 +30,7 @@ function App(): JSX.Element {
       element: <Password />
     },
     {
-      path: "/dashboard",
+      path: "/courses",
       element: <Dashboard />
     },
     {

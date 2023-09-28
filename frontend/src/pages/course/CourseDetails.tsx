@@ -1,13 +1,15 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCourseStore } from "../../store/courses.store";
 import { courses, Course } from "../../data/data";
-import CourseHeader from "./CourseHeader";
-import CourseActions from "./CourseActions";
-import AboutSection from "./AboutSection";
-import ResourcesSection from "./ResourcesSection";
-import ReviewsSection from "./ReviewsSection";
-import MentorSection from "./MentorSection";
-import ContentOutline from "./ContentOutline";
+import CourseHeader from "../../components/courseDetails/CourseHeader";
+import CourseActions from "../../components/courseDetails/CourseActions";
+import AboutSection from "../../components/courseDetails/AboutSection";
+import ResourcesSection from "../../components/courseDetails/ResourcesSection";
+import ReviewsSection from "../../components/courseDetails/ReviewsSection";
+import MentorSection from "../../components/courseDetails/MentorSection";
+import ContentOutline from "../../components/courseDetails/ContentOutline";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { Link } from "react-router-dom";
 
 const convertDurationToMinutes = (duration: string): number => {
   const match = duration.match(/(\d+) minutes/);
@@ -18,6 +20,13 @@ const convertDurationToMinutes = (duration: string): number => {
 }
 
 const CourseDetails: React.FC = () => {
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
+
+  if (!user?.emailVerified) {
+    navigate("/login", { replace: true });
+  }
+
   const { id } = useParams<{ id: string }>();
 
   const {
@@ -41,7 +50,12 @@ const CourseDetails: React.FC = () => {
   }
 
   if (!course) {
-    return <div>Select a course to view details.</div>;
+    return (
+      <>
+        <div>This course does not exists.</div>
+        <Link to={"/courses"}>Back to courses</Link>
+      </>
+    );
   }
 
   const formatDuration = (totalDurationMinutes: number): string => {
