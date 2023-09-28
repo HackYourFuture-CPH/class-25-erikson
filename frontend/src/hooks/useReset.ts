@@ -9,12 +9,11 @@ const useReset = () => {
       await sendPasswordResetEmail(auth, email);
       setError(null);
       setSuccessMessage('Password reset email sent. Check your inbox if you are authenticated.');
-    }
-    catch (err: any) {
+    } catch (err: any) {
       setError(err.message);
       setSuccessMessage(null);
     }
-};
+  };
 
   return { resetPassword, error, successMessage };
 };

@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { ErrorState } from "../types";
+import { create } from 'zustand';
+import { ErrorState } from '../types';
 
 const useErrorSignupState = create<ErrorState>((set) => ({
   error: null,
