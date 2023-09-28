@@ -1,13 +1,20 @@
 import React, { ChangeEvent, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useReset from '../../hooks/useReset';
 import usePasswordStore from '../../store/resetpage.store';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import "./Password.css";
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const Password: React.FC = () => {
   const { email, setEmail } = usePasswordStore();
   const { resetPassword, error, successMessage } = useReset()
+  const { user } = useAuthContext();
+  const navigate = useNavigate()
+
+  if (user?.emailVerified) {
+    navigate("/dashboard", { replace: true })
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
@@ -15,11 +22,14 @@ const Password: React.FC = () => {
     await resetPassword(email);
   };
 
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const btnClassName = (emailRegex.test(email)) ? 'valid-btn' : 'invalid-btn';
+  
   return (
     <div className="password-layout">
       
       <div className="top">
-        <img src="images/auth-logo.png" alt="logo" />
+        <img src="images/auth-logo.svg" alt="logo" />
       </div>
 
       <div className="container">
@@ -43,7 +53,7 @@ const Password: React.FC = () => {
               </label>
             </div>
 
-            <button className="btn" type="submit">
+            <button className={btnClassName} type="submit">
               Reset Password
             </button>
 
@@ -53,7 +63,7 @@ const Password: React.FC = () => {
         </div>
 
         <div className="restore-pswrd">
-          <img src="images/restore-pswrd.png" alt="restoring of pass" />
+          <img src="images/restore-pswrd.svg" alt="restoring of pass" />
         </div>
       </div>
     </div>

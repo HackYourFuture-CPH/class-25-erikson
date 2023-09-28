@@ -1,12 +1,19 @@
 import React, { ChangeEvent, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useLogin from '../../hooks/useLogin';
 import useLoginStore from '../../store/loginpage.store';
 import "./Login.css";
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const Login: React.FC = () => {
   const { email, setEmail, password, setPassword, rememberMe, setRememberMe, resetForm } = useLoginStore();
   const { login, error } = useLogin();
+  const { user } = useAuthContext();
+  const navigate = useNavigate()
+
+  if (user?.emailVerified) {
+    navigate("/dashboard", { replace: true })
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
@@ -17,7 +24,7 @@ const Login: React.FC = () => {
   return (
     <div className="page-layout">
       <div className="top">
-        <img src="images/auth-logo.png" alt="logo" />
+        <img src="images/auth-logo.svg" alt="logo" />
       </div>
       <div className="form-img">
         <div className="left">
@@ -92,7 +99,7 @@ const Login: React.FC = () => {
         </div>
 
         <div className="right">
-          <img src="images/loginCover.png" alt="hands-show" />
+          <img src="images/loginCover.svg" alt="hands-show" />
         </div>
       </div>
     </div>
