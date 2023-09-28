@@ -23,7 +23,6 @@ const Dashboard: React.FC = () => {
     <DashboardWrapper>
     <div>
       <h1> { user?.displayName }</h1>
-      <button onClick={handleLogout}>Logout</button>
       <StudentDashboard />
     </div>
     </DashboardWrapper>

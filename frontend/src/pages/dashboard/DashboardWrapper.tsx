@@ -1,10 +1,15 @@
-import { ReactNode } from 'react';
+import { ReactNode , useState} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import './Dashboard.css';
+
 type FormWrapperProps = {
    children: ReactNode;
 };
 const DashboardWrapper = ({ children }: FormWrapperProps) => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+      };
   return (
     <>
      <div className='dashboard-layout'>
@@ -85,7 +90,14 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
        <div className='user'>
          <img  className='user-img'src='https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80'/>
-         <p>user name</p>
+         <p onClick={toggleDropdown}>user name</p>
+         <span className="down-arrow">{isDropdownOpen ? '▲' : '▼'}</span>
+         {isDropdownOpen && (
+             <div className="dropdown-menu">
+               <p>Log out</p>
+             </div>
+           )}
+         
        </div>
         </div>
 
@@ -99,7 +111,6 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
          <div> {children}</div>
         </div>
     </div>
-    <button >Logout</button>
    
     </>
   );

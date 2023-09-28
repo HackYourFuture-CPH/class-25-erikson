@@ -104,6 +104,7 @@
   /* Use flexbox to align items horizontally */
   align-items: center;
   margin-right: 40px;
+
 }
 
 .user img {
@@ -115,6 +116,23 @@
 
 .user p {
   margin-left: 20px;
+}
+
+.user .down-arrow {
+  font-size: small;
+  margin-left: 5px;
+  margin-top: 4px;
+  color: gray;
+}
+
+.user .dropdown-menu {
+  display: flex;
+  top: 100%;
+  margin-left: -20px;
+  padding: 8px;
+  z-index: 1;
+  border: 0.5px solid rgba(241, 133, 36, 1);
+  border-radius: 5px;
 }
 
 .create-course-wrapper {
