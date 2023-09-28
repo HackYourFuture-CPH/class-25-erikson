@@ -3,6 +3,6 @@ import { addFaq } from '../../controllers/faq';
 
 const faq = Router();
 
-faq.post('/:id/add_faq', addFaq); // id - lesson id;
+faq.post('/:id/add_faq', addFaq); // id - course id;
 
 export default faq;
