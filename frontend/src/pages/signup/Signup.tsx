@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useSignup from '../../hooks/useSignup';
 import useSignupStore from '../../store/signuppage.store';
@@ -29,15 +29,24 @@ const Signup: React.FC = () => {
     navigate('/dashboard', { replace: true });
   }
 
+  const [isFormValid, setIsFormValid] = useState(false);
+  useEffect(() => {
+    const reqFields = [userType, firstName, lastName, email, password];
+    const isNotEmpty = reqFields.every((field) => field !== '');
+    setIsFormValid(isNotEmpty);
+  }, [userType, firstName, lastName, email, password]);
+
+  const btnClass = isFormValid ? 'valid-btn' : 'invalid-btn';
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     await signup(email, password, firstName);
   };
 
   return (
-    <div className='signup-layout'>
-      <div className='top'>
-        <img src='images/auth-logo.png' alt='logo' />
+    <div className="signup-layout">
+      <div className="top">
+        <img src="images/auth-logo.svg" alt="logo" />
       </div>
       <div className='form-img'>
         <div className='left'>
@@ -135,11 +144,9 @@ const Signup: React.FC = () => {
                   Remember me
                 </label>
               </div>
-
-              <button className='btn' type='submit'>
+              <button className={btnClass} type="submit">
                 Sign up
               </button>
-
               {error && <p>{error}</p>}
             </form>
           </div>
@@ -150,9 +157,8 @@ const Signup: React.FC = () => {
             </Link>
           </p>
         </div>
-
-        <div className='right'>
-          <img src='images/hands-show.png' alt='hands-show' />
+        <div className="right">
+            <img src="images/hands-show.svg" alt="hands-show" />
         </div>
       </div>
     </div>
