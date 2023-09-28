@@ -72,22 +72,35 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
          </div>
         </div>
       </nav>
+
+
         <div className='main'>
+
         <div className='top-bar'>
         <form>
         <SearchIcon className='search-icon'></SearchIcon>
         <input className='search'  type="text" id="search" name="search" placeholder="Search Anything"/>
        </form>
+
+
        <div className='user'>
          <img  className='user-img'src='https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80'/>
          <p>user name</p>
        </div>
         </div>
+
+
+        <div className='create-course-wrapper'>
+            <div className='create-course'>
+           <h2>Course</h2>
+           <button className='create-course-btn'>Create New Course+</button>
+        </div>
+        </div>
+         <div> {children}</div>
         </div>
     </div>
     <button >Logout</button>
-    {children}
-       
+   
     </>
   );
 };
