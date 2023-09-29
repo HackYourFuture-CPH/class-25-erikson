@@ -3,9 +3,9 @@ import Signup from './pages/signup/Signup';
 import Login from './pages/login/Login';
 import Password from './pages/password/Password';
 import Dashboard from './pages/dashboard/Dashboard';
-import './App.css';
 import CourseDetails from './pages/course/CourseDetails';
-import AddCourseForm from './pages/form/Form';
+import AddCourseForm from './pages/form/AddCourseForm';
+import './App.css';
 
 function App(): JSX.Element {
   const router = createBrowserRouter([
