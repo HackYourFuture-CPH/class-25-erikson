@@ -22,7 +22,6 @@ const Dashboard: React.FC = () => {
   return (
     <DashboardWrapper>
     <div>
-      <h1> { user?.displayName }</h1>
       <StudentDashboard />
     </div>
     </DashboardWrapper>

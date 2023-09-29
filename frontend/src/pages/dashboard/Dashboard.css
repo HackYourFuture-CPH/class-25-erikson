@@ -67,10 +67,10 @@
 
 .main {
   background-color: #F1F2F4;
+  width: 100%;
 }
 
 .top-bar {
-  width: 1182px;
   height: 64px;
   left: 258px;
   background-color: #F1F2F4;

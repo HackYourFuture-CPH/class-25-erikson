@@ -1,6 +1,8 @@
 import { ReactNode , useState} from 'react';
-import SearchIcon from '@mui/icons-material/Search';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import './Dashboard.css';
+import { users } from '../../data/data';
+import { Link } from 'react-router-dom';
 
 type FormWrapperProps = {
    children: ReactNode;
@@ -10,6 +12,8 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
       };
+    const { user } = useAuthContext();
+    const userType = users[1].type;
   return (
     <>
      <div className='dashboard-layout'>
@@ -89,7 +93,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
        <div className='user'>
          <img  className='user-img'src='https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80'/>
-         <p onClick={toggleDropdown}>user name</p>
+         <p onClick={toggleDropdown}>{ user?.displayName }</p>
          <span className="down-arrow">{isDropdownOpen ? '▲' : '▼'}</span>
          {isDropdownOpen && (
              <div className="dropdown-menu">
@@ -103,8 +107,11 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
         <div className='create-course-wrapper'>
             <div className='create-course'>
-           <h2>Course</h2>
-           <button className='create-course-btn'>Create New Course+</button>
+            <h2>Course</h2>
+            {userType === 'Mentor' && <Link to='/add-course'>
+              <button className='create-course-btn'>Create New Course+
+              </button>
+            </Link>}
         </div>
         </div>
          <div> {children}</div>
