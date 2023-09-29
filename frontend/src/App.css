@@ -21,7 +21,6 @@ p {
   line-height: 22px;
 }
 
-
 .text-input {
   width: 100%;
   border: 1px solid #8d9296;
@@ -33,7 +32,7 @@ p {
 }
 
 .input-group label {
-  color: #55555F;
+  color: #55555f;
 }
 
 .input-group input::placeholder {

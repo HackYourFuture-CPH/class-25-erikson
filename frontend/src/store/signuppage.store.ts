@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { SignupStore } from "../types/component";
+import { create } from 'zustand';
+import { SignupStore } from '../types/component';
 
 const useSignupStore = create<SignupStore>((set) => ({
   userType: 'Student',
@@ -17,8 +17,7 @@ const useSignupStore = create<SignupStore>((set) => ({
     set((state) => {
       if (rememberMe === true) {
         localStorage.setItem('rememberedEmail', state.email);
-      }
-      else {
+      } else {
         localStorage.removeItem('rememberedEmail');
       }
       return { ...state, rememberMe };
