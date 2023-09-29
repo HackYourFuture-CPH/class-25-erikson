@@ -9,7 +9,7 @@ const Dashboard: React.FC = () => {
   const navigate = useNavigate();
 
   if (!user?.emailVerified) {
-    navigate("/login", { replace: true });
+    navigate('/login', { replace: true });
   }
 
   const handleLogout = async (): Promise<void> => {
@@ -20,7 +20,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <h1>Hey { user?.displayName }, Welcome to the e-learning-platform.</h1>
+      <h1>Hey {user?.displayName}, Welcome to the e-learning-platform.</h1>
       <button onClick={handleLogout}>Logout</button>
       <StudentDashboard />
     </div>
