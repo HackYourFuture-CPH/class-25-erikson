@@ -1,8 +1,9 @@
-import { ReactNode , useState} from 'react';
+import { ReactNode, useState} from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import './Dashboard.css';
 import { users } from '../../data/data';
-import { Link } from 'react-router-dom';
+import signout from '../../hooks/signout';
+import { Link, useNavigate } from 'react-router-dom';
 
 type FormWrapperProps = {
    children: ReactNode;
@@ -10,10 +11,19 @@ type FormWrapperProps = {
 const DashboardWrapper = ({ children }: FormWrapperProps) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
     const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-      };
-    const { user } = useAuthContext();
+      setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const { user, setUser } = useAuthContext();
     const userType = users[1].type;
+
+    const navigate = useNavigate();
+
+    const handleLogout = async (): Promise<void> => {
+      setUser(null);
+      await signout();
+      navigate("/login", { replace: true })
+    };
   return (
     <>
      <div className='dashboard-layout'>
@@ -97,7 +107,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
          <span className="down-arrow">{isDropdownOpen ? '▲' : '▼'}</span>
          {isDropdownOpen && (
              <div className="dropdown-menu">
-               <p>Log out</p>
+               <button onClick={handleLogout}>Log out</button>
              </div>
            )}
          
