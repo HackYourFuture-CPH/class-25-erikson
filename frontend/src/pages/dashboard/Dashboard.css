@@ -164,3 +164,72 @@
   color: white;
   border: none;
 }
+
+.sidebar-toggle-button {
+  color: gray;
+}
+
+
+
+@media (max-width: 375px) {
+
+  /* Hide the sidebar by default on screens with a max-width of 768px */
+  .sidebar {
+    display: none;
+  }
+
+  .top-bar {
+    display: none;
+  }
+
+  .top-bar-phone-content {
+    display: flex;
+  }
+
+  .top-bar-phone-content p {
+    margin-left: 24px;
+    margin-top: 77px;
+
+  }
+
+  .top-bar-phone-content .logo-mobile {
+    margin-left: 52px;
+    margin-top: 74px;
+
+  }
+
+  .main {
+    width: 100%;
+  }
+
+  /* Show the sidebar when it's open */
+  .sidebar.open {
+    display: block;
+    width: 258px;
+    /* Add other styles as needed */
+  }
+
+  .create-course {
+    justify-content: space-around;
+  }
+
+  .create-course h2 {
+    width: fit-content;
+  }
+
+  .create-course .create-course-btn {
+    width: fit-content;
+    height: (32px);
+    margin-left: 40px;
+    margin-right: -20px;
+  }
+
+}
+
+/* Media query to hide .new-content-small on screens wider than 375px */
+@media (min-width: 376px) {
+  .top-bar-phone-content {
+    display: none;
+    /* Hide content on screens wider than 375px */
+  }
+}

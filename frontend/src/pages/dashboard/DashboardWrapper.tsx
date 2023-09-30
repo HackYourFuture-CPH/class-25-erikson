@@ -9,8 +9,10 @@ type FormWrapperProps = {
    children: ReactNode;
 };
 const DashboardWrapper = ({ children }: FormWrapperProps) => {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
-    const toggleDropdown = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
+    
+  const toggleDropdown = () => {
       setIsDropdownOpen(!isDropdownOpen);
     };
 
@@ -24,10 +26,18 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
       await signout();
       navigate("/login", { replace: true })
     };
+    const toggleSidebar = () => {
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar) {
+        sidebar.classList.toggle('open');
+      }
+    };
+    
+    
   return (
     <>
      <div className='dashboard-layout'>
-      <nav className='sidebar'>
+      <nav  className={`sidebar ${isSidebarOpen ? 'open' : 'hidden'}`}>
        <div className='dashboard-logo'>
         <img src="images/dashboard.svg" alt="dashboard" />
        </div>
@@ -94,7 +104,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
 
         <div className='main'>
-
+        <div className='top-bar-container'>
         <div className='top-bar'>
         <form>
         <input className='search'  type="text" id="search" name="search" placeholder="Search Anything"/>
@@ -112,8 +122,16 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
            )}
          
        </div>
+
         </div>
 
+        <div className='top-bar-phone-content'>
+        <p className="sidebar-toggle-button" onClick={toggleSidebar}>
+           <img src='images/menu.svg'/>
+          </p>
+          <img  className='logo-mobile' src='images/Logo.svg'/>
+        </div>
+        </div>
 
         <div className='create-course-wrapper'>
             <div className='create-course'>
