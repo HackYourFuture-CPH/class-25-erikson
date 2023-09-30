@@ -25,7 +25,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
-    "firebase-admin": "^11.10.1",
+    "firebase-admin": "^11.11.0",
     "jwt-decode": "^3.1.2",
     "knex": "^2.5.1",
     "nodejs-jwt-validator": "^0.1.5",
