@@ -226,8 +226,53 @@
 
 }
 
+@media (max-width: 769px) {
+  .sidebar {
+    display: none;
+  }
+
+  .top-bar {
+    display: none;
+  }
+
+  .top-bar-phone-content {
+    display: flex;
+  }
+
+  .top-bar-phone-content p {
+    margin-left: 32px;
+    margin-top: 60px;
+  }
+
+  .top-bar-phone-content .logo-mobile {
+    margin-left: 210px;
+    margin-top: 54px;
+
+  }
+
+  .create-course {
+    justify-content: space-between;
+  }
+
+  .create-course h2 {
+    width: fit-content;
+  }
+
+  .create-course .create-course-btn {
+    width: 219px;
+    height: 46px;
+
+  }
+
+}
+
+
+
+
+
+
 /* Media query to hide .new-content-small on screens wider than 375px */
-@media (min-width: 376px) {
+@media (min-width: 769px) {
   .top-bar-phone-content {
     display: none;
     /* Hide content on screens wider than 375px */
