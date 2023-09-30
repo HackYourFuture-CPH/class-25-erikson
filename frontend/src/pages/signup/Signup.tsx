@@ -2,7 +2,7 @@ import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useSignup from '../../hooks/useSignup';
 import useSignupStore from '../../store/signuppage.store';
-import "./Signup.css";
+import './Signup.css';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
 const Signup: React.FC = () => {
@@ -18,7 +18,7 @@ const Signup: React.FC = () => {
     password,
     setPassword,
     rememberMe,
-    setRememberMe
+    setRememberMe,
   } = useSignupStore();
 
   const { signup, error } = useSignup();
@@ -26,7 +26,7 @@ const Signup: React.FC = () => {
   const navigate = useNavigate();
 
   if (user?.emailVerified) {
-    navigate("/dashboard", { replace: true });
+    navigate('/dashboard', { replace: true });
   }
 
   const [isFormValid, setIsFormValid] = useState(false);
@@ -48,121 +48,118 @@ const Signup: React.FC = () => {
       <div className="top">
         <img src="images/auth-logo.svg" alt="logo" />
       </div>
-      <div className="form-img">
-        <div className="left">
-          <div className="signup-form">
+      <div className='form-img'>
+        <div className='left'>
+          <div className='signup-form'>
             <form onSubmit={handleSubmit}>
               <h2>Signup</h2>
-              <p className="gray">Select subscription</p>
-              <div className="radio-group">
-                <label> 
-                  <input 
-                    type="radio"
-                    value="Student"
-                    checked={userType === "Student"}
-                    onChange={() => setUserType("Student")}
+              <p className='gray'>Select subscription</p>
+              <div className='radio-group'>
+                <label>
+                  <input
+                    type='radio'
+                    value='Student'
+                    checked={userType === 'Student'}
+                    onChange={() => setUserType('Student')}
                   />
                   Student
                 </label>
 
-                <label> 
-                  <input 
-                    type="radio"
-                    value="Mentor"
-                    checked={userType === "Mentor"}
-                    onChange={() => setUserType("Mentor")}
+                <label>
+                  <input
+                    type='radio'
+                    value='Mentor'
+                    checked={userType === 'Mentor'}
+                    onChange={() => setUserType('Mentor')}
                   />
                   Mentor
                 </label>
               </div>
-              <div className="row-wrap">
-                <div className="input-group">
+              <div className='row-wrap'>
+                <div className='input-group'>
                   <label>
                     First name:
                     <input
                       required
-                      type="text"
+                      type='text'
                       onChange={(e: ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
                       value={firstName.trimStart()}
-                      className="text-input"
-                      placeholder="First name"
+                      className='text-input'
+                      placeholder='First name'
                     />
                   </label>
                 </div>
 
-                <div className="input-group">
+                <div className='input-group'>
                   <label>
                     Last name:
                     <input
                       required
-                      type="text"
+                      type='text'
                       onChange={(e: ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
                       value={lastName.trim()}
-                      className="text-input"
-                      placeholder="Last name"
+                      className='text-input'
+                      placeholder='Last name'
                     />
                   </label>
                 </div>
               </div>
 
-              <div className="input-group">
+              <div className='input-group'>
                 <label>
                   Email:
                   <input
                     required
-                    type="email"
+                    type='email'
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                     value={email}
-                    className="text-input"
-                    placeholder="Enter email"
+                    className='text-input'
+                    placeholder='Enter email'
                   />
                 </label>
               </div>
 
-              <div className="input-group">
+              <div className='input-group'>
                 <label>
                   Password:
                   <input
                     required
-                    type="password"
+                    type='password'
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                     value={password.trim()}
-                    className="text-input"
-                    placeholder="Enter password"
+                    className='text-input'
+                    placeholder='Enter password'
                   />
                 </label>
               </div>
 
-              <div className="remember-me">
+              <div className='remember-me'>
                 <label>
-                <input
-                  className="remember-checkbox"
-                  type="checkbox"
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setRememberMe(e.target.checked)
-                  }
-                  checked={rememberMe}
-                />
+                  <input
+                    className='remember-checkbox'
+                    type='checkbox'
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setRememberMe(e.target.checked)}
+                    checked={rememberMe}
+                  />
                   Remember me
                 </label>
               </div>
-
               <button className={btnClass} type="submit">
                 Sign up
               </button>
-
               {error && <p>{error}</p>}
             </form>
           </div>
-          <p className="redirect">
-            Already have an account? <Link to="/login" className="signin-link">Sign in</Link>
+          <p className='redirect'>
+            Already have an account?{' '}
+            <Link to='/login' className='signin-link'>
+              Sign in
+            </Link>
           </p>
         </div>
-
         <div className="right">
             <img src="images/hands-show.svg" alt="hands-show" />
         </div>
-
       </div>
     </div>
   );

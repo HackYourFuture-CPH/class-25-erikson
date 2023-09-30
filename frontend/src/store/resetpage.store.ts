@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { PasswordStore } from "../types/component";
+import { create } from 'zustand';
+import { PasswordStore } from '../types/component';
 
 const usePasswordStore = create<PasswordStore>((set) => ({
   email: '',
