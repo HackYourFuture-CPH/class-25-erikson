@@ -226,7 +226,7 @@
 
 }
 
-@media (max-width: 769px) {
+@media (max-width: 769px) and (min-with: 376) {
   .sidebar {
     display: none;
   }
