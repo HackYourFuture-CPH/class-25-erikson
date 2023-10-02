@@ -145,10 +145,11 @@ const Signup: React.FC = () => {
                 </label>
               </div>
 
-              <button className={btnClass} type='submit'>
+
+    
+              <button className={btnClass} type="submit">
                 Sign up
               </button>
-
               {error && <p>{error}</p>}
             </form>
           </div>
@@ -159,9 +160,8 @@ const Signup: React.FC = () => {
             </Link>
           </p>
         </div>
-
-        <div className='right'>
-          <img src='images/hands-show.svg' alt='hands-show' />
+        <div className="right">
+            <img src="images/hands-show.svg" alt="hands-show" />
         </div>
       </div>
     </div>

@@ -8,9 +8,10 @@ const useLogin = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const verifiedUser = userCredential.user.emailVerified;
-      verifiedUser ? setError(null) : setError('Please go to your e-mail and verify using the link.');
-    }
-    catch (err: any) {
+      verifiedUser
+        ? setError(null)
+        : setError('Please go to your e-mail and verify using the link.');
+    } catch (err: any) {
       setError(err.message);
     }
   };
