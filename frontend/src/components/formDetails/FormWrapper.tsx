@@ -8,14 +8,8 @@ type FormWrapperProps = {
 const FormWrapper = ({ title, children }: FormWrapperProps) => {
   return (
     <>
-      <h2 style={{ textAlign: 'center', margin: 0, marginBottom: '2rem' }}>{title}</h2>
-      <div
-        style={{
-          display: 'block',
-        }}
-      >
-        {children}
-      </div>
+      <h2>{title}</h2>
+      <div>{children}</div>
     </>
   );
 };

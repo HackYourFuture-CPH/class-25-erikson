@@ -50,33 +50,19 @@ export interface FormState {
 }
 
 export interface AddCourseFields {
-  course_name: string;
-  tag: string;
-  description: string;
-  mentor: {
-    name: string;
-    image: string;
-    role: string;
-    socialNetworks: {
-      linkedin: string;
-      twitter: string;
-      instagram: string;
-      facebook: string;
-    };
-    bio: string;
-    categories: string[];
-  };
-  contentOutline: {
-    lessons: {
-      title: string;
-      duration: string;
-      video: string;
-      pdfs: {
-        title: string;
-        file: string;
-      }[];
-    }[];
-  };
-  date: string;
-  comments: string[];
+  course_title: string;
+  course_description: string;
+  course_category: string;
+  course_image: File;
+  course_subscriptionType: string;
+  course_price: number;
+  lesson_title: string;
+  lesson_image: File;
+  lesson_description: string;
+  lesson_resources: string;
+  sales_image: File;
+  faq: string;
+  faq_answer: string;
+  key_learning: string;
+  pricing_benefits: string;
 }

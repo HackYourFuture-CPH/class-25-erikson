@@ -6,44 +6,27 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import { AddCourseFields } from '../../types/component';
 import { useMultistepForm } from '../../hooks/useMultiStepForm';
 import CourseForm from '../../components/formDetails/CourseForm';
-import MentorForm from '../../components/formDetails/MentorForm';
-import ContentOutlineForm from '../../components/formDetails/ContentOutlineForm';
+import LessonForm from '../../components/formDetails/LessonForm';
+import SalesForm from '../../components/formDetails/SalesForm';
 import DashboardWrapper from '../dashboard/DashboardWrapper';
 
+const emptyFile: File = new File([], '', { type: '' });
 const newCourse: AddCourseFields = {
-  course_name: '',
-  tag: '',
-  description: '',
-  mentor: {
-    name: '',
-    image: '',
-    role: '',
-    socialNetworks: {
-      linkedin: '',
-      twitter: '',
-      instagram: '',
-      facebook: '',
-    },
-    bio: '',
-    categories: [],
-  },
-  contentOutline: {
-    lessons: [
-      {
-        title: '',
-        duration: '',
-        video: '',
-        pdfs: [
-          {
-            title: '',
-            file: '',
-          },
-        ],
-      },
-    ],
-  },
-  date: '',
-  comments: [],
+  course_title: '',
+  course_description: '',
+  course_category: '',
+  course_image: emptyFile,
+  course_subscriptionType: '',
+  course_price: 0,
+  lesson_title: '',
+  lesson_image: emptyFile,
+  lesson_description: '',
+  lesson_resources: '',
+  sales_image: emptyFile,
+  faq: '',
+  faq_answer: '',
+  key_learning: '',
+  pricing_benefits: '',
 };
 
 type CourseStore = {
@@ -80,8 +63,8 @@ const AddCourseForm: React.FC = () => {
 
   const { steps, currentIndex, step, isFirstStep, isLastStep, back, next } = useMultistepForm([
     <CourseForm {...data} updateFields={updateFields} />,
-    <MentorForm {...data} updateFields={updateFields} />,
-    <ContentOutlineForm {...data} updateFields={updateFields} />,
+    <LessonForm {...data} updateFields={updateFields} />,
+    <SalesForm {...data} updateFields={updateFields} />,
   ]);
 
   function onSubmit(e: FormEvent) {
