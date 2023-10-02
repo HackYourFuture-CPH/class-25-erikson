@@ -32,15 +32,19 @@ const addNewCourse = async(req: Request, res: Response) => {
     const { 
       course_title, 
       course_description, 
-      category, 
-      price, 
-      price_type, 
-      course_img, 
-      sale_img,
+      course_category,
+      course_image,
+      subscription_type,
+      course_price,
+      lesson_title, 
+      lesson_image,
+      lesson_description,
+      lesson_resources, 
+      sales_image,
+      faq,
+      faq_answer,
       key_learning,
-      lessons,
-      faqs,
-      benefits
+      pricing_benefits
     } = req.body;
 
     await db.transaction(async (trx) => {
@@ -48,52 +52,43 @@ const addNewCourse = async(req: Request, res: Response) => {
         .insert({
           course_title, 
           course_description, 
-          category, 
-          price,
-          price_type,
-          course_img, 
-          sale_img,
+          course_category, 
+          course_image,
+          subscription_type,
+          course_price, 
+          sales_image,
           key_learning,
           mentor: mentorId
         })
         .returning('id');
       
-        for (const lesson of lessons) {
-          const [lessonId] = await trx('lesson')
-            .insert({
-              lesson_title: lesson.lesson_title,
-              lesson_description: lesson.lesson_description,
-              lesson_img: lesson.lesson_img,
-              course_id: courseId.id,
-            })
-            .returning('id');
+        const [lessonId] = await trx('lesson')
+        .insert({
+          lesson_title,
+          lesson_image,
+          lesson_description,
+          course_id: courseId.id,
+        })
+        .returning('id');
 
-          for (const resource of lesson.resources) {
-            await trx('resource')
-            .insert({
-              resource_url: resource.resource_url,
-              lesson_id: lessonId.id
-            })
-          }
-        }  
+        await trx('resource')
+        .insert({
+          lesson_resources,
+          lesson_id: lessonId.id
+        })
+        
+        await trx('faq')
+        .insert({
+          faq,
+          faq_answer,
+          course_id: courseId.id
+        });
 
-        for (const faq of faqs) {
-          await trx('faq')
-          .insert({
-            faq: faq.faq,
-            answer: faq.answer,
-            course_id: courseId.id
-          });
-        }
-
-        for(const benefit of benefits) {
-          await trx('benefit')
-          .insert({
-            benefit_individual: benefit.benefit_individual,
-            benefit_monthly: benefit.benefit_monthly,
-            course_id: courseId.id
-          })
-        }
+        await trx('benefit')
+        .insert({
+          pricing_benefits,
+          course_id: courseId.id
+        })
 
       await trx.commit();
 
