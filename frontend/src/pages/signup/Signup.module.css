@@ -1,0 +1,131 @@
+.signup-form form h2 {
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 45.6px;
+}
+
+.signup-layout {
+  padding: 40px 40px 0 40px;
+}
+
+.signup-top {
+  display: flex;
+  justify-content: left;
+}
+
+.signup-top img {
+  height: 30px;
+  width: 176px;
+}
+
+.signup-form-img {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.signup-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.signup-form {
+  height: 472px;
+  width: 275px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.signup-form form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.signup-right img {
+  height: 625px;
+  width: 735px;
+}
+
+.signup-radio-group {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.signup-radio-group input {
+  margin: 0 5px 0 0;
+}
+
+.signup-row-wrap {
+  display: flex;
+  justify-content: space-between;
+  height: 75px;
+}
+
+.signup-row-wrap .signup-input-group {
+  width: 125px;
+}
+
+.signup-redirect {
+  margin: 10px;
+}
+
+.signup-signin-link {
+  text-decoration: none;
+  color: blue;
+}
+
+.signup-remember-checkbox {
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+.signup-remember-me label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.signup-invalid-btn {
+  height: 45px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px 12px 20px;
+  color: #f1f2f4;
+  font-weight: 600;
+  background-color: #c9cacb;
+}
+
+.vsignup-alid-btn {
+  height: 45px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px 12px 20px;
+  background-color: #f18524;
+  color: #f1f2f4;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+  .signup-form-img {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .signup-right img {
+    height: 310px;
+    width: 347px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .signup-right img {
+    width: 205p;
+  }
+}
