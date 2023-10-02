@@ -2,8 +2,8 @@ import React from 'react';
 import { Lesson } from '../../data/data';
 
 interface LessonListProps {
-    lessons: Lesson[];
-  }
+  lessons: Lesson[];
+}
 
 function LessonList({ lessons }: LessonListProps) {
   return (

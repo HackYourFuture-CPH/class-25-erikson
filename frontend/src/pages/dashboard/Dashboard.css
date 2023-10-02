@@ -2,7 +2,6 @@
   display: flex;
 }
 
-
 /* Define the styles for the sidebar */
 .sidebar {
   width: 258px;
@@ -40,8 +39,6 @@
   height: (45px);
   border-radius: 8px;
   padding: 10px 6px 10px 10px;
-
-
 }
 
 .sidebar-menu div:hover {
@@ -61,19 +58,17 @@
 
 .sidebar-item a:hover {
   color: rgba(17, 13, 89, 1);
-
-
 }
 
 .main {
-  background-color: #F1F2F4;
+  background-color: #f1f2f4;
   width: 100%;
 }
 
 .top-bar {
   height: 64px;
   left: 258px;
-  background-color: #F1F2F4;
+  background-color: #f1f2f4;
   display: flex;
   justify-content: space-between;
 }
@@ -94,13 +89,11 @@
   border-color: orangered !important;
 }
 
-
 .user {
   display: flex;
   /* Use flexbox to align items horizontally */
   align-items: center;
   margin-right: 40px;
-
 }
 
 .user img {
@@ -169,10 +162,7 @@
   color: gray;
 }
 
-
-
 @media (max-width: 375px) {
-
   /* Hide the sidebar by default on screens with a max-width of 768px */
   .sidebar {
     display: none;
@@ -189,13 +179,11 @@
   .top-bar-phone-content p {
     margin-left: 24px;
     margin-top: 77px;
-
   }
 
   .top-bar-phone-content .logo-mobile {
     margin-left: 52px;
     margin-top: 74px;
-
   }
 
   .main {
@@ -223,7 +211,6 @@
     margin-left: 40px;
     margin-right: -20px;
   }
-
 }
 
 @media (max-width: 769px) and (min-with: 376) {
@@ -247,7 +234,6 @@
   .top-bar-phone-content .logo-mobile {
     margin-left: 210px;
     margin-top: 54px;
-
   }
 
   .create-course {
@@ -261,15 +247,8 @@
   .create-course .create-course-btn {
     width: 219px;
     height: 46px;
-
   }
-
 }
-
-
-
-
-
 
 /* Media query to hide .new-content-small on screens wider than 375px */
 @media (min-width: 769px) {
