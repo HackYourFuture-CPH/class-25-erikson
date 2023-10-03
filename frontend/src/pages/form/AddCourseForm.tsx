@@ -9,6 +9,7 @@ import CourseForm from '../../components/formDetails/CourseForm';
 import LessonForm from '../../components/formDetails/LessonForm';
 import SalesForm from '../../components/formDetails/SalesForm';
 import DashboardWrapper from '../dashboard/DashboardWrapper';
+// import axios from 'axios';
 
 const emptyFile: File = new File([], '', { type: '' });
 const newCourse: AddCourseFields = {
@@ -57,9 +58,9 @@ const AddCourseForm: React.FC = () => {
 
   const { data, updateCourseFields } = useCourseStore();
 
-  function updateFields(fields: Partial<AddCourseFields>) {
+  const updateFields = (fields: Partial<AddCourseFields>) => {
     updateCourseFields({ ...data, ...fields });
-  }
+  };
 
   const { steps, currentIndex, step, isFirstStep, isLastStep, back, next } = useMultistepForm([
     <CourseForm {...data} updateFields={updateFields} />,
@@ -67,12 +68,36 @@ const AddCourseForm: React.FC = () => {
     <SalesForm {...data} updateFields={updateFields} />,
   ]);
 
-  function onSubmit(e: FormEvent) {
+  const submitForm = (e: FormEvent) => {
+    // const submitForm = async (e: FormEvent) => {
     e.preventDefault();
     if (!isLastStep) return next();
-    alert('Successful Account Creation');
+
+    //   try {
+    // Getting Firebase ID token
+    // const idToken = await user?.getIdToken();
+
+    // Posting form data to the server
+    //     await axios.post(
+    //       'http://localhost:3000/courses',
+    //       data,
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${idToken}`,
+    //         }
+    //       }
+    //     );
+
+    //     navigate('/courses');
+    //   }
+    //   catch (error) {
+    //     console.error('Error submitting form:', error);
+    //   }
+
+    alert('Form Submitted');
     console.log(data);
-  }
+    navigate('/courses');
+  };
 
   return (
     <DashboardWrapper>
@@ -88,7 +113,7 @@ const AddCourseForm: React.FC = () => {
           maxWidth: 'max-content',
         }}
       >
-        <form onSubmit={onSubmit}>
+        <form onSubmit={submitForm}>
           <div style={{ position: 'absolute', top: '.5rem', right: '.5rem' }}>
             {currentIndex + 1} / {steps.length}
           </div>
