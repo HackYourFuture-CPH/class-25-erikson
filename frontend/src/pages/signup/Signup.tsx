@@ -26,7 +26,7 @@ const Signup: React.FC = () => {
   const navigate = useNavigate();
 
   if (user?.emailVerified) {
-    navigate("/courses", { replace: true });
+    navigate('/courses', { replace: true });
   }
 
   const [isFormValid, setIsFormValid] = useState(false);
@@ -40,13 +40,14 @@ const Signup: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    // await signup(userType, email, password, firstName, lastName);
     await signup(email, password, firstName);
   };
 
   return (
-    <div className="signup-layout">
-      <div className="top">
-        <img src="images/auth-logo.svg" alt="logo" />
+    <div className='signup-layout'>
+      <div className='top'>
+        <img src='images/auth-logo.svg' alt='logo' />
       </div>
       <div className='form-img'>
         <div className='left'>
@@ -144,7 +145,7 @@ const Signup: React.FC = () => {
                   Remember me
                 </label>
               </div>
-              <button className={btnClass} type="submit">
+              <button className={btnClass} type='submit'>
                 Sign up
               </button>
               {error && <p>{error}</p>}
@@ -157,8 +158,8 @@ const Signup: React.FC = () => {
             </Link>
           </p>
         </div>
-        <div className="right">
-            <img src="images/hands-show.svg" alt="hands-show" />
+        <div className='right'>
+          <img src='images/hands-show.svg' alt='hands-show' />
         </div>
       </div>
     </div>
