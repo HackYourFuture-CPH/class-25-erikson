@@ -1,3 +1,4 @@
+import { FileDrop } from './FileDrop/FileDrop';
 import FormWrapper from './FormWrapper';
 
 type LessonData = {
@@ -18,12 +19,13 @@ const LessonForm = ({
   lesson_resources,
   updateFields,
 }: LessonFormProps) => {
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedImage = e.target.files?.[0];
+  const handleImageChange = (selectedImage: File | undefined) => {
     updateFields({ lesson_image: selectedImage });
   };
   return (
     <FormWrapper title='Lesson'>
+
+      <FileDrop onImageSelect={handleImageChange} />
       <label>title</label>
       <input
         required
@@ -31,8 +33,6 @@ const LessonForm = ({
         value={lesson_title}
         onChange={(e) => updateFields({ lesson_title: e.target.value })}
       />
-      <label>lesson Image</label>
-      <input type='file' accept='image/*' onChange={handleImageChange} />
 
       <label>lessson description</label>
       <input

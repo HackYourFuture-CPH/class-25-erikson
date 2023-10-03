@@ -1,3 +1,4 @@
+import { FileDrop } from './FileDrop/FileDrop';
 import FormWrapper from './FormWrapper';
 
 type CourseData = {
@@ -25,8 +26,7 @@ const CourseForm = ({
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     updateFields({ course_category: e.target.value });
   };
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedImage = e.target.files?.[0];
+  const handleImageChange = (selectedImage: File | undefined) => {
     updateFields({ course_image: selectedImage });
   };
   const handleSubscriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +34,7 @@ const CourseForm = ({
   };
   return (
     <FormWrapper title='Overview'>
+      <FileDrop onImageSelect={handleImageChange}/>
       <label>Course Title</label>
       <input
         autoFocus
@@ -48,9 +49,6 @@ const CourseForm = ({
         value={course_description}
         onChange={(e) => updateFields({ course_description: e.target.value })}
       />
-      <label>Upload Image</label>
-      <input type='file' accept='image/*' onChange={handleImageChange} />
-
       <label>category</label>
       <select value={course_category} onChange={handleCategoryChange}>
         <option value='personal'>Personal</option>

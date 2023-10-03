@@ -1,3 +1,4 @@
+import { FileDrop } from './FileDrop/FileDrop';
 import FormWrapper from './FormWrapper';
 
 type SaleData = {
@@ -23,14 +24,13 @@ const SalesForm = ({
   pricing_benefits,
   updateFields,
 }: SaleFormProps) => {
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedImage = e.target.files?.[0];
+  const handleImageChange = (selectedImage: File | undefined) => {
     updateFields({ sales_image: selectedImage });
   };
   return (
     <FormWrapper title='Sales Page'>
       <label>Upload Image</label>
-      <input type='file' accept='image/*' onChange={handleImageChange} />
+      <FileDrop onImageSelect={handleImageChange} />
 
       <span>FAQs</span>
       <label>Question:</label>
