@@ -8,10 +8,7 @@ type SaleData = {
   key_learning: string;
   pricing_benefits: string;
 };
-type FAQ = {
-  question: string;
-  answer: string;
-};
+
 type SaleFormProps = SaleData & {
   updateFields: (fields: Partial<SaleData>) => void;
 };

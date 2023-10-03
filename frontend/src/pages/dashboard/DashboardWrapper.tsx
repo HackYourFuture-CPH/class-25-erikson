@@ -1,14 +1,20 @@
 import { ReactNode, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import './Dashboard.css';
 import { users } from '../../data/data';
-import signout from '../../hooks/signout';
 import { Link, useNavigate } from 'react-router-dom';
+import signout from '../../hooks/signout';
+import Person from '../../assets/person.svg';
+import './Dashboard.css';
 
 type FormWrapperProps = {
   children: ReactNode;
 };
+
 const DashboardWrapper = ({ children }: FormWrapperProps) => {
+  const { user, setUser } = useAuthContext();
+  const navigate = useNavigate();
+
+  const userType = users[1].type;
   const [isSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -16,17 +22,13 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const { user, setUser } = useAuthContext();
-  const userType = users[1].type;
-
-  const navigate = useNavigate();
-
   const handleLogout = async (): Promise<void> => {
     setUser(null);
     await signout();
     navigate('/login', { replace: true });
   };
-  const toggleSidebar = () => {
+
+  const toggleSidebar = (): void => {
     const sidebar = document.querySelector('.sidebar');
     if (sidebar) {
       sidebar.classList.toggle('open');
@@ -43,53 +45,53 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
           <div className='sidebar-menu'>
             <div className='sidebar-item'>
-              <a href='#'>
+              <div>
                 <img src='images/dashboard2.svg' alt='dashboard2' />
                 <p>Dashboard</p>
-              </a>
+              </div>
             </div>
 
             <div className='sidebar-item'>
-              <a href='#'>
+              <div>
                 <img src='images/goals.svg' alt='dashboard2' />
                 <p>Goals</p>
-              </a>
+              </div>
             </div>
 
             <div className='sidebar-item'>
-              <a href='#'>
+              <div>
                 <img src='images/video.svg' alt='live schedule' />
                 <p>Live Schedule</p>
-              </a>
+              </div>
             </div>
 
             <div className='sidebar-item'>
-              <a href='#'>
+              <div>
                 <img src='images/calendar.svg' alt='class schedule' />
                 <p>Class Schedule</p>
-              </a>
+              </div>
             </div>
 
             <div className='sidebar-item'>
-              <a href='#'>
+              <div>
                 <img src='images/bookmark.svg' alt='course' />
                 <p>Course</p>
-              </a>
+              </div>
             </div>
 
             <div className='sidebar-item'>
-              <a href='#'>
+              <div>
                 <img src='images/document.svg' alt='resources' />
 
                 <p>Resources</p>
-              </a>
+              </div>
             </div>
 
             <div className='sidebar-item'>
-              <a href='#'>
+              <div>
                 <img src='images/folder.svg' alt='directory' />
                 <p>Directory</p>
-              </a>
+              </div>
             </div>
           </div>
         </nav>
@@ -108,12 +110,11 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
               </form>
 
               <div className='user'>
-                <img
-                  className='user-img'
-                  src='https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80'
-                />
-                <p onClick={toggleDropdown}>{user?.displayName}</p>
-                <span className='down-arrow'>{isDropdownOpen ? '▲' : '▼'}</span>
+                <img className='user-img' src={Person} alt='user-display' />
+                <p>{user?.displayName}</p>
+                <span className='down-arrow' onClick={toggleDropdown}>
+                  {isDropdownOpen ? '▲' : '▼'}
+                </span>
                 {isDropdownOpen && (
                   <div className='dropdown-menu'>
                     <button onClick={handleLogout}>Log out</button>
@@ -146,4 +147,5 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
     </>
   );
 };
+
 export default DashboardWrapper;
