@@ -2,7 +2,7 @@ import React from 'react';
 import StudentDashboard from '../../components/courses/Students';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
-import DashboardWrapper from './DashboardWrapper';
+import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuthContext();

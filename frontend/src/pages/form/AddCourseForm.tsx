@@ -9,7 +9,7 @@ import { useMultistepForm } from '../../hooks/useMultiStepForm';
 import CourseForm from '../../components/formDetails/course/CourseForm';
 import LessonForm from '../../components/formDetails/lesson/LessonForm';
 import SalesForm from '../../components/formDetails/sales/SalesForm';
-import DashboardWrapper from '../dashboard/DashboardWrapper';
+import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import BackArrow from '../../assets/back.svg';
 import FrontArrow from '../../assets/front.svg';
 import styles from './AddCourseForm.module.css';

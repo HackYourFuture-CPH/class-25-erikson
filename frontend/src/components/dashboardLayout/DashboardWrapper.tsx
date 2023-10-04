@@ -1,11 +1,9 @@
 import { ReactNode, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { users } from '../../data/data';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import signout from '../../hooks/signout';
 import Person from '../../assets/person.svg';
 import './Dashboard.css';
-import React from 'react';
 
 type FormWrapperProps = {
   children: ReactNode;
@@ -15,7 +13,6 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
   const { user, setUser } = useAuthContext();
   const navigate = useNavigate();
 
-  const userType = users[1].type;
   const [isSidebarOpen] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
@@ -132,16 +129,6 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
             </div>
           </div>
 
-          <div className='create-course-wrapper'>
-            <div className='create-course'>
-              <h2>Course</h2>
-              {userType === 'Mentor' && (
-                <Link to='/add-course'>
-                  <button className='create-course-btn'>Create New Course+</button>
-                </Link>
-              )}
-            </div>
-          </div>
           <div> {children}</div>
         </div>
       </div>
