@@ -6,3 +6,4 @@
 .env.production.local
 /dist/
 /server/
+firebase-admin-sdk.json
