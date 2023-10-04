@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import db from '../../config/db-config';
+import { Benefit, Course, FAQ, Lesson, Resource } from '../../interface/GetCourseById';
 
 const getAll = async(req: Request, res: Response) => {
   try {
@@ -28,11 +29,94 @@ const getCourseById = async(req: Request, res: Response) => {
       'course_category', 
       'course_image',
       'lesson_title',
-      'lesson_resources')
+      'lesson_description',
+      'lesson_image',
+      'lesson_resources',
+      'faq.faq AS faq',
+      'faq_answer',
+      'benefit_individual',
+      'benefit_monthly'
+      )
     .join('lesson', {'lesson.course_id': 'course.id'})
     .join('resource', {'lesson_id' : 'lesson.id'})
-    .where({'course.id' : courseId});
-    res.status(200).json(course);
+    .leftJoin('faq', { 'course.id': 'faq.course_id' })
+    .leftJoin('benefit', { 'course.id': 'benefit.course_id' })
+    .where({'course.id': courseId});
+
+    if (course.length === 0) {
+      return res.status(404).json({ message: 'Selected course not found' });
+    }
+
+    const courseMap: Record<string, Course> = {};  //keys are strings, values are of in Course
+    course.forEach((row) => {
+      const courseId = row.course_title;
+
+      if (!courseMap[courseId]) {
+        courseMap[courseId] = {
+          course_title: row.course_title,
+          course_description: row.course_description,
+          course_category: row.course_category,
+          course_image: row.course_image,
+          lessons: [],
+          faqs: [],
+          benefits: [],
+        };
+      }
+
+    const lesson: Lesson = {
+      lesson_title: row.lesson_title,
+      lesson_description: row.lesson_description,
+      lesson_image: row.lesson_image,
+      lesson_resources: [
+        {lesson_resources: row.lesson_resources } as Resource, // Use Resource interface here
+      ],
+    };
+
+    const existingLesson = courseMap[courseId].lessons.find(
+      (l) => l.lesson_title === row.lesson_title
+    );
+
+    if (!existingLesson) {
+      courseMap[courseId].lessons.push(lesson);
+    } else {
+      const resourceExists = existingLesson.lesson_resources.some(
+        (resource) => resource.lesson_resources === row.lesson_resources
+      );
+
+      if (!resourceExists) {
+        existingLesson.lesson_resources.push({ lesson_resources: row.lesson_resources });
+      }
+    }
+
+      const faqEntry: FAQ = {
+        faq: row.faq,
+        faq_answer: row.faq_answer,
+      };
+      if (
+        !courseMap[courseId].faqs.some(
+          (existingFaq) =>
+            existingFaq.faq === faqEntry.faq && existingFaq.faq_answer === faqEntry.faq_answer
+        )
+      ) {
+        courseMap[courseId].faqs.push(faqEntry);
+      }
+
+      const benefitEntry: Benefit = {
+        benefit_individual: row.benefit_individual,
+        benefit_monthly: row.benefit_monthly,
+      };
+      if (
+        !courseMap[courseId].benefits.some(
+          (existingBenefit) =>
+            existingBenefit.benefit_individual === benefitEntry.benefit_individual &&
+            existingBenefit.benefit_monthly === benefitEntry.benefit_monthly
+        )
+      ) {
+        courseMap[courseId].benefits.push(benefitEntry);
+      }
+    });
+
+    res.status(200).json(courseMap);
   } catch (error) {
     res.status(500).json({ error: `Can't fetch course: ${error}` });
   }
