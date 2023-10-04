@@ -16,10 +16,10 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
   const userType = users[1].type;
   const [isSidebarOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setIsDropdownVisible(!isDropdownVisible);
   };
 
   const handleLogout = async (): Promise<void> => {
@@ -111,11 +111,11 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
               <div className='user'>
                 <img className='user-img' src={Person} alt='user-display' />
-                <p>{user?.displayName}</p>
-                <span className='down-arrow' onClick={toggleDropdown}>
-                  {isDropdownOpen ? '▲' : '▼'}
-                </span>
-                {isDropdownOpen && (
+                <p onClick={toggleDropdown}>
+                  {user?.displayName} {isDropdownVisible ? '▲' : '▼'}
+                </p>
+                <span className='down-arrow'></span>
+                {isDropdownVisible && (
                   <div className='dropdown-menu'>
                     <button onClick={handleLogout}>Log out</button>
                   </div>
