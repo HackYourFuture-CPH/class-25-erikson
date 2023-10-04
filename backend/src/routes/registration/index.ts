@@ -1,5 +1,4 @@
 import {Router} from 'express';
-import admin from 'firebase-admin';
 import {register, getUserById } from "../../controllers/registration";
 
 
