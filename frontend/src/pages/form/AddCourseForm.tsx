@@ -5,9 +5,9 @@ import { users } from '../../data/data';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { AddCourseFields } from '../../types/component';
 import { useMultistepForm } from '../../hooks/useMultiStepForm';
-import CourseForm from '../../components/formDetails/CourseForm';
-import LessonForm from '../../components/formDetails/LessonForm';
-import SalesForm from '../../components/formDetails/SalesForm';
+import CourseForm from '../../components/formDetails/course/CourseForm';
+import LessonForm from '../../components/formDetails/lesson/LessonForm';
+import SalesForm from '../../components/formDetails/sales/SalesForm';
 import DashboardWrapper from '../dashboard/DashboardWrapper';
 // import axios from 'axios';
 
@@ -73,6 +73,10 @@ const AddCourseForm: React.FC = () => {
     e.preventDefault();
     if (!isLastStep) return next();
 
+    if (!data.course_image) {
+      alert('Please select an image.'); // Show alert message
+      return; // Prevent form submission if no image is selected
+    }
     //   try {
     // Getting Firebase ID token
     // const idToken = await user?.getIdToken();
@@ -101,31 +105,13 @@ const AddCourseForm: React.FC = () => {
 
   return (
     <DashboardWrapper>
-      <div
-        style={{
-          position: 'relative',
-          background: 'white',
-          border: '1px solid black',
-          padding: '2rem',
-          margin: '1rem',
-          borderRadius: '.5rem',
-          fontFamily: 'Arial',
-          maxWidth: 'max-content',
-        }}
-      >
+      <div>
         <form onSubmit={submitForm}>
-          <div style={{ position: 'absolute', top: '.5rem', right: '.5rem' }}>
+          <div>
             {currentIndex + 1} / {steps.length}
           </div>
           {step}
-          <div
-            style={{
-              marginTop: '1rem',
-              display: 'flex',
-              gap: '.5rem',
-              justifyContent: 'flex-end',
-            }}
-          >
+          <div>
             {!isFirstStep && (
               <button type='button' onClick={back}>
                 Back

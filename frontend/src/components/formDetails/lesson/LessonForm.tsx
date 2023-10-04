@@ -1,5 +1,5 @@
-import { FileDrop } from './FileDrop/FileDrop';
-import FormWrapper from './FormWrapper';
+import { FileDrop } from '../FileDrop/FileDrop';
+import FormWrapper from '../wrapper/FormWrapper';
 
 type LessonData = {
   lesson_title: string;
@@ -24,7 +24,6 @@ const LessonForm = ({
   };
   return (
     <FormWrapper title='Lesson'>
-
       <FileDrop onImageSelect={handleImageChange} />
       <label>title</label>
       <input

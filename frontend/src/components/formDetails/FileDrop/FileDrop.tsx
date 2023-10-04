@@ -1,12 +1,13 @@
-import { DragEvent, useState } from 'react';
-import classes from "./FileDrop.module.css";
- 
+import React, { DragEvent, useState } from 'react';
+import styles from './FileDrop.module.css';
+
 interface FileDropProps {
-  onImageSelect: (selectedImage: File | undefined) => void;
+  onImageSelect: (selectedImage: File) => void;
 }
 
 export function FileDrop({ onImageSelect }: FileDropProps) {
   const [imageData, setImageData] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -22,35 +23,31 @@ export function FileDrop({ onImageSelect }: FileDropProps) {
 
       reader.onloadend = () => {
         setImageData(reader.result as string);
+        setError(null);
         onImageSelect(file);
       };
 
       reader.onerror = () => {
-        console.error('Error reading the file path.');
+        setError('Error reading the file path.');
       };
 
       reader.readAsDataURL(file);
+    } else {
+      setError('Please drop an image.');
     }
   };
 
   return (
     <>
       {imageData ? (
-        <img
-          src={imageData}
-          alt="Dropped Image"
-          className={classes.dropArea}
-        />
+        <img src={imageData} alt='Dropped ImageData' className={styles.dropArea} />
       ) : (
-        <div
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-          className={classes.dropArea}
-        >
-          <div className={classes.title}>
-            <img src="images/gallery.png" />
+        <div onDragOver={handleDragOver} onDrop={handleDrop} className={styles.dropArea}>
+          <div className={styles.title}>
+            <img src='images/gallery.png' alt='background-drop' />
             <p>Add image</p>
           </div>
+          {error && <div className={styles.error}>{error}</div>}
         </div>
       )}
     </>

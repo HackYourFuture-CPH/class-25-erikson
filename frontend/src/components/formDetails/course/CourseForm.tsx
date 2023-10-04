@@ -1,5 +1,5 @@
-import { FileDrop } from './FileDrop/FileDrop';
-import FormWrapper from './FormWrapper';
+import { FileDrop } from '../FileDrop/FileDrop';
+import FormWrapper from '../wrapper/FormWrapper';
 
 type CourseData = {
   course_title: string;
@@ -26,15 +26,18 @@ const CourseForm = ({
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     updateFields({ course_category: e.target.value });
   };
+
   const handleImageChange = (selectedImage: File | undefined) => {
     updateFields({ course_image: selectedImage });
   };
+
   const handleSubscriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateFields({ course_subscriptionType: e.target.value });
   };
+
   return (
     <FormWrapper title='Overview'>
-      <FileDrop onImageSelect={handleImageChange}/>
+      <FileDrop onImageSelect={handleImageChange} />
       <label>Course Title</label>
       <input
         autoFocus

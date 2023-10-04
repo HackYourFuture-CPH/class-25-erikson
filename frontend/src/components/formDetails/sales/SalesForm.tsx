@@ -1,5 +1,5 @@
-import { FileDrop } from './FileDrop/FileDrop';
-import FormWrapper from './FormWrapper';
+import { FileDrop } from '../FileDrop/FileDrop';
+import FormWrapper from '../wrapper/FormWrapper';
 
 type SaleData = {
   sales_image: File;
