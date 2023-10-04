@@ -1,4 +1,4 @@
-import React, { DragEvent, useState } from 'react';
+import { DragEvent, useState } from 'react';
 import styles from './FileDrop.module.css';
 
 interface FileDropProps {
@@ -38,18 +38,19 @@ export function FileDrop({ onImageSelect }: FileDropProps) {
   };
 
   return (
-    <>
-      {imageData ? (
-        <img src={imageData} alt='Dropped ImageData' className={styles.dropArea} />
-      ) : (
-        <div onDragOver={handleDragOver} onDrop={handleDrop} className={styles.dropArea}>
+    <div 
+      onDragOver={handleDragOver}
+      onDrop={handleDrop} 
+      className={styles.dropArea}>
+        {imageData ? (
+        <img src={imageData} alt='Dropped ImageData' className={styles.attachedPhoto} />
+        ) : (
           <div className={styles.title}>
             <img src='images/gallery.png' alt='background-drop' />
             <p>Add image</p>
           </div>
-          {error && <div className={styles.error}>{error}</div>}
-        </div>
-      )}
-    </>
+        )}
+      {error && <div className={styles.error}>{error}</div>}
+    </div>
   );
 }

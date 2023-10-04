@@ -71,15 +71,24 @@ const AddCourseForm: React.FC = () => {
     <SalesForm {...data} updateFields={updateFields} />,
   ]);
 
+  const checkImageAttached = () => {
+    if (isFirstStep && !data.course_image.name) {
+      alert('Please select an course image.');
+      return;
+    } else if (isLastStep && !data.sales_image.name) {
+      alert('Please select a sale image.');
+      return;
+    } else if (!isFirstStep && !isLastStep && !data.lesson_image.name) {
+      alert('Please select a lesson image.');
+      return;
+    }
+  }
+
   const submitForm = (e: FormEvent) => {
     // const submitForm = async (e: FormEvent) => {
     e.preventDefault();
     if (!isLastStep) return next();
 
-    if (!data.course_image) {
-      alert('Please select an image.'); // Show alert message
-      return; // Prevent form submission if no image is selected
-    }
     //   try {
     // Getting Firebase ID token
     // const idToken = await user?.getIdToken();
@@ -123,7 +132,7 @@ const AddCourseForm: React.FC = () => {
                 </>
               </button>
             )}
-            <button type='submit'>
+            <button type='submit' onClick={() => checkImageAttached()}>
               {isLastStep ? (
                 'Add Course'
               ) : (

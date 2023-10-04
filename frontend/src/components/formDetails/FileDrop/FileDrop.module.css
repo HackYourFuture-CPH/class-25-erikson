@@ -4,10 +4,17 @@
   align-items: center;
   border: 4px dashed lightgray;
   border-radius: 1rem;
-  object-fit: fill;
   height: 250px;
   width: 100%;
   color: gray;
+}
+
+.attachedPhoto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  height: 242px;
 }
 
 .title {
