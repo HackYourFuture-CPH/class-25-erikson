@@ -5,11 +5,14 @@ import { users } from '../../data/data';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { AddCourseFields } from '../../types/component';
 import { useMultistepForm } from '../../hooks/useMultiStepForm';
+// import axios from 'axios';
 import CourseForm from '../../components/formDetails/course/CourseForm';
 import LessonForm from '../../components/formDetails/lesson/LessonForm';
 import SalesForm from '../../components/formDetails/sales/SalesForm';
 import DashboardWrapper from '../dashboard/DashboardWrapper';
-// import axios from 'axios';
+import BackArrow from '../../assets/back.svg';
+import FrontArrow from '../../assets/front.svg';
+import styles from './AddCourseForm.module.css';
 
 const emptyFile: File = new File([], '', { type: '' });
 const newCourse: AddCourseFields = {
@@ -105,19 +108,31 @@ const AddCourseForm: React.FC = () => {
 
   return (
     <DashboardWrapper>
-      <div>
+      <div className={styles.addCourse}>
         <form onSubmit={submitForm}>
           <div>
             {currentIndex + 1} / {steps.length}
           </div>
           {step}
-          <div>
+          <div className={styles.buttonsDiv}>
             {!isFirstStep && (
               <button type='button' onClick={back}>
-                Back
+                <>
+                  <img src={BackArrow} alt='Back Arrow' />
+                  <span>Go Back</span>
+                </>
               </button>
             )}
-            <button type='submit'>{isLastStep ? 'Finish' : 'Next'}</button>
+            <button type='submit'>
+              {isLastStep ? (
+                'Add Course'
+              ) : (
+                <>
+                  <span>Publish Course</span>
+                  <img src={FrontArrow} alt='Front Arrow' />
+                </>
+              )}
+            </button>
           </div>
         </form>
       </div>

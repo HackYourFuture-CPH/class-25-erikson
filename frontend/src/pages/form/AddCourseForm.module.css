@@ -1,0 +1,40 @@
+.addCourse {
+  padding: 25px 100px;
+}
+
+.buttonsDiv {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: #fff;
+  padding: 25px 40px;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.buttonsDiv button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  background: #f18524;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.buttonsDiv button img {
+  filter: invert(1);
+  margin: 0 5px;
+}
+
+.buttonsDiv button:hover {
+  border: 1px solid #f18524;
+  color: #f18524;
+  background: #fff;
+}
+
+.buttonsDiv button:hover img {
+  filter: none;
+}
