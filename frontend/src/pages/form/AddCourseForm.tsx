@@ -74,14 +74,21 @@ const AddCourseForm: React.FC = () => {
     <SalesForm {...data} updateFields={updateFields} />,
   ]);
 
-  const checkImageAttached = () => {
+  const checkImageAttached = async (e: FormEvent) => {
     if (isFirstStep && !data.course_image.name) {
+      e.preventDefault();
       alert('Please select an course image.');
       return;
-    } else if (isLastStep && !data.sales_image.name) {
+    } 
+    
+    if (isLastStep && !data.sales_image.name) {
+      e.preventDefault();
       alert('Please select a sale image.');
       return;
-    } else if (!isFirstStep && !isLastStep && !data.lesson_image.name) {
+    }
+    
+    if (!isFirstStep && !isLastStep && !data.lesson_image.name) {
+      e.preventDefault();
       alert('Please select a lesson image.');
       return;
     }
@@ -92,7 +99,7 @@ const AddCourseForm: React.FC = () => {
     e.preventDefault();
     if (!isLastStep) return next();
 
-    if (!data.course_image) {
+    if (!data.course_image.name) {
       alert('Please select an image.'); // Show alert message
       return; // Prevent form submission if no image is selected
     }
@@ -155,7 +162,7 @@ const AddCourseForm: React.FC = () => {
                 </>
               </button>
             )}
-            <button type='submit' onClick={() => checkImageAttached()}>
+            <button type='submit' onClick={checkImageAttached}>
               {isLastStep ? (
                 'Add Course'
               ) : (
