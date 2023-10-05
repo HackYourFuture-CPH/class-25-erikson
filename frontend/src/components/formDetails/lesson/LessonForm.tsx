@@ -46,8 +46,6 @@ const LessonForm = ({
             onChange={(e) => updateFields({ lesson_title: e.target.value })}
           />
         </div>
-        <FileDrop onImageSelect={handleImageChange} />
-
         <div className={styles.descriptionContainer}>
           <label>lessson description</label>
           <input

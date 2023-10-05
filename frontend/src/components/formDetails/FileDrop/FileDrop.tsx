@@ -47,7 +47,7 @@ export function FileDrop({ onImageSelect }: FileDropProps) {
         ) : (
           <div className={styles.title}>
             <img src='images/gallery.png' alt='background-drop' />
-            <p>Add image</p>
+            <p>Drag an image here</p>
           </div>
         )}
       {error && <div className={styles.error}>{error}</div>}
