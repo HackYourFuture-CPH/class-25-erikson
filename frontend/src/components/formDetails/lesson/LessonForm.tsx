@@ -1,5 +1,6 @@
 import { FileDrop } from '../FileDrop/FileDrop';
 import FormWrapper from '../wrapper/FormWrapper';
+import styles from '../FileDrop/FileDrop.module.css';
 
 type LessonData = {
   lesson_title: string;
@@ -23,8 +24,15 @@ const LessonForm = ({
     updateFields({ lesson_image: selectedImage });
   };
   return (
-    <FormWrapper title='Lesson'>
+      <FormWrapper title='Lesson'>
+      {lesson_image.name ? 
+        <img 
+        src={URL.createObjectURL(lesson_image)} 
+        alt="LessonImg" 
+        className={styles.attachedPhoto} />
+      : 
       <FileDrop onImageSelect={handleImageChange} />
+      }
       <label>title</label>
       <input
         required

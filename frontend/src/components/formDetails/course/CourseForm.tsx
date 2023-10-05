@@ -1,5 +1,6 @@
 import { FileDrop } from '../FileDrop/FileDrop';
 import FormWrapper from '../wrapper/FormWrapper';
+import classes from "../FileDrop/FileDrop.module.css"
 
 type CourseData = {
   course_title: string;
@@ -37,7 +38,14 @@ const CourseForm = ({
 
   return (
     <FormWrapper title='Overview'>
+      {course_image.name ? 
+        <img 
+        src={URL.createObjectURL(course_image)} 
+        alt="CourseImg" 
+        className={classes.attachedPhoto} />
+      : 
       <FileDrop onImageSelect={handleImageChange} />
+      }
       <label>Course Title</label>
       <input
         autoFocus
