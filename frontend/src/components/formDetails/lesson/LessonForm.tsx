@@ -1,6 +1,6 @@
 import { FileDrop } from '../FileDrop/FileDrop';
 import FormWrapper from '../wrapper/FormWrapper';
-import styles from '../FileDrop/FileDrop.module.css';
+import classes from '../FileDrop/FileDrop.module.css';
 
 type LessonData = {
   lesson_title: string;
@@ -29,7 +29,7 @@ const LessonForm = ({
         <img 
         src={URL.createObjectURL(lesson_image)} 
         alt="LessonImg" 
-        className={styles.attachedPhoto} />
+        className={classes.attachedPhoto} />
       : 
       <FileDrop onImageSelect={handleImageChange} />
       }
