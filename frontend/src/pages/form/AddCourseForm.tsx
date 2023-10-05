@@ -9,10 +9,11 @@ import { useMultistepForm } from '../../hooks/useMultiStepForm';
 import CourseForm from '../../components/formDetails/course/CourseForm';
 import LessonForm from '../../components/formDetails/lesson/LessonForm';
 import SalesForm from '../../components/formDetails/sales/SalesForm';
-import DashboardWrapper from '../dashboard/DashboardWrapper';
+import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import BackArrow from '../../assets/back.svg';
 import FrontArrow from '../../assets/front.svg';
 import styles from './AddCourseForm.module.css';
+// import useFirebaseStorage from '../../hooks/useFirebaseStorage';
 
 const emptyFile: File = new File([], '', { type: '' });
 const newCourse: AddCourseFields = {
@@ -49,6 +50,8 @@ export const useCourseStore = create<CourseStore>((set) => ({
 const AddCourseForm: React.FC = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
+  // const { generateUniqueFileName, uploadImageToFirebaseStorage, isUploading } = useFirebaseStorage();
+
   const userType = users[1].type;
 
   if (!user?.emailVerified) {
@@ -84,31 +87,51 @@ const AddCourseForm: React.FC = () => {
     }
   }
 
-  const submitForm = (e: FormEvent) => {
-    // const submitForm = async (e: FormEvent) => {
+  // const submitForm = (e: FormEvent) => {
+  const submitForm = async (e: FormEvent) => {
     e.preventDefault();
     if (!isLastStep) return next();
 
-    //   try {
+    if (!data.course_image) {
+      alert('Please select an image.'); // Show alert message
+      return; // Prevent form submission if no image is selected
+    }
+    // try {
     // Getting Firebase ID token
     // const idToken = await user?.getIdToken();
+    // const courseImagePath = `courses/${generateUniqueFileName(data.course_image.name)}`;
+    // const lessonImagePath = `lessons/${generateUniqueFileName(data.lesson_image.name)}`;
+    // const salesImagePath = `sales/${generateUniqueFileName(data.sales_image.name)}`;
+
+    // const [courseImageUrl, lessonImageUrl, salesImageUrl] = await Promise.all([
+    //   uploadImageToFirebaseStorage(data.course_image, courseImagePath),
+    //   uploadImageToFirebaseStorage(data.lesson_image, lessonImagePath),
+    //   uploadImageToFirebaseStorage(data.sales_image, salesImagePath)
+    // ]);
+
+    // const formDataWithUrls = {
+    //   ...data,
+    //   course_image: courseImageUrl,
+    //   lesson_image: lessonImageUrl,
+    //   sales_image: salesImageUrl
+    // };
 
     // Posting form data to the server
-    //     await axios.post(
-    //       'http://localhost:3000/courses',
-    //       data,
-    //       {
-    //         headers: {
-    //           Authorization: `Bearer ${idToken}`,
-    //         }
-    //       }
-    //     );
+    // await axios.post(
+    //   'http://localhost:3000/courses',
+    //   formDataWithUrls,
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${idToken}`,
+    //     }
+    //   }
+    // );
 
-    //     navigate('/courses');
-    //   }
-    //   catch (error) {
-    //     console.error('Error submitting form:', error);
-    //   }
+    //   navigate('/courses');
+    // }
+    // catch (error) {
+    //   console.error('Error submitting form:', error);
+    // }
 
     alert('Form Submitted');
     console.log(data);

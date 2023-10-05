@@ -1,7 +1,6 @@
 import { ReactNode, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { users } from '../../data/data';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import signout from '../../hooks/signout';
 import Person from '../../assets/person.svg';
 import './Dashboard.css';
@@ -14,12 +13,11 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
   const { user, setUser } = useAuthContext();
   const navigate = useNavigate();
 
-  const userType = users[1].type;
   const [isSidebarOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setIsDropdownVisible(!isDropdownVisible);
   };
 
   const handleLogout = async (): Promise<void> => {
@@ -111,11 +109,11 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
               <div className='user'>
                 <img className='user-img' src={Person} alt='user-display' />
-                <p>{user?.displayName}</p>
-                <span className='down-arrow' onClick={toggleDropdown}>
-                  {isDropdownOpen ? '▲' : '▼'}
-                </span>
-                {isDropdownOpen && (
+                <p onClick={toggleDropdown}>
+                  {user?.displayName} {isDropdownVisible ? '▲' : '▼'}
+                </p>
+                <span className='down-arrow'></span>
+                {isDropdownVisible && (
                   <div className='dropdown-menu'>
                     <button onClick={handleLogout}>Log out</button>
                   </div>
@@ -131,16 +129,6 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
             </div>
           </div>
 
-          <div className='create-course-wrapper'>
-            <div className='create-course'>
-              <h2>Course</h2>
-              {userType === 'Mentor' && (
-                <Link to='/add-course'>
-                  <button className='create-course-btn'>Create New Course+</button>
-                </Link>
-              )}
-            </div>
-          </div>
           <div> {children}</div>
         </div>
       </div>

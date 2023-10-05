@@ -1,5 +1,6 @@
 import { FileDrop } from '../FileDrop/FileDrop';
 import FormWrapper from '../wrapper/FormWrapper';
+import styles from './SalesForm.module.css';
 import classes from "../FileDrop/FileDrop.module.css";
 
 type SaleData = {
@@ -27,8 +28,9 @@ const SalesForm = ({
   };
   return (
     <FormWrapper title='Sales Page'>
-      <label>Upload Image</label>
-      {sales_image.name ? 
+      <div className={styles.container}>
+        <p>Featured Image</p>
+        {sales_image.name ? 
         <img 
         src={URL.createObjectURL(sales_image)} 
         alt="SalesImg" 
@@ -36,37 +38,49 @@ const SalesForm = ({
       : 
       <FileDrop onImageSelect={handleImageChange} />
       }
-      <span>FAQs</span>
-      <label>Question:</label>
-      <input
-        type='text'
-        placeholder='Question'
-        value={faq}
-        onChange={(e) => updateFields({ faq: e.target.value })}
-      />
+        <div className={styles.faqContainer}>
+          <label> what you will learn</label>
+          <input
+            className={styles.faqQuestion}
+            required
+            type='text'
+            placeholder='Enter key learning Takeaway'
+            value={key_learning}
+            onChange={(e) => updateFields({ key_learning: e.target.value })}
+          />
+          <label className={styles.faqText}>FAQs: </label>
+          <label>Question:</label>
+          <input
+            className={styles.faqQuestion}
+            type='text'
+            placeholder='Question'
+            value={faq}
+            onChange={(e) => updateFields({ faq: e.target.value })}
+          />
+        </div>
 
-      <label>Answer:</label>
-      <input
-        type='text'
-        placeholder='Answer'
-        value={faq_answer}
-        onChange={(e) => updateFields({ faq_answer: e.target.value })}
-      />
+        <div className={styles.inputContainer}>
+          <label>Answer:</label>
+          <input
+            className={styles.faqAnswer}
+            type='text'
+            placeholder='Answer'
+            value={faq_answer}
+            onChange={(e) => updateFields({ faq_answer: e.target.value })}
+          />
+        </div>
 
-      <label> what you will learn</label>
-      <input
-        required
-        type='text'
-        value={key_learning}
-        onChange={(e) => updateFields({ key_learning: e.target.value })}
-      />
-      <label> pricing benefits </label>
-      <input
-        required
-        type='text'
-        value={pricing_benefits}
-        onChange={(e) => updateFields({ pricing_benefits: e.target.value })}
-      />
+        <div className={styles.inputContainer}>
+          <label> pricing benefits </label>
+          <input
+            className={styles.faqQuestion}
+            required
+            type='text'
+            value={pricing_benefits}
+            onChange={(e) => updateFields({ pricing_benefits: e.target.value })}
+          />
+        </div>
+      </div>
     </FormWrapper>
   );
 };
