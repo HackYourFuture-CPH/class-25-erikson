@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styles from './CourseComponents.module.css';
 
 interface CourseActionsProps {
   toggleAbout: () => void;
@@ -11,11 +12,33 @@ const CourseActions: React.FC<CourseActionsProps> = ({
   toggleReviews,
   toggleResources,
 }) => {
+  const [activeButton, setActiveButton] = useState<string>('');
+
+  const handleButtonClick = (buttonName: string, toggleFunction: () => void) => {
+    setActiveButton(buttonName);
+    toggleFunction();
+  };
+
   return (
-    <div className="course-actions">
-      <button onClick={toggleAbout}>About</button>
-      <button onClick={toggleReviews}>Reviews</button>
-      <button onClick={toggleResources}>Resources</button>
+    <div className={styles.courseActions}>
+      <button
+        className={activeButton === 'about' ? styles.activeButton : ''}
+        onClick={() => handleButtonClick('about', toggleAbout)}
+      >
+        About
+      </button>
+      <button
+        className={activeButton === 'reviews' ? styles.activeButton : ''}
+        onClick={() => handleButtonClick('reviews', toggleReviews)}
+      >
+        Reviews
+      </button>
+      <button
+        className={activeButton === 'resources' ? styles.activeButton : ''}
+        onClick={() => handleButtonClick('resources', toggleResources)}
+      >
+        Resources
+      </button>
     </div>
   );
 };

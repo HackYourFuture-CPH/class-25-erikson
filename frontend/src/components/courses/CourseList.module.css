@@ -1,0 +1,74 @@
+.courseList {
+  width: 100%;
+  padding: 30px;
+}
+
+.cardsWrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.singleCard {
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.singleCourse {
+  height: 300px;
+  text-decoration: none;
+  color: #1f1f1f;
+  background: #fff;
+}
+
+.singleCourse img {
+  height: 150px;
+}
+
+.cardContent {
+  padding: 15px;
+  height: 120px;
+  font-size: 1em;
+}
+
+.personal,
+.finance,
+.professional,
+.event {
+  padding: 5px 10px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.personal {
+  background-color: #cfe8ff;
+  color: #3f9cf2;
+}
+
+.finance {
+  background-color: #ffecdc;
+  color: #f18524;
+}
+
+.professional {
+  background-color: #d8d9f5;
+  color: #44408a;
+}
+
+.event {
+  background-color: #f4eeee;
+  color: #ffb7b7;
+}
+
+@media screen and (max-width: 1300px) {
+  .cardsWrapper {
+    grid-template-columns: 1fr 1fr;
+    max-width: 700px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .cardsWrapper {
+    grid-template-columns: 1fr;
+  }
+}

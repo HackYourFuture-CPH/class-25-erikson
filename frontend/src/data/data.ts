@@ -339,7 +339,7 @@ export const courses: Course[] = [
     id: 4,
     image: 'course_image_url_4.jpg',
     course_name: 'Wedding Planning Workshop',
-    tag: 'Life Event',
+    tag: 'Live Event',
     description: 'Plan your dream wedding with expert guidance and tips.',
     mentor: {
       name: 'Olivia Anderson',
