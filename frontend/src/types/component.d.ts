@@ -66,3 +66,9 @@ export interface AddCourseFields {
   key_learning: string;
   pricing_benefits: string;
 }
+
+export interface AddSingleCourse {
+  data: AddCourseFields;
+  updateCourseFields: (fields: Partial<AddCourseFields>) => void;
+  resetForm: () => void;
+}
