@@ -2,7 +2,7 @@ import { ReactNode, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import signout from '../../hooks/signout';
-import Person from '../../assets/person.svg';
+import Person from '../../assets/icons/person.svg';
 import './Dashboard.css';
 
 type FormWrapperProps = {

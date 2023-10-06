@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import './CourseList.css';
+import styles from './CourseList.module.css';
 // import useAllCoursesStore from '../../store/allcourses.store';
 // import { useAuthContext } from '../../hooks/useAuthContext';
 // import axios from 'axios';
@@ -42,39 +42,34 @@ const CourseList: React.FC = () => {
   );
 
   return (
-    <div className='course-list'>
-      <div className='cards-wrapper'>
+    <div className={styles.courseList}>
+      <div className={styles.cardsWrapper}>
         {filteredCourses.map((course) => (
-          <Card sx={{ maxWidth: 360 }} key={course.id}>
-            <Link to={`/course/${course.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-              <CardMedia
-                component='img'
-                alt={course.course_name}
-                height='130'
-                image={course.image}
-              />
-              <CardContent>
-                <Typography pb={2} variant='h6' component='div'>
+          <Card className={styles.singleCard} key={course.id}>
+            <Link to={`/course/${course.id}`} className={styles.singleCourse}>
+              <CardMedia component='img' alt={course.course_name} image={course.image} />
+              <CardContent className={styles.cardContent}>
+                <Typography pb={2} variant='h6' component='div' textAlign='start'>
                   {course.course_name}
                 </Typography>
-                <Grid container spacing={2}>
+                <Grid container justifyContent='space-between' alignItems='center'>
                   <Grid item xs={6}>
                     <div
-                      className={`tag ${
+                      className={`${styles.tag} ${
                         course.tag === 'Professional'
-                          ? 'professional'
+                          ? styles.professional
                           : course.tag === 'Personal'
-                          ? 'personal'
+                          ? styles.personal
                           : course.tag === 'Finance'
-                          ? 'finance'
-                          : course.tag === 'Life Event' && 'event'
+                          ? styles.finance
+                          : course.tag === 'Live Event' && styles.event
                       }`}
                     >
                       {course.tag}
                     </div>
                   </Grid>
                   <Grid item xs={6}>
-                    <span className='gray'>{course.contentOutline.lessons.length} Lessons</span>
+                    <span>{course.contentOutline.lessons.length} Lessons</span>
                   </Grid>
                 </Grid>
               </CardContent>

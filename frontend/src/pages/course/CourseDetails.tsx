@@ -7,9 +7,10 @@ import CourseActions from '../../components/courseDetails/CourseActions';
 import AboutSection from '../../components/courseDetails/AboutSection';
 import ResourcesSection from '../../components/courseDetails/ResourcesSection';
 import ReviewsSection from '../../components/courseDetails/ReviewsSection';
-import MentorSection from '../../components/courseDetails/MentorSection';
 import ContentOutline from '../../components/courseDetails/ContentOutline';
 import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
+import BackArrow from '../../assets/icons/arrow_back.svg';
+import styles from './CourseDetails.module.css';
 
 const convertDurationToMinutes = (duration: string): number => {
   const match = duration.match(/(\d+) minutes/);
@@ -38,7 +39,6 @@ const CourseDetails: React.FC = () => {
     toggleReviews,
     toggleResources,
   } = useCourseStore();
-
   const courseId = id ? parseInt(id, 10) : null;
 
   let course: Course | undefined;
@@ -73,27 +73,38 @@ const CourseDetails: React.FC = () => {
   const formattedDuration = formatDuration(totalDurationMinutes);
 
   return (
-    <DashboardWrapper>
-      <div>
-        <CourseHeader
-          courseName={course.course_name}
-          tag={course.tag}
-          formattedDuration={formattedDuration}
-          videoSource={course.contentOutline.lessons[0].video}
-        />
-        <CourseActions
-          toggleAbout={toggleAbout}
-          toggleReviews={toggleReviews}
-          toggleResources={toggleResources}
-        />
-        {showAbout && <AboutSection description={course.description} />}
-        {showReviews && <ReviewsSection reviews={course.comments} />}
-        {showResources && <ResourcesSection lessons={course.contentOutline.lessons} />}
-        <MentorSection mentor={course.mentor} />
-        <ContentOutline lessons={course.contentOutline.lessons} />
-        <button className='start-button'>Start</button>
-      </div>
-    </DashboardWrapper>
+    <>
+      <DashboardWrapper>
+        <div className={styles.breadCrump} onClick={() => navigate('/courses')}>
+          <p>
+            <img src={BackArrow} alt='back-arrow' />
+          </p>
+          <h1>Course Details</h1>
+        </div>
+        <div className={styles.courseDetails}>
+          <div className={styles.gridLeft}>
+            <CourseHeader
+              courseName={course.course_name}
+              tag={course.tag}
+              formattedDuration={formattedDuration}
+              videoSource={course.contentOutline.lessons[0].video}
+            />
+            <CourseActions
+              toggleAbout={toggleAbout}
+              toggleReviews={toggleReviews}
+              toggleResources={toggleResources}
+            />
+            {showAbout && <AboutSection description={course.description} />}
+            {showReviews && <ReviewsSection reviews={course.comments} />}
+            {showResources && <ResourcesSection lessons={course.contentOutline.lessons} />}
+            <button className={styles.startButton}>Start</button>
+          </div>
+          <div className={styles.gridRight}>
+            <ContentOutline lessons={course.contentOutline.lessons} />
+          </div>
+        </div>
+      </DashboardWrapper>
+    </>
   );
 };
 

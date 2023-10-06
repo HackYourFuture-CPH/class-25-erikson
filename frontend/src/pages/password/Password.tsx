@@ -48,6 +48,9 @@ const Password: React.FC = () => {
             <div className={styles.submitButton}>
               <Button label={'Reset Password'} type='submit' />
             </div>
+
+            {error && <p>{error}</p>}
+            {successMessage && <p>{successMessage}</p>}
           </form>
         </div>
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Lesson } from '../../data/data';
 
 interface LessonListProps {
