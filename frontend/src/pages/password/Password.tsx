@@ -1,10 +1,11 @@
-import React, { ChangeEvent, FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useReset from '../../hooks/useReset';
 import usePasswordStore from '../../store/resetpage.store';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import './Password.css';
+import styles from './Password.module.css';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import Input from '../../components/Input/Input.component';
+import Button from '../../components/Button/Button.component';
 
 const Password: React.FC = () => {
   const { email, setEmail } = usePasswordStore();
@@ -13,7 +14,7 @@ const Password: React.FC = () => {
   const navigate = useNavigate();
 
   if (user?.emailVerified) {
-    navigate("/courses", { replace: true })
+    navigate('/courses', { replace: true });
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -22,48 +23,38 @@ const Password: React.FC = () => {
     await resetPassword(email);
   };
 
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const btnClassName = emailRegex.test(email) ? 'valid-btn' : 'invalid-btn';
-
   return (
-    <div className='password-layout'>
-      <div className='top'>
+    <div className='auth-page-layout'>
+      <div className='auth-top'>
         <img src='images/auth-logo.svg' alt='logo' />
       </div>
 
-      <div className='container'>
-        <div className='restore-form'>
-          <Link to='/login'>
-            <KeyboardBackspaceIcon />
-          </Link>
-
-          <form onSubmit={handleSubmit}>
-            <h2>Forgot Password</h2>
-            <p className='gray'>We will send you reset password link on your mail</p>
-            <div className='input-group'>
-              <label>
-                Email:
-                <input
-                  required
-                  type='email'
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                  value={email}
-                  placeholder='Enter your email'
-                  className='text-input'
-                />
-              </label>
+      <div className={styles.formWrapper}>
+        <div className='auth-left'>
+          <form className={styles.resetForm} onSubmit={handleSubmit}>
+            <h2 className={styles.title}>Forgot Password</h2>
+            <p className={styles.subTitle}>We will send you reset password link on your mail</p>
+            <div className={styles.inputElement}>
+              <Input
+                label={'Email:'}
+                type={'email'}
+                isRequired={true}
+                value={email}
+                setValue={setEmail}
+                placeholder='Enter your email'
+              />
             </div>
 
-            <button className={btnClassName} type='submit'>
-              Reset Password
-            </button>
+            <div className={styles.submitButton}>
+              <Button label={'Reset Password'} type='submit' />
+            </div>
 
             {successMessage && <p className='success-message'>{successMessage}</p>}
             {error && <p className='error-message'>{error}</p>}
           </form>
         </div>
 
-        <div className='restore-pswrd'>
+        <div className='auth-right'>
           <img src='images/restore-pswrd.svg' alt='restoring of pass' />
         </div>
       </div>

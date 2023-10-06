@@ -5,9 +5,11 @@ import {
   updateProfile,
 } from '../firebase/config';
 import useErrorSignupState from '../store/errorsignup.store';
+import useNotificationStore from '../store/notification.store';
 // import axios from 'axios';
 
 const useSignup = () => {
+  const { setNotification } = useNotificationStore();
   const { error, setError } = useErrorSignupState();
 
   // const signup = async (userType: string, email: string, password: string, firstName: string, lastName: string) => {
@@ -52,6 +54,7 @@ const useSignup = () => {
       }
     } catch (err: any) {
       setError(err.message);
+      setNotification({ message: err.message, severity: 'error' });
     }
   };
 
