@@ -1,11 +1,115 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    Poppins,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.gray {
+  color: gray;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+}
+
+.input-group label {
+  color: #55555f;
+}
+
+.input-group input::placeholder {
+  color: #8d9296;
+}
+
+.page-layout {
+  padding: 40px;
+  height: 100vh;
+}
+
+.auth-page-layout {
+  padding: 40px;
+  height: 100vh;
+}
+
+.auth-top {
+  display: flex;
+  justify-content: left;
+  margin-left: 20px;
+}
+
+.auth-top img {
+  height: 30px;
+  width: 176px;
+}
+
+.auth-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.auth-right img {
+  height: 625px;
+  width: 735px;
+}
+
+a {
+  cursor: pointer;
+  color: #0b5fae;
+  text-align: right;
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.24px;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .form-img {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .auth-right img {
+    height: 310px;
+    width: 347px;
+  }
+}
+
+@media screen and (max-width: 393px) {
+  .auth-page-layout {
+    padding: 20px;
+  }
+
+  .auth-top {
+    margin-left: 0;
+  }
+
+  .auth-left {
+    margin-top: 20px;
+    flex: 1;
+  }
+
+  .auth-right img {
+    margin-top: 20px;
+    width: 205px;
+  }
 }

@@ -6,8 +6,11 @@ import Dashboard from './pages/dashboard/Dashboard';
 import CourseDetails from './pages/course/CourseDetails';
 import AddCourseForm from './pages/form/AddCourseForm';
 import './App.css';
+import Notification from './components/Notification/Notification.component';
+import useNotificationStore from './store/notification.store';
 
 function App(): JSX.Element {
+  const { notification } = useNotificationStore();
   const router = createBrowserRouter([
     {
       path: '/',
@@ -39,7 +42,14 @@ function App(): JSX.Element {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      {notification && (
+        <Notification message={notification.message} severity={notification?.severity} />
+      )}
+      <RouterProvider router={router} />;
+    </>
+  );
 }
 
 export default App;

@@ -1,9 +1,12 @@
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useLogin from '../../hooks/useLogin';
 import useLoginStore from '../../store/loginpage.store';
-import './Login.css';
+import styles from './Login.module.css';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import Input from '../../components/Input/Input.component';
+import Checkbox from '../../components/Checkbox/Checkbox.component';
+import Button from '../../components/Button/Button.component';
 
 const Login: React.FC = () => {
   const { email, setEmail, password, setPassword, rememberMe, setRememberMe, resetForm } =
@@ -13,7 +16,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
 
   if (user?.emailVerified) {
-    navigate("/courses", { replace: true })
+    navigate('/courses', { replace: true });
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -23,79 +26,58 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className='page-layout'>
-      <div className='top'>
+    <div className='auth-page-layout'>
+      <div className='auth-top'>
         <img src='images/auth-logo.svg' alt='logo' />
       </div>
-      <div className='form-img'>
-        <div className='left'>
-          <div className='login-form'>
-            <form onSubmit={handleSubmit}>
-              <h2>Login</h2>
 
-              <div className='input-group'>
-                <label>
-                  <span>Email:</span>
-                  <input
-                    className='text-input'
-                    required
-                    type='email'
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                    value={email}
-                  />
-                </label>
-              </div>
-              <div className='input-group'>
-                <label>
-                  <span>Password:</span>
-                  <input
-                    className='text-input'
-                    required
-                    type='password'
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                    value={password}
-                  />
-                </label>
-              </div>
-              <div className='row-wrap-remember-me'>
-                <div className='remember-me'>
-                  <label>
-                    <input
-                      className='remember-checkbox'
-                      type='checkbox'
-                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                        setRememberMe(e.target.checked)
-                      }
-                      checked={rememberMe}
-                    />
-                    <span>Remember me</span>
-                  </label>
-                </div>
-                <div className='forgot-password'>
-                  <p>
-                    <Link to='/password'>Forgot password?</Link>
-                  </p>
-                </div>
-              </div>
+      <div className={styles.formWrapper}>
+        <div className='auth-left'>
+          <form className={styles.loginForm} onSubmit={handleSubmit}>
+            <h2 className={styles.title}>Log in</h2>
+            <p className={styles.subTitle}>Easy step to enter the platform</p>
+            <div className={styles.inputElement}>
+              <Input
+                label={'Email:'}
+                type={'email'}
+                isRequired={true}
+                value={email}
+                setValue={setEmail}
+                placeholder='Enter email'
+              />
+            </div>
+            <div className={styles.inputElement}>
+              <Input
+                label={'Password:'}
+                type={'password'}
+                isRequired={true}
+                value={password}
+                setValue={setPassword}
+                placeholder='Enter password'
+              />
+            </div>
+            <div className={styles.rememberMe}>
+              <Checkbox label={'Remember me'} value={rememberMe} setValue={setRememberMe} />
+              <Link className={styles.forgotPassword} to='/password'>
+                Forgot password?
+              </Link>
+            </div>
 
-              <div className='div-button'>
-                <button className='login-button' type='submit'>
-                  Login
-                </button>
-              </div>
+            <div className={styles.submitButton}>
+              <Button label={'Login'} type='submit' />
+            </div>
+            {error && <p>{error}</p>}
+          </form>
 
-              {error && <p>{error}</p>}
-            </form>
-          </div>
-          <p className='redirect'>
-            Don't have an account?
-            <Link to='/signup' className='signup-link'>
+          <p className={styles.redirect}>
+            <span>Don't have an account?</span>
+            <Link to='/signup' className={styles.redirectLink}>
               Sign Up
             </Link>
           </p>
         </div>
 
-        <div className='right'>
+        <div className='auth-right'>
           <img src='images/loginCover.svg' alt='hands-show' />
         </div>
       </div>
