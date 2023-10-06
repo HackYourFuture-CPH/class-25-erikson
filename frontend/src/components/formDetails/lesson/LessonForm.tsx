@@ -1,6 +1,8 @@
 import { FileDrop } from '../FileDrop/FileDrop';
 import FormWrapper from '../wrapper/FormWrapper';
 import styles from './LessonForm.module.css';
+import classes from '../FileDrop/FileDrop.module.css';
+
 type LessonData = {
   lesson_title: string;
   lesson_image: File;
@@ -26,6 +28,14 @@ const LessonForm = ({
     <FormWrapper title='Lesson'>
       <div className={styles.container}>
         <div className={styles.titleContainer}>
+            {lesson_image.name ? 
+            <img 
+            src={URL.createObjectURL(lesson_image)} 
+            alt="LessonImg" 
+            className={classes.attachedPhoto} />
+          : 
+          <FileDrop onImageSelect={handleImageChange} />
+          }
           <label>Lesson Title</label>
           <input
             className={styles.titleInput}
@@ -36,8 +46,6 @@ const LessonForm = ({
             onChange={(e) => updateFields({ lesson_title: e.target.value })}
           />
         </div>
-        <FileDrop onImageSelect={handleImageChange} />
-
         <div className={styles.descriptionContainer}>
           <label>lessson description</label>
           <input

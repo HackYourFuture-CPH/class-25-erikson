@@ -1,6 +1,5 @@
 import React, { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { create } from 'zustand';
 import { users } from '../../data/data';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { AddCourseFields } from '../../types/component';
@@ -14,43 +13,12 @@ import BackArrow from '../../assets/back.svg';
 import FrontArrow from '../../assets/front.svg';
 import styles from './AddCourseForm.module.css';
 // import useFirebaseStorage from '../../hooks/useFirebaseStorage';
-
-const emptyFile: File = new File([], '', { type: '' });
-const newCourse: AddCourseFields = {
-  course_title: '',
-  course_description: '',
-  course_category: '',
-  course_image: emptyFile,
-  course_subscriptionType: '',
-  course_price: 0,
-  lesson_title: '',
-  lesson_image: emptyFile,
-  lesson_description: '',
-  lesson_resources: '',
-  sales_image: emptyFile,
-  faq: '',
-  faq_answer: '',
-  key_learning: '',
-  pricing_benefits: '',
-};
-
-type CourseStore = {
-  data: AddCourseFields;
-  updateCourseFields: (fields: Partial<AddCourseFields>) => void;
-};
-
-export const useCourseStore = create<CourseStore>((set) => ({
-  data: newCourse,
-  updateCourseFields: (fields) =>
-    set((state) => ({
-      data: { ...state.data, ...fields },
-    })),
-}));
+import useSingleCourseStore from '../../store/addSingleCourse.store';
 
 const AddCourseForm: React.FC = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
-  // const { generateUniqueFileName, uploadImageToFirebaseStorage, isUploading } = useFirebaseStorage();
+  // const { generateUniqueFileName, uploadImageToFirebaseStorage } = useFirebaseStorage();
 
   const userType = users[1].type;
 
@@ -62,29 +30,47 @@ const AddCourseForm: React.FC = () => {
     navigate('/courses');
   }
 
-  const { data, updateCourseFields } = useCourseStore();
+  const { data, updateCourseFields, resetForm } = useSingleCourseStore();
 
   const updateFields = (fields: Partial<AddCourseFields>) => {
     updateCourseFields({ ...data, ...fields });
   };
 
-  const { steps, currentIndex, step, isFirstStep, isLastStep, back, next } = useMultistepForm([
-    <CourseForm {...data} updateFields={updateFields} />,
-    <LessonForm {...data} updateFields={updateFields} />,
-    <SalesForm {...data} updateFields={updateFields} />,
-  ]);
+  const { steps, currentIndex, step, isFirstStep, isLastStep, back, next, goTo } = useMultistepForm(
+    [
+      <CourseForm {...data} updateFields={updateFields} />,
+      <LessonForm {...data} updateFields={updateFields} />,
+      <SalesForm {...data} updateFields={updateFields} />,
+    ],
+  );
 
-  // const submitForm = (e: FormEvent) => {
-  const submitForm = async (e: FormEvent) => {
+  const checkImageAttached = async (e: FormEvent) => {
+    if (isFirstStep && !data.course_image.name) {
+      e.preventDefault();
+      alert('Please select an course image.');
+      return;
+    }
+
+    if (isLastStep && !data.sales_image.name) {
+      e.preventDefault();
+      alert('Please select a sale image.');
+      return;
+    }
+
+    if (!isFirstStep && !isLastStep && !data.lesson_image.name) {
+      e.preventDefault();
+      alert('Please select a lesson image.');
+      return;
+    }
+  };
+
+  const submitForm = (e: FormEvent) => {
+    // const submitForm = async (e: FormEvent) => {
     e.preventDefault();
     if (!isLastStep) return next();
 
-    if (!data.course_image) {
-      alert('Please select an image.'); // Show alert message
-      return; // Prevent form submission if no image is selected
-    }
     // try {
-    // Getting Firebase ID token
+    // // Getting Firebase ID token
     // const idToken = await user?.getIdToken();
     // const courseImagePath = `courses/${generateUniqueFileName(data.course_image.name)}`;
     // const lessonImagePath = `lessons/${generateUniqueFileName(data.lesson_image.name)}`;
@@ -103,7 +89,7 @@ const AddCourseForm: React.FC = () => {
     //   sales_image: salesImageUrl
     // };
 
-    // Posting form data to the server
+    // // Posting form data to the server
     // await axios.post(
     //   'http://localhost:3000/courses',
     //   formDataWithUrls,
@@ -122,6 +108,8 @@ const AddCourseForm: React.FC = () => {
 
     alert('Form Submitted');
     console.log(data);
+    resetForm();
+    goTo(0);
     navigate('/courses');
   };
 
@@ -142,7 +130,7 @@ const AddCourseForm: React.FC = () => {
                 </>
               </button>
             )}
-            <button type='submit'>
+            <button type='submit' onClick={checkImageAttached}>
               {isLastStep ? (
                 'Add Course'
               ) : (

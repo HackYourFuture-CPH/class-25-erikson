@@ -1,6 +1,8 @@
 import { FileDrop } from '../FileDrop/FileDrop';
 import FormWrapper from '../wrapper/FormWrapper';
 import styles from './SalesForm.module.css';
+import classes from "../FileDrop/FileDrop.module.css";
+
 type SaleData = {
   sales_image: File;
   faq: string;
@@ -28,9 +30,14 @@ const SalesForm = ({
     <FormWrapper title='Sales Page'>
       <div className={styles.container}>
         <p>Featured Image</p>
-
-        <FileDrop onImageSelect={handleImageChange} />
-
+        {sales_image.name ? 
+        <img 
+        src={URL.createObjectURL(sales_image)} 
+        alt="SalesImg" 
+        className={classes.attachedPhoto} />
+      : 
+      <FileDrop onImageSelect={handleImageChange} />
+      }
         <div className={styles.faqContainer}>
           <label> what you will learn</label>
           <input
