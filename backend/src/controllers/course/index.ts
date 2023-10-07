@@ -6,11 +6,14 @@ const getAll = async(req: Request, res: Response) => {
   try {
     const courses = await db('course')
     .select(
-      'id',
+      'course.id',
       'course_title', 
       'course_category', 
       'course_image',
     )
+    .count('lesson.id as lesson_count')
+    .join('lesson', {'course_id': 'course.id'})
+    .groupBy('course.id');
     courses.length === 0 
     ? res.status(404).json({message: 'No courses'})
     : res.status(200).json(courses);

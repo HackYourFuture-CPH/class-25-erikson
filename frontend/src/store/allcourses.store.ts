@@ -1,6 +1,11 @@
 import { create } from 'zustand';
 
-const useAllCoursesStore = create((set) => ({
+interface AllCoursesStore {
+  courses: any[]; 
+  setCourses: (courses: any[]) => void;
+}
+
+const useAllCoursesStore = create<AllCoursesStore>((set) => ({
   courses: [],
   setCourses: (courses: any) => set({ courses }),
 }));
