@@ -86,6 +86,7 @@
   display: flex;
   align-items: center;
   margin-right: 40px;
+  margin-bottom: 40px;
 }
 
 .user img {
@@ -106,19 +107,36 @@
   color: gray;
 }
 
-.user .dropdown-menu {
-  display: flex;
-  margin-left: -20px;
+.user {
+  display: grid;
   padding: 8px;
-  z-index: 1;
-  border: 0.5px solid rgba(241, 133, 36, 1);
-  border-radius: 5px;
 }
 
-.user .dropdown-menu button {
+.user-info {
   display: flex;
-  position: relative;
-  top: 30px;
+  align-items: center;
+}
+
+.dropdown-menu {
+  display: none;
+}
+
+.dropdown-menu.active {
+  display: block;
+}
+
+.dropdown-menu.active button {
+  width: 100%;
+  padding: 10px;
+  font-weight: bold;
+  border: 1px solid #1f1f1f;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.dropdown-menu.active button:hover {
+  background: #1f1f1f;
+  color: #fff;
 }
 
 .create-course-wrapper {
@@ -164,8 +182,13 @@
     display: none;
   }
 
-  .top-bar {
+  .top-bar form {
     display: none;
+  }
+
+  .user {
+    margin-left: auto;
+    margin-top: 30px;
   }
 
   .top-bar-phone-content {
@@ -198,10 +221,6 @@
 
 @media (max-width: 485px) {
   .sidebar {
-    display: none;
-  }
-
-  .top-bar {
     display: none;
   }
 

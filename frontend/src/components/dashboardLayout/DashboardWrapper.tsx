@@ -14,11 +14,6 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
   const navigate = useNavigate();
 
   const [isSidebarOpen] = useState(false);
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsDropdownVisible(!isDropdownVisible);
-  };
 
   const handleLogout = async (): Promise<void> => {
     setUser(null);
@@ -31,6 +26,11 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
     if (sidebar) {
       sidebar.classList.toggle('open');
     }
+  };
+
+  const handleArrow = (): void => {
+    const logout = document.querySelector('.dropdown-menu');
+    logout?.classList.toggle('active');
   };
 
   return (
@@ -108,16 +108,15 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
               </form>
 
               <div className='user'>
-                <img className='user-img' src={Person} alt='user-display' />
-                <p onClick={toggleDropdown}>
-                  {user?.displayName} {isDropdownVisible ? '▲' : '▼'}
-                </p>
-                <span className='down-arrow'></span>
-                {isDropdownVisible && (
-                  <div className='dropdown-menu'>
-                    <button onClick={handleLogout}>Log out</button>
-                  </div>
-                )}
+                <div className='user-info'>
+                  <img className='user-img' src={Person} alt='user-display' />
+                  <p>
+                    {user?.displayName} <span onClick={handleArrow}>▼</span>
+                  </p>
+                </div>
+                <div className='dropdown-menu'>
+                  <button onClick={handleLogout}>Log out</button>
+                </div>
               </div>
             </div>
 
