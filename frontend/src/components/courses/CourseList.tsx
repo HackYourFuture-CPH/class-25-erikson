@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import './CourseList.css';
+import styles from './CourseList.module.css';
 import useAllCoursesStore from '../../store/allcourses.store';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import axios from 'axios';
@@ -42,30 +42,25 @@ const CourseList: React.FC = () => {
   );
 
   return (
-    <div className='course-list'>
-      <div className='cards-wrapper'>
+    <div className={styles.courseList}>
+      <div className={styles.cardsWrapper}>
         {filteredCourses.map(({ id, course_name, course_title, course_category, course_image, lesson_count }) => (
-          <Card sx={{ maxWidth: 360 }} key={id}>
-            <Link to={`/course/${id}`} style={{ textDecoration: 'none', color: 'black' }}>
-              <CardMedia
-                component='img'
-                alt={course_name}
-                height='180'
-                image={course_image}
-              />
-              <CardContent>
-                <Typography pb={2} variant='h6' component='div'>
-                  {course_title}
+          <Card className={styles.singleCard} key={id}>
+            <Link to={`/course/${id}`} className={styles.singleCourse}>
+              <CardMedia component='img' alt={course_name} image={course_image} />
+              <CardContent className={styles.cardContent}>
+                <Typography pb={2} variant='h6' component='div' textAlign='start'>
+                  {course_name}
                 </Typography>
-                <Grid container spacing={2}>
+                <Grid container justifyContent='space-between' alignItems='center'>
                   <Grid item xs={6}>
                     <div
-                      className={`tag ${
+                      className={`${styles.tag} ${
                         course_category === 'Professional'
-                          ? 'professional'
+                          ? styles.professional
                           : course_category === 'Personal'
-                          ? 'personal'
-                          : course_category === 'Finance' && 'finance'
+                          ? styles.personal
+                          : course_category === 'Finance' && styles.finance
                       }`}
                     >
                       {course_category}

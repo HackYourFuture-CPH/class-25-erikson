@@ -27,12 +27,11 @@ const Signup: React.FC = () => {
   const { signup, error } = useSignup();
   const { user } = useAuthContext();
   const navigate = useNavigate();
+  const [isFormValid, setIsFormValid] = useState(false);
 
   if (user?.emailVerified) {
     navigate('/courses', { replace: true });
   }
-
-  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
     const reqFields = [userType, firstName, lastName, email, password];
@@ -134,6 +133,8 @@ const Signup: React.FC = () => {
               Log in
             </Link>
           </p>
+
+          {error && <p>{error}</p>}
         </div>
 
         <div className='auth-right'>
