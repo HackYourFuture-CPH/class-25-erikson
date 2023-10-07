@@ -22,12 +22,11 @@ const CourseList: React.FC = () => {
       const idToken = await user?.getIdToken();
       const response = await axios.get('/api/courses/all', {
         headers: {
-          Authorization: `Bearer ${idToken}`
+          Authorization: `Bearer ${idToken}`,
         },
       });
       setCourses(response.data);
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error fetching courses:', error);
     }
   };
@@ -43,36 +42,44 @@ const CourseList: React.FC = () => {
   return (
     <div className={styles.courseList}>
       <div className={styles.cardsWrapper}>
-        {filteredCourses.map(({ id, course_title, course_category, course_image, lesson_count }) => (
-          <Card className={styles.singleCard} key={id}>
-            <Link to={`/course/${id}`} className={styles.singleCourse}>
-              <CardMedia component='img' alt={course_title} image={course_image} />
-              <CardContent className={styles.cardContent}>
-                <Typography pb={2} variant='h6' component='div' textAlign='start'>
-                  {course_title}
-                </Typography>
-                <Grid container justifyContent='space-between' alignItems='center'>
-                  <Grid item xs={6}>
-                    <div
-                      className={`${styles.tag} ${
-                        course_category === 'Professional'
-                          ? styles.professional
-                          : course_category === 'Personal'
-                          ? styles.personal
-                          : course_category === 'Finance' && styles.finance
-                      }`}
-                    >
-                      {course_category}
-                    </div>
+        {filteredCourses.map(
+          ({ id, course_title, course_category, course_image, lesson_count }) => (
+            <Card className={styles.singleCard} key={id}>
+              <Link to={`/course/${id}`} className={styles.singleCourse}>
+                <CardMedia component='img' alt={course_title} image={course_image} />
+                <CardContent className={styles.cardContent}>
+                  <Typography
+                    pb={2}
+                    variant='h6'
+                    component='div'
+                    textAlign='start'
+                    className={styles.heading}
+                  >
+                    {course_title}
+                  </Typography>
+                  <Grid container justifyContent='space-between' alignItems='center'>
+                    <Grid item xs={6}>
+                      <div
+                        className={`${styles.tag} ${
+                          course_category === 'Professional'
+                            ? styles.professional
+                            : course_category === 'Personal'
+                            ? styles.personal
+                            : course_category === 'Finance' && styles.finance
+                        }`}
+                      >
+                        {course_category}
+                      </div>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <span className='gray'>{lesson_count} Lessons</span>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <span className='gray'>{lesson_count} Lessons</span>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Link>
-          </Card>
-        ))}
+                </CardContent>
+              </Link>
+            </Card>
+          ),
+        )}
       </div>
     </div>
   );

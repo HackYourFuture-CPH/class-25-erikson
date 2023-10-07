@@ -68,3 +68,27 @@ p {
   margin-top: 5px;
   filter: invert(50%);
 }
+
+@media screen and (max-width: 769px) {
+  .courseHeader h2 {
+    font-size: 1.5em;
+  }
+
+  .contentOutline h2 {
+    font-size: 1.3em;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .courseHeader h2 {
+    font-size: 1.3em;
+  }
+
+  .contentOutline h2 {
+    font-size: 1.2em;
+  }
+
+  .courseInfo img {
+    padding: 0 10px;
+  }
+}
