@@ -25,7 +25,6 @@ const CourseList: React.FC = () => {
           Authorization: `Bearer ${idToken}`
         },
       });
-      console.log('ID Token:', idToken);
       setCourses(response.data);
     }
     catch (error) {
@@ -38,19 +37,19 @@ const CourseList: React.FC = () => {
   }, [user, setCourses]);
 
   const filteredCourses = courses.filter(
-    (course) => selectedFilter === 'All' || course.tag === selectedFilter,
+    (course) => selectedFilter === 'All' || course.course_category === selectedFilter,
   );
 
   return (
     <div className={styles.courseList}>
       <div className={styles.cardsWrapper}>
-        {filteredCourses.map(({ id, course_name, course_title, course_category, course_image, lesson_count }) => (
+        {filteredCourses.map(({ id, course_title, course_category, course_image, lesson_count }) => (
           <Card className={styles.singleCard} key={id}>
             <Link to={`/course/${id}`} className={styles.singleCourse}>
-              <CardMedia component='img' alt={course_name} image={course_image} />
+              <CardMedia component='img' alt={course_title} image={course_image} />
               <CardContent className={styles.cardContent}>
                 <Typography pb={2} variant='h6' component='div' textAlign='start'>
-                  {course_name}
+                  {course_title}
                 </Typography>
                 <Grid container justifyContent='space-between' alignItems='center'>
                   <Grid item xs={6}>
