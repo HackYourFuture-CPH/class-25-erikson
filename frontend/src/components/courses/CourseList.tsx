@@ -1,22 +1,23 @@
 import { Link } from 'react-router-dom';
-import useFilterStore from '../../store/filter.store';
+import { useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import styles from './CourseList.module.css';
+import useFilterStore from '../../store/filter.store';
 import useAllCoursesStore from '../../store/allcourses.store';
-import { useAuthContext } from '../../hooks/useAuthContext';
-import axios from 'axios';
-import { useEffect } from 'react';
+import useAxiosFetch from '../../hooks/useAxiosFetch';
+// import { useAuthContext } from '../../hooks/useAuthContext';
+// import axios from 'axios';
+import styles from './CourseList.module.css';
 
 const CourseList: React.FC = () => {
   const { selectedFilter } = useFilterStore();
-  const { user } = useAuthContext();
-
+  // const { user } = useAuthContext();
   const { courses, setCourses } = useAllCoursesStore();
 
+  /* 
   const fetchCourses = async () => {
     try {
       const idToken = await user?.getIdToken();
@@ -34,10 +35,27 @@ const CourseList: React.FC = () => {
   useEffect(() => {
     fetchCourses();
   }, [user, setCourses]);
+  */
+
+  const { data: fetchedCourses, isLoading, error } = useAxiosFetch<any[]>('/api/courses/all');
+
+  useEffect(() => {
+    if (fetchedCourses) {
+      setCourses(fetchedCourses);
+    }
+  }, [fetchedCourses, setCourses]);
 
   const filteredCourses = courses.filter(
     (course) => selectedFilter === 'All' || course.course_category === selectedFilter,
   );
+
+  if (isLoading) {
+    return <div className='loading'>Loading...</div>;
+  }
+
+  if (error) {
+    return <div className='error'>{error?.message}</div>;
+  }
 
   return (
     <div className={styles.courseList}>
