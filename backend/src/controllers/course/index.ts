@@ -116,13 +116,11 @@ const addNewCourse = async(req: Request, res: Response) => {
       course_description, 
       course_category, 
       course_price,
-      subscription_type,
       course_image, 
       sales_image,
       key_learning,
       lessons,
       faqs,
-      benefits
     } = req.body;
 
       await db.transaction(async (trx) => {
@@ -132,7 +130,6 @@ const addNewCourse = async(req: Request, res: Response) => {
             course_description, 
             course_category, 
             course_price,
-            subscription_type,
             course_image, 
             sales_image,
             key_learning,
@@ -166,15 +163,6 @@ const addNewCourse = async(req: Request, res: Response) => {
               faq_answer: faq.faq_answer,
               course_id: courseId.id
             });
-          }
-  
-          for(const benefit of benefits) {
-            await trx('benefit')
-            .insert({
-              benefit_individual: benefit.benefit_individual,
-              benefit_monthly: benefit.benefit_monthly,
-              course_id: courseId.id
-            })
           }
 
       await trx.commit();
