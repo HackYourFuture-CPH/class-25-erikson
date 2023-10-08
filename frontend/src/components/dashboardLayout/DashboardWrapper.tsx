@@ -30,7 +30,12 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
   const handleArrow = (): void => {
     const logout = document.querySelector('.dropdown-menu');
+    const arrow = document.querySelector('.handleArrow')!
+
     logout?.classList.toggle('active');
+    arrow.innerHTML = logout?.classList.contains('active') ? '▲' : '▼';
+
+    
   };
 
   return (
@@ -111,7 +116,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
                 <div className='user-info'>
                   <img className='user-img' src={Person} alt='user-display' />
                   <p>
-                    {user?.displayName} <span onClick={handleArrow}>▼</span>
+                    {user?.displayName} <span className='handleArrow' onClick={handleArrow}>▼</span>
                   </p>
                 </div>
                 <div className='dropdown-menu'>
