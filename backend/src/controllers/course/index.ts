@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import db from '../../config/db-config';
-import { Benefit, Course, FAQ, Lesson, Resource } from '../../interface/GetCourseById';
+import { Course, FAQ, Lesson, Resource } from '../../interface/GetCourseById';
 
 const getAll = async(req: Request, res: Response) => {
   try {
@@ -27,6 +27,7 @@ const getCourseById = async(req: Request, res: Response) => {
     const courseId = req.params.id;
     const course = await db('course')
     .select(
+      'course.id',
       'course_title', 
       'course_description', 
       'course_category', 
@@ -36,23 +37,20 @@ const getCourseById = async(req: Request, res: Response) => {
       'lesson_image',
       'lesson_resources',
       'faq.faq AS faq',
-      'faq_answer',
-      'benefit_individual',
-      'benefit_monthly'
+      'faq_answer'
       )
     .join('lesson', {'lesson.course_id': 'course.id'})
     .join('resource', {'lesson_id' : 'lesson.id'})
     .leftJoin('faq', { 'course.id': 'faq.course_id' })
-    .leftJoin('benefit', { 'course.id': 'benefit.course_id' })
     .where({'course.id': courseId});
 
     if (course.length === 0) {
       return res.status(404).json({ message: 'Selected course not found' });
     }
 
-    const courseMap: Record<string, Course> = {};  //keys are strings, values are of in Course
+    const courseMap: Record<string, Course> = {};  //keys are strings
     course.forEach((row) => {
-      const courseId = row.course_title;
+      let courseId = row.id;
 
       if (!courseMap[courseId]) {
         courseMap[courseId] = {
@@ -61,8 +59,7 @@ const getCourseById = async(req: Request, res: Response) => {
           course_category: row.course_category,
           course_image: row.course_image,
           lessons: [],
-          faqs: [],
-          benefits: [],
+          faqs: []
         };
       }
 
@@ -71,7 +68,7 @@ const getCourseById = async(req: Request, res: Response) => {
       lesson_description: row.lesson_description,
       lesson_image: row.lesson_image,
       lesson_resources: [
-        {lesson_resources: row.lesson_resources } as Resource, // Use Resource interface here
+        {lesson_resources: row.lesson_resources } as Resource,
       ],
     };
 
@@ -103,23 +100,8 @@ const getCourseById = async(req: Request, res: Response) => {
       ) {
         courseMap[courseId].faqs.push(faqEntry);
       }
-
-      const benefitEntry: Benefit = {
-        benefit_individual: row.benefit_individual,
-        benefit_monthly: row.benefit_monthly,
-      };
-      if (
-        !courseMap[courseId].benefits.some(
-          (existingBenefit) =>
-            existingBenefit.benefit_individual === benefitEntry.benefit_individual &&
-            existingBenefit.benefit_monthly === benefitEntry.benefit_monthly
-        )
-      ) {
-        courseMap[courseId].benefits.push(benefitEntry);
-      }
     });
-
-    res.status(200).json(courseMap);
+    res.status(200).json(courseMap[courseId]);
   } catch (error) {
     res.status(500).json({ error: `Can't fetch course: ${error}` });
   }
