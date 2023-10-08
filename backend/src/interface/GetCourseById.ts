@@ -1,8 +1,3 @@
-export interface Benefit {
-  benefit_individual: string;
-  benefit_monthly: string;
-}
-
 export interface FAQ {
   faq: string;
   faq_answer: string;
@@ -26,5 +21,4 @@ export interface Course {
   course_image: string;
   lessons: Lesson[];
   faqs: FAQ[];
-  benefits: Benefit[];
 }
