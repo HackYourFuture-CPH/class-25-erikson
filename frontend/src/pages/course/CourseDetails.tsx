@@ -11,17 +11,20 @@ import ContentOutline from '../../components/courseDetails/ContentOutline';
 import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import BackArrow from '../../assets/icons/arrow_back.svg';
 import styles from './CourseDetails.module.css';
+import { useEffect, useState } from 'react';
+import useAxiosFetch from '../../hooks/useAxiosFetch';
 
-const convertDurationToMinutes = (duration: string): number => {
-  const match = duration.match(/(\d+) minutes/);
-  if (match) {
-    return parseInt(match[1], 10);
-  }
-  return 0;
-};
+// const convertDurationToMinutes = (duration: string): number => {
+//   const match = duration.match(/(\d+) minutes/);
+//   if (match) {
+//     return parseInt(match[1], 10);
+//   }
+//   return 0;
+// };
 
 const CourseDetails: React.FC = () => {
   const { user } = useAuthContext();
+  const [ singleCourse, setSingleCourse ] = useState<any>(null);
   const navigate = useNavigate();
 
   if (!user?.emailVerified) {
@@ -41,15 +44,22 @@ const CourseDetails: React.FC = () => {
   } = useCourseStore();
   const courseId = id ? parseInt(id, 10) : null;
 
-  let course: Course | undefined;
+  // let course: Course | undefined;
 
-  if (selectedCourse && typeof selectedCourse === 'object') {
-    course = selectedCourse as Course;
-  } else if (courseId) {
-    course = courses.find((c) => c.id === courseId);
-  }
+  // if (selectedCourse && typeof selectedCourse === 'object') {
+  //   course = selectedCourse as Course;
+  // } else if (courseId) {
+  //   course = courses.find((c) => c.id === courseId);
+  // }
+  
+  const { data: fetchedCourses, isLoading, error } = useAxiosFetch<any>(`/api/courses/course/${courseId}`);
+  useEffect(() => {
+    if (fetchedCourses) {
+      setSingleCourse(fetchedCourses);
+    }
+  }, [fetchedCourses, setSingleCourse]);
 
-  if (!course) {
+  if (!singleCourse) {
     return (
       <>
         <div>This course does not exists.</div>
@@ -58,19 +68,19 @@ const CourseDetails: React.FC = () => {
     );
   }
 
-  const formatDuration = (totalDurationMinutes: number): string => {
-    const hours = Math.floor(totalDurationMinutes / 60);
-    const minutes = totalDurationMinutes % 60;
+  // const formatDuration = (totalDurationMinutes: number): string => {
+  //   const hours = Math.floor(totalDurationMinutes / 60);
+  //   const minutes = totalDurationMinutes % 60;
 
-    return hours > 0 ? `${hours}hr ${minutes}m` : `${minutes}m`;
-  };
+  //   return hours > 0 ? `${hours}hr ${minutes}m` : `${minutes}m`;
+  // };
 
-  const totalDurationMinutes = course.contentOutline.lessons.reduce(
-    (total, lesson) => total + convertDurationToMinutes(lesson.duration),
-    0,
-  );
+  // const totalDurationMinutes = course.contentOutline.lessons.reduce(
+  //   (total, lesson) => total + convertDurationToMinutes(lesson.duration),
+  //   0,
+  // );
 
-  const formattedDuration = formatDuration(totalDurationMinutes);
+  //const formattedDuration = formatDuration(totalDurationMinutes);
 
   return (
     <>
@@ -84,23 +94,23 @@ const CourseDetails: React.FC = () => {
         <div className={styles.courseDetails}>
           <div className={styles.gridLeft}>
             <CourseHeader
-              courseName={course.course_name}
-              tag={course.tag}
-              formattedDuration={formattedDuration}
-              videoSource={course.contentOutline.lessons[0].video}
+              courseName={singleCourse.course_title}
+              tag={singleCourse.course_category}
+              videoSource={singleCourse.course_image}
+              formattedDuration='8 min'
             />
             <CourseActions
               toggleAbout={toggleAbout}
               toggleReviews={toggleReviews}
               toggleResources={toggleResources}
             />
-            {showAbout && <AboutSection description={course.description} />}
-            {showReviews && <ReviewsSection reviews={course.comments} />}
-            {showResources && <ResourcesSection lessons={course.contentOutline.lessons} />}
+            {showAbout && <AboutSection description={singleCourse.course_description} />}
+            {showReviews && <ReviewsSection reviews={[]} />}
+            {showResources && <ResourcesSection lessons={[]} />}
             <button className={styles.startButton}>Start</button>
           </div>
           <div className={styles.gridRight}>
-            <ContentOutline lessons={course.contentOutline.lessons} />
+            <ContentOutline lessons={singleCourse.lessons} />
           </div>
         </div>
       </DashboardWrapper>
