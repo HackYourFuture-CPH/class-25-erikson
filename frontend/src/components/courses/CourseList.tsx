@@ -8,34 +8,11 @@ import Grid from '@mui/material/Grid';
 import useFilterStore from '../../store/filter.store';
 import useAllCoursesStore from '../../store/allcourses.store';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
-// import { useAuthContext } from '../../hooks/useAuthContext';
-// import axios from 'axios';
 import styles from './CourseList.module.css';
 
 const CourseList: React.FC = () => {
   const { selectedFilter } = useFilterStore();
-  // const { user } = useAuthContext();
   const { courses, setCourses } = useAllCoursesStore();
-
-  /* 
-  const fetchCourses = async () => {
-    try {
-      const idToken = await user?.getIdToken();
-      const response = await axios.get('/api/courses/all', {
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      });
-      setCourses(response.data);
-    } catch (error) {
-      console.error('Error fetching courses:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCourses();
-  }, [user, setCourses]);
-  */
 
   const { data: fetchedCourses, isLoading, error } = useAxiosFetch<any[]>('/api/courses/all');
 
