@@ -1,5 +1,5 @@
 // Update with your config settings.
-require('dotenv').config({path: '.env.development.local' });
+require('dotenv').config({ path: '.env.development.local' });
 export const config: Record<string, any> = {
   development: {
     client: 'postgres',
@@ -8,7 +8,7 @@ export const config: Record<string, any> = {
       database: process.env.DB,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
-      port: process.env.DB_PORT
+      port: process.env.DB_PORT,
     },
     pool: {
       min: 2,
@@ -22,7 +22,7 @@ export const config: Record<string, any> = {
       database: process.env.PROD_DB,
       user: process.env.PROD_DB_USER,
       password: process.env.PROD_DB_PASSWORD,
-      port: process.env.DB_PORT
+      port: process.env.PROD_DB_PORT,
     },
     pool: {
       min: 2,
