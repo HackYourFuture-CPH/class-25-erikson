@@ -1,5 +1,20 @@
 import React from 'react';
-import { Lesson } from '../../data/data';
+import styles from './ResourcesSection.module.css';
+import playVideo from '../../assets/icons/play-video.svg';
+import grayDot from '../../assets/icons/gray-dot.svg';
+import timeCircle from '../../assets/icons/time-circle.svg';
+import dangerCircle from '../../assets/icons/danger-circle.svg';
+
+interface LessonResource {
+  lesson_resources: string;
+}
+
+interface Lesson {
+  lesson_title: string;
+  lesson_description: string;
+  lesson_image: string;
+  lesson_resources: LessonResource[];
+}
 
 interface ResourcesSectionProps {
   lessons: Lesson[];
@@ -7,33 +22,31 @@ interface ResourcesSectionProps {
 
 const ResourcesSection: React.FC<ResourcesSectionProps> = ({ lessons }) => {
   return (
-    <div className="resources">
-      <h3>Resources</h3>
-      <ul>
-        {lessons.map((lesson, index) => (
-          <li key={index}>
-            <ul>
-              {lesson.pdfs.map((pdf, pdfIndex) => (
-                <li key={pdfIndex}>
-                  <video controls>
-                    <source src={lesson.video} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
+  <>
+    <h3>Resources</h3>
+    <div className={styles.container}>
+      {lessons.map((lesson) => (
+          lesson.lesson_resources.map((resource, resourceIndex) => (
+            <div className={styles.rowWrap}>
+              <img src={playVideo} className={styles.videoIcon} alt='video-icon'/>
+              <div key={resourceIndex}>
+                <a href={resource.lesson_resources} target='_blank' rel="noreferrer" >
+                  {resource.lesson_resources}
+                </a>
 
-                  <a
-                    href={pdf.file}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {pdf.title} (PDF)
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </li>
+                <div className={styles.resourceInfo}>
+                  <img src={timeCircle} alt='time-icon' />
+                  <p>8 min</p>
+                  <img src={grayDot} className={styles.grayDot} alt='dot-icon'/>
+                  <img src={dangerCircle} className={styles.grayDot} alt='warning-icon'/>
+                  <p>24MB</p>
+              </div>
+              </div>
+            </div>
+          ))
         ))}
-      </ul>
     </div>
+  </>
   );
 };
 

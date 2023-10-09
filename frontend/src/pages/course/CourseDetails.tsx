@@ -1,6 +1,5 @@
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useCourseStore } from '../../store/courses.store';
-import { courses, Course } from '../../data/data';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import CourseHeader from '../../components/courseDetails/CourseHeader';
 import CourseActions from '../../components/courseDetails/CourseActions';
@@ -14,14 +13,6 @@ import styles from './CourseDetails.module.css';
 import { useEffect, useState } from 'react';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
 
-// const convertDurationToMinutes = (duration: string): number => {
-//   const match = duration.match(/(\d+) minutes/);
-//   if (match) {
-//     return parseInt(match[1], 10);
-//   }
-//   return 0;
-// };
-
 const CourseDetails: React.FC = () => {
   const { user } = useAuthContext();
   const [ singleCourse, setSingleCourse ] = useState<any>(null);
@@ -34,23 +25,12 @@ const CourseDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const {
-    selectedCourse,
     showAbout,
     showReviews,
-    showResources,
     toggleAbout,
     toggleReviews,
-    toggleResources,
   } = useCourseStore();
   const courseId = id ? parseInt(id, 10) : null;
-
-  // let course: Course | undefined;
-
-  // if (selectedCourse && typeof selectedCourse === 'object') {
-  //   course = selectedCourse as Course;
-  // } else if (courseId) {
-  //   course = courses.find((c) => c.id === courseId);
-  // }
   
   const { data: fetchedCourses, isLoading, error } = useAxiosFetch<any>(`/api/courses/course/${courseId}`);
   useEffect(() => {
@@ -58,6 +38,14 @@ const CourseDetails: React.FC = () => {
       setSingleCourse(fetchedCourses);
     }
   }, [fetchedCourses, setSingleCourse]);
+
+  if (isLoading) {
+    return <div className='loading'>Loading...</div>;
+  }
+
+  if (error) {
+    return <div className='error'>{error?.message}</div>;
+  }
 
   if (!singleCourse) {
     return (
@@ -67,20 +55,6 @@ const CourseDetails: React.FC = () => {
       </>
     );
   }
-
-  // const formatDuration = (totalDurationMinutes: number): string => {
-  //   const hours = Math.floor(totalDurationMinutes / 60);
-  //   const minutes = totalDurationMinutes % 60;
-
-  //   return hours > 0 ? `${hours}hr ${minutes}m` : `${minutes}m`;
-  // };
-
-  // const totalDurationMinutes = course.contentOutline.lessons.reduce(
-  //   (total, lesson) => total + convertDurationToMinutes(lesson.duration),
-  //   0,
-  // );
-
-  //const formattedDuration = formatDuration(totalDurationMinutes);
 
   return (
     <>
@@ -102,15 +76,22 @@ const CourseDetails: React.FC = () => {
             <CourseActions
               toggleAbout={toggleAbout}
               toggleReviews={toggleReviews}
-              toggleResources={toggleResources}
             />
             {showAbout && <AboutSection description={singleCourse.course_description} />}
             {showReviews && <ReviewsSection reviews={[]} />}
-            {showResources && <ResourcesSection lessons={[]} />}
             <button className={styles.startButton}>Start</button>
           </div>
-          <div className={styles.gridRight}>
-            <ContentOutline lessons={singleCourse.lessons} />
+
+          <div className={styles.gridWrapper}>
+            <div className={styles.gridRight}>
+              <ContentOutline lessons={singleCourse.lessons} />
+            </div>
+
+            {singleCourse.lessons.length > 0 && 
+            <div className={styles.gridRight}>
+              <ResourcesSection lessons={singleCourse.lessons} />
+            </div>
+            }
           </div>
         </div>
       </DashboardWrapper>
