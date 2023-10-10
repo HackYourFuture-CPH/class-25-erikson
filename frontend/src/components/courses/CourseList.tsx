@@ -41,7 +41,12 @@ const CourseList: React.FC = () => {
           ({ id, course_title, course_category, course_image, lesson_count }) => (
             <Card className={styles.singleCard} key={id}>
               <Link to={`/course/${id}`} className={styles.singleCourse}>
-                <CardMedia component='img' alt={course_title} image={course_image} />
+                <CardMedia 
+                  component='img' 
+                  alt={course_title} 
+                  image={course_image} 
+                  height='300'
+                />
                 <CardContent className={styles.cardContent}>
                   <Typography
                     pb={2}
