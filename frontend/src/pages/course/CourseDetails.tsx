@@ -70,7 +70,7 @@ const CourseDetails: React.FC = () => {
             <CourseHeader
               courseName={singleCourse.course_title}
               tag={singleCourse.course_category}
-              videoSource={singleCourse.course_image}
+              link={singleCourse.course_image}
               formattedDuration='8 min'
             />
             <CourseActions
