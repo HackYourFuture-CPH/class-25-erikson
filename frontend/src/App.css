@@ -1,39 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500&family=Overpass:ital@1&family=Pacifico&display=swap');
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-color: white;
 }
 
 h2,
 span,
 p {
   font-family: 'Poppins', sans-serif;
-}
-
-.gray {
-  color: gray;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 22px;
-}
-
-.text-input {
-  width: 100%;
-  border: 1px solid #8d9296;
-  border-radius: 8px;
-  padding: 14px 16px 14px 16px;
-  background-color: #eeeff3;
-  height: 40px;
-  margin-top: 10px;
-}
-
-.input-group label {
-  color: #55555f;
-}
-
-.input-group input::placeholder {
-  color: #8d9296;
 }

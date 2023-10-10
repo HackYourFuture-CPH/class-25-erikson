@@ -1,0 +1,70 @@
+/* Course Header */
+.courseInfo {
+  display: flex;
+  padding: 10px 0;
+  align-items: center;
+}
+
+.courseInfo img {
+  padding: 0 15px;
+  filter: invert(50%);
+}
+
+.courseInfo h1 {
+  padding-left: 15px;
+  padding-bottom: 15px;
+}
+
+.courseInfo h1,
+p {
+  color: #7d7a79;
+}
+
+.video {
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Course Actions */
+.courseActions {
+  padding: 20px 0;
+}
+
+.courseActions button {
+  margin-right: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.activeButton {
+  color: #44408a;
+  background: #dad9f5;
+}
+
+/* Content Outline */
+.contentOutline h2 {
+  font-weight: 500;
+}
+
+.contentOutline ul {
+  list-style-type: none;
+  margin-top: 20px;
+}
+
+.contentOutline ul li {
+  margin-bottom: 20px;
+}
+
+.lessonDuration {
+  display: flex;
+  align-items: center;
+}
+
+.lessonDuration img {
+  margin-right: 10px;
+  margin-top: 5px;
+  filter: invert(50%);
+}
