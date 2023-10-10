@@ -36,7 +36,9 @@ const CourseHeader: React.FC<CourseHeaderProps> = ({
         <img src={Schedule} alt='schedule-icon' />
         <p>{formattedDuration}</p>
       </div>
-        <img src={link} className={styles.photo} alt='course-img'/>
+        <div className={styles.imageContainer}>
+          <img src={link} className={styles.photo} alt='course-img'/>
+        </div>
     </div>
   );
 };
