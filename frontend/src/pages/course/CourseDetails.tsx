@@ -3,9 +3,9 @@ import { useCourseStore } from '../../store/courses.store';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import CourseHeader from '../../components/courseDetails/CourseHeader';
 import CourseActions from '../../components/courseDetails/CourseActions';
-import AboutSection from '../../components/courseDetails/AboutSection';
-import ResourcesSection from '../../components/courseDetails/ResourcesSection';
-import ReviewsSection from '../../components/courseDetails/ReviewsSection';
+import AboutSection from '../../components/courseDetails/AboutSection/AboutSection';
+import ResourcesSection from '../../components/courseDetails/ResourcesSection/ResourcesSection';
+import FaqsSection from '../../components/courseDetails/FaqsSection/FaqsSection';
 import ContentOutline from '../../components/courseDetails/ContentOutline';
 import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import BackArrow from '../../assets/icons/arrow_back.svg';
@@ -26,9 +26,9 @@ const CourseDetails: React.FC = () => {
 
   const {
     showAbout,
-    showReviews,
+    showFaqs,
     toggleAbout,
-    toggleReviews,
+    toggleFAQs,
   } = useCourseStore();
   const courseId = id ? parseInt(id, 10) : null;
   
@@ -75,10 +75,10 @@ const CourseDetails: React.FC = () => {
             />
             <CourseActions
               toggleAbout={toggleAbout}
-              toggleReviews={toggleReviews}
+              toggleFAQs={toggleFAQs}
             />
             {showAbout && <AboutSection description={singleCourse.course_description} />}
-            {showReviews && <ReviewsSection reviews={[]} />}
+            {showFaqs && <FaqsSection faqs={singleCourse.faqs} />}
             <button className={styles.startButton}>Start</button>
           </div>
 

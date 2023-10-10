@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './ResourcesSection.module.css';
-import playVideo from '../../assets/icons/play-video.svg';
-import grayDot from '../../assets/icons/gray-dot.svg';
-import timeCircle from '../../assets/icons/time-circle.svg';
-import dangerCircle from '../../assets/icons/danger-circle.svg';
+import playVideo from '../../../assets/icons/play-video.svg';
+import grayDot from '../../../assets/icons/gray-dot.svg';
+import timeCircle from '../../../assets/icons/time-circle.svg';
+import dangerCircle from '../../../assets/icons/danger-circle.svg';
 
 interface LessonResource {
   lesson_resources: string;

@@ -3,12 +3,12 @@ import styles from './CourseComponents.module.css';
 
 interface CourseActionsProps {
   toggleAbout: () => void;
-  toggleReviews: () => void;
+  toggleFAQs: () => void;
 }
 
 const CourseActions: React.FC<CourseActionsProps> = ({
   toggleAbout,
-  toggleReviews,
+  toggleFAQs,
 }) => {
   const [activeButton, setActiveButton] = useState<string>('');
 
@@ -26,10 +26,10 @@ const CourseActions: React.FC<CourseActionsProps> = ({
         About
       </button>
       <button
-        className={activeButton === 'reviews' ? styles.activeButton : ''}
-        onClick={() => handleButtonClick('reviews', toggleReviews)}
+        className={activeButton === 'faqs' ? styles.activeButton : ''}
+        onClick={() => handleButtonClick('faqs', toggleFAQs)}
       >
-        Reviews
+        FAQs
       </button>
     </div>
   );
