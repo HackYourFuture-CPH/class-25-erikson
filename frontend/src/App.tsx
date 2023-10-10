@@ -47,7 +47,7 @@ function App(): JSX.Element {
       {notification && (
         <Notification message={notification.message} severity={notification?.severity} />
       )}
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </>
   );
 }
