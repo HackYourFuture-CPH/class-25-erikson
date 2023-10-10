@@ -8,6 +8,7 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
 } from 'firebase/auth';
+import { getStorage, ref, uploadString, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -20,13 +21,20 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const storage = getStorage(app);
 
 export {
   auth,
+  storage,
+  // auth exports
   createUserWithEmailAndPassword,
   updateProfile,
   sendEmailVerification,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   sendPasswordResetEmail,
+  // storage exports
+  ref,
+  uploadString,
+  getDownloadURL,
 };

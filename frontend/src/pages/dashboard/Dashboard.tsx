@@ -1,7 +1,8 @@
 import React from 'react';
-import signout from '../../hooks/signout';
+import StudentDashboard from '../../components/courses/Students';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
+import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuthContext();
@@ -11,15 +12,10 @@ const Dashboard: React.FC = () => {
     navigate('/login', { replace: true });
   }
 
-  const handleLogout = async (): Promise<void> => {
-    await signout();
-  };
-
   return (
-    <div>
-      <h1>Hey {user?.displayName}, Welcome to the e-learning-platform.</h1>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
+    <DashboardWrapper>
+      <StudentDashboard />
+    </DashboardWrapper>
   );
 };
 
