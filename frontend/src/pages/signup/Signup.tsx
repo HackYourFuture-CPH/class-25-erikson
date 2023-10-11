@@ -32,7 +32,6 @@ const Signup: React.FC = () => {
     navigate('/courses', { replace: true });
   }
 
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     await signup(userType, email, password, firstName, lastName);
