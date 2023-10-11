@@ -1,4 +1,4 @@
-import { DragEvent, useState } from 'react';
+import { ChangeEvent, DragEvent, useState } from 'react';
 import styles from './FileDrop.module.css';
 
 interface FileDropProps {
@@ -15,10 +15,19 @@ export function FileDrop({ onImageSelect }: FileDropProps) {
 
   const handleDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
+    handleFiles(event.dataTransfer.files);
+  };
 
-    const droppedFiles = Array.from(event.dataTransfer.files);
-    if (droppedFiles.length > 0) {
-      const file = droppedFiles[0];
+  const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      handleFiles(files);
+    }
+  };
+
+  const handleFiles = (files: FileList) => {
+    const file = files[0];
+    if (file && file.type.startsWith('image/')) {
       const reader = new FileReader();
 
       reader.onloadend = () => {
@@ -33,23 +42,26 @@ export function FileDrop({ onImageSelect }: FileDropProps) {
 
       reader.readAsDataURL(file);
     } else {
-      setError('Please drop an image.');
+      setError('Please select a valid image file.');
     }
   };
 
   return (
-    <div 
-      onDragOver={handleDragOver}
-      onDrop={handleDrop} 
-      className={styles.dropArea}>
-        {imageData ? (
+    <div className={styles.dropArea} onDragOver={handleDragOver} onDrop={handleDrop}>
+      <input
+        type='file'
+        accept='image/*'
+        onChange={handleFileSelect}
+        className={styles.fileInput}
+      />
+      {imageData ? (
         <img src={imageData} alt='Dropped ImageData' className={styles.attachedPhoto} />
-        ) : (
-          <div className={styles.title}>
-            <img src='images/gallery.png' alt='background-drop' />
-            <p>Drag an image here</p>
-          </div>
-        )}
+      ) : (
+        <div className={styles.title}>
+          <img src='images/gallery.png' alt='background-drop' />
+          <p>Drag an image here or click to select</p>
+        </div>
+      )}
       {error && <div className={styles.error}>{error}</div>}
     </div>
   );

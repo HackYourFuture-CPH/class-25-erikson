@@ -49,26 +49,62 @@ export interface FormState {
   setCurrentIndex: (index: number) => void;
 }
 
+export interface Resource {
+  lesson_resources: string;
+}
+
+export interface Lesson {
+  lesson_title: string;
+  lesson_image: File;
+  lesson_description: string;
+  resources: Resource[];
+}
+
+export interface Faq {
+  faq: string;
+  faq_answer: string;
+}
+
+export interface AddCourseDetail {
+  course_title: string;
+  course_description: string;
+  course_category: string;
+  course_image: File;
+  course_price: number;
+}
+
 export interface AddCourseFields {
   course_title: string;
   course_description: string;
   course_category: string;
   course_image: File;
-  course_subscriptionType: string;
   course_price: number;
-  lesson_title: string;
-  lesson_image: File;
-  lesson_description: string;
-  lesson_resources: string;
+  lessons: Lesson[];
   sales_image: File;
-  faq: string;
-  faq_answer: string;
+  faqs: Faq[];
   key_learning: string;
-  pricing_benefits: string;
 }
 
 export interface AddSingleCourse {
   data: AddCourseFields;
   updateCourseFields: (fields: Partial<AddCourseFields>) => void;
   resetForm: () => void;
+}
+
+export interface CourseData {
+  course_title: string;
+  course_description: string;
+  course_category: string;
+  course_image: File;
+  course_price: number;
+}
+
+export interface LessonData {
+  lessons: Lesson[];
+}
+
+export interface SaleData {
+  sales_image: File;
+  faqs: Faq[];
+  key_learning: string;
 }

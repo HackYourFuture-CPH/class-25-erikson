@@ -57,9 +57,9 @@ const AddCourseForm: React.FC = () => {
       return;
     }
 
-    if (!isFirstStep && !isLastStep && !data.lesson_image.name) {
+    if (!isFirstStep && !isLastStep && data.lessons.some((lesson) => !lesson.lesson_image.name)) {
       e.preventDefault();
-      alert('Please select a lesson image.');
+      alert('Please select a lesson image for all lessons.');
       return;
     }
   };
