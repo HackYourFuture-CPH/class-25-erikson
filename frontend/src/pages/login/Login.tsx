@@ -66,7 +66,6 @@ const Login: React.FC = () => {
             <div className={styles.submitButton}>
               <Button label={'Login'} type='submit' />
             </div>
-            {error && <p>{error}</p>}
           </form>
 
           <p className={styles.redirect}>
