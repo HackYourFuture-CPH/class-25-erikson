@@ -50,7 +50,7 @@ const getCourseById = async(req: Request, res: Response) => {
 
     const courseMap: Record<string, Course> = {};  //keys are strings
     course.forEach((row) => {
-      let courseId = row.id;
+      const courseId = row.id;
 
       if (!courseMap[courseId]) {
         courseMap[courseId] = {
