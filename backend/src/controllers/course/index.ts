@@ -7,13 +7,41 @@ const getAll = async(req: Request, res: Response) => {
     const courses = await db('course')
     .select(
       'course.id',
+      'course_title',
+      'course_category',
+      'course_image',
+      'mentor',
+      db.raw('COALESCE(student_courses.students, ARRAY[]::integer[]) AS students'),
+      'lessons.lesson_count'
+    )
+    .leftJoin(
+      db
+        .select(
+          'course_id',
+          db.raw('ARRAY_AGG(DISTINCT student_id) AS students'))
+        .from('student_course')
+        .groupBy('course_id')
+        .as ('student_courses'),
+      { 'student_courses.course_id': 'course.id' }
+    )
+    .leftJoin(
+      db
+        .select('course_id')
+        .count('id AS lesson_count')
+        .from('lesson')
+        .groupBy('course_id')
+        .as('lessons'),
+      { 'lessons.course_id': 'course.id' }
+    )
+    .groupBy(
+      'course.id', 
       'course_title', 
       'course_category', 
-      'course_image',
-    )
-    .count('lesson.id as lesson_count')
-    .join('lesson', {'course_id': 'course.id'})
-    .groupBy('course.id');
+      'course_image', 
+      'lesson_count', 
+      'student_courses.students'
+    );
+
     courses.length === 0 
     ? res.status(404).json({message: 'No courses'})
     : res.status(200).json(courses);
