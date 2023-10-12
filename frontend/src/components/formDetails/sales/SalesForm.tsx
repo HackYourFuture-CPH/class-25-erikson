@@ -1,7 +1,9 @@
 import { FileDrop } from '../FileDrop/FileDrop';
 import { Faq, SaleData } from '../../../types/component';
 import FormWrapper from '../wrapper/FormWrapper';
-import styles from './SalesForm.module.css';
+import trashcan from '../../../assets/icons/delete.svg';
+import add from '../../../assets/icons/add.svg';
+import styles from '../course/CourseForm.module.css';
 import classes from '../FileDrop/FileDrop.module.css';
 
 type SaleFormProps = {
@@ -35,8 +37,7 @@ const SalesForm = ({ sales_image, faqs, key_learning, updateFields }: SaleFormPr
 
   return (
     <FormWrapper title='Sales Page'>
-      <div className={styles.container}>
-        <p>Featured Image</p>
+      <div className={styles.fileImport}>
         {sales_image.name ? (
           <img
             src={URL.createObjectURL(sales_image)}
@@ -47,10 +48,10 @@ const SalesForm = ({ sales_image, faqs, key_learning, updateFields }: SaleFormPr
           <FileDrop onImageSelect={handleImageChange} />
         )}
 
-        <div className={styles.faqContainer}>
-          <label>What you will learn:</label>
+        <div>
+          <label className={styles.label}>What you will learn:</label>
           <input
-            className={styles.faqQuestion}
+            className={styles.input}
             required
             type='text'
             placeholder='Enter key learning Takeaway'
@@ -59,33 +60,36 @@ const SalesForm = ({ sales_image, faqs, key_learning, updateFields }: SaleFormPr
           />
 
           {faqs.map((faq, index) => (
-            <div key={index} className={styles.faqItem}>
-              <label>Question:</label>
+            <div key={index}>
+              <label className={styles.label}>Question:</label>
               <input
-                className={styles.faqQuestion}
+                className={styles.input}
                 type='text'
                 placeholder='Question'
                 value={faq.faq}
                 onChange={(e) => handleFaqChange(index, { faq: e.target.value })}
               />
 
-              <label>Answer:</label>
+              <label className={styles.label}>Answer:</label>
               <input
-                className={styles.faqAnswer}
+                className={styles.input}
                 type='text'
                 placeholder='Answer'
                 value={faq.faq_answer}
                 onChange={(e) => handleFaqChange(index, { faq_answer: e.target.value })}
               />
 
-              <button type='button' onClick={() => handleDeleteFaq(index)}>
-                Delete FAQ
+              <button onClick={() => handleDeleteFaq(index)} className={styles.trashcan}>
+                <img src={trashcan} alt='delete-icon' />
               </button>
             </div>
           ))}
 
-          <button type='button' onClick={handleAddFaq}>
-            Add FAQ
+          <button type='button' onClick={handleAddFaq} className={styles.add}>
+            <span>
+              <img src={add} alt='add-icon' />
+            </span>
+            <span>Add more FAQ's</span>
           </button>
         </div>
       </div>

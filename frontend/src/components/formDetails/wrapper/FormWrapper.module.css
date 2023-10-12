@@ -1,20 +1,60 @@
-.formWrapper {
-  margin: 0;
-  padding: 0;
+.formContent {
+  background: #fff;
+  width: 100%;
+  padding: 0px 40px;
+  border-radius: 10px 10px 0 0;
 }
 
-.formHeading {
-  width: 100%;
-  background: #fff;
-  padding: 25px 40px;
-  margin-bottom: 20px;
-  border-radius: 8px;
+.formTitleContainer {
+  list-style: none;
+  display: flex;
+  margin-left: -100px;
+  margin-bottom: 40px;
   font-weight: 600;
 }
 
-.formChildren {
-  width: 100%;
-  background: #fff;
-  padding: 25px 40px;
+.formTitleContainer li {
+  margin-right: 20px;
+  padding: 8px 14px;
+  align-items: center;
+}
+
+.active {
+  color: #4440ba;
+  background-color: #d8d9f5;
   border-radius: 8px;
+}
+
+@media screen and (max-width: 900px) {
+  .formTitleContainer {
+    margin-left: -70px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .formTitleContainer {
+    margin-left: -50px;
+  }
+
+  .formTitleContainer li {
+    margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .formTitleContainer li {
+    margin-right: 5px;
+    padding: 6px 10px;
+    font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .formTitleContainer {
+    margin-left: -20px;
+  }
+
+  .formTitleContainer li {
+    padding: 4px 8px;
+  }
 }

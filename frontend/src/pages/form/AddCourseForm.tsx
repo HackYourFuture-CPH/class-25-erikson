@@ -36,13 +36,11 @@ const AddCourseForm: React.FC = () => {
     updateCourseFields({ ...data, ...fields });
   };
 
-  const { steps, currentIndex, step, isFirstStep, isLastStep, back, next, goTo } = useMultistepForm(
-    [
-      <CourseForm {...data} updateFields={updateFields} />,
-      <LessonForm {...data} updateFields={updateFields} />,
-      <SalesForm {...data} updateFields={updateFields} />,
-    ],
-  );
+  const { step, isFirstStep, isLastStep, back, next, goTo } = useMultistepForm([
+    <CourseForm {...data} updateFields={updateFields} />,
+    <LessonForm {...data} updateFields={updateFields} />,
+    <SalesForm {...data} updateFields={updateFields} />,
+  ]);
 
   const checkImageAttached = async (e: FormEvent) => {
     if (isFirstStep && !data.course_image.name) {
@@ -117,9 +115,6 @@ const AddCourseForm: React.FC = () => {
     <DashboardWrapper>
       <div className={styles.addCourse}>
         <form onSubmit={submitForm}>
-          <div>
-            {currentIndex + 1} / {steps.length}
-          </div>
           {step}
           <div className={styles.buttonsDiv}>
             {!isFirstStep && (
