@@ -1,10 +1,10 @@
-import { FileDrop } from '../FileDrop/FileDrop';
+import { FileDrop } from '../fileDrop/FileDrop';
 import { Faq, SaleData } from '../../../types/component';
 import FormWrapper from '../wrapper/FormWrapper';
 import trashcan from '../../../assets/icons/delete.svg';
 import add from '../../../assets/icons/add.svg';
 import styles from '../course/CourseForm.module.css';
-import classes from '../FileDrop/FileDrop.module.css';
+import classes from '../fileDrop/FileDrop.module.css';
 
 type SaleFormProps = {
   sales_image: File;

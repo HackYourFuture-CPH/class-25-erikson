@@ -67,48 +67,56 @@ const AddCourseForm: React.FC = () => {
     e.preventDefault();
     if (!isLastStep) return next();
 
-    // try {
-    // // Getting Firebase ID token
-    // const idToken = await user?.getIdToken();
-    // const courseImagePath = `courses/${generateUniqueFileName(data.course_image.name)}`;
-    // const lessonImagePath = `lessons/${generateUniqueFileName(data.lesson_image.name)}`;
-    // const salesImagePath = `sales/${generateUniqueFileName(data.sales_image.name)}`;
+    /* 
+    try {
+      // Upload course image to Firebase Storage
+      const courseImagePath = `courses/${generateUniqueFileName(data.course_image.name)}`;
+      const courseImageUrl = await uploadImageToFirebaseStorage(data.course_image, courseImagePath);
 
-    // const [courseImageUrl, lessonImageUrl, salesImageUrl] = await Promise.all([
-    //   uploadImageToFirebaseStorage(data.course_image, courseImagePath),
-    //   uploadImageToFirebaseStorage(data.lesson_image, lessonImagePath),
-    //   uploadImageToFirebaseStorage(data.sales_image, salesImagePath)
-    // ]);
+      // Upload lesson images to Firebase Storage
+      const lessonsWithImageUrls = await Promise.all(data.lessons.map(async (lesson) => {
+        const lessonImagePath = `lessons/${generateUniqueFileName(lesson.lesson_image.name)}`;
+        const lessonImageUrl = await uploadImageToFirebaseStorage(lesson.lesson_image, lessonImagePath);
+        
+        return {
+          ...lesson,
+          lesson_image: lessonImageUrl
+        };
+      }));
 
-    // const formDataWithUrls = {
-    //   ...data,
-    //   course_image: courseImageUrl,
-    //   lesson_image: lessonImageUrl,
-    //   sales_image: salesImageUrl
-    // };
+      // Upload sales image to Firebase Storage
+      const salesImagePath = `sales/${generateUniqueFileName(data.sales_image.name)}`;
+      const salesImageUrl = await uploadImageToFirebaseStorage(data.sales_image, salesImagePath);
 
-    // // Posting form data to the server
-    // await axios.post(
-    //   'http://localhost:3000/courses',
-    //   formDataWithUrls,
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${idToken}`,
-    //     }
-    //   }
-    // );
+      // Update data with image URLs
+      const formDataWithUrls = {
+        ...data,
+        course_image: courseImageUrl,
+        lessons: lessonsWithImageUrls,
+        sales_image: salesImageUrl
+      };
 
-    //   navigate('/courses');
-    // }
-    // catch (error) {
-    //   console.error('Error submitting form:', error);
-    // }
-
+      // Getting Firebase ID token
+      const idToken = await user?.getIdToken();
+      
+      // Posting form data to the server
+      await axios.post(
+        'http://localhost:3000/courses',
+        formDataWithUrls,
+        {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          }
+        }
+      );
+  */
     alert('Form Submitted');
-    console.log(data);
     resetForm();
     goTo(0);
     navigate('/courses');
+    // } catch (error) {
+    //   console.error('Error submitting form:', error);
+    // }
   };
 
   return (
