@@ -4,9 +4,9 @@ import useSignup from '../../hooks/useSignup';
 import useSignupStore from '../../store/signuppage.store';
 import styles from './Signup.module.css';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import Input from '../../components/Input/Input.component';
-import Checkbox from '../../components/Checkbox/Checkbox.component';
-import Button from '../../components/Button/Button.component';
+import Input from '../../components/input/Input.component';
+import Checkbox from '../../components/checkbox/Checkbox.component';
+import Button from '../../components/button/Button.component';
 
 const Signup: React.FC = () => {
   const {

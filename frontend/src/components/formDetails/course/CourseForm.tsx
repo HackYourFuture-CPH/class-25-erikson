@@ -1,7 +1,7 @@
-import { FileDrop } from '../FileDrop/FileDrop';
+import { FileDrop } from '../fileDrop/FileDrop';
 import { CourseData } from '../../../types/component';
 import FormWrapper from '../wrapper/FormWrapper';
-import classes from '../FileDrop/FileDrop.module.css';
+import classes from '../fileDrop/FileDrop.module.css';
 import styles from './CourseForm.module.css';
 
 type CourseFormProps = CourseData & {

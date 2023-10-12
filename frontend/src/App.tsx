@@ -6,7 +6,7 @@ import Dashboard from './pages/dashboard/Dashboard';
 import CourseDetails from './pages/course/CourseDetails';
 import AddCourseForm from './pages/form/AddCourseForm';
 import './App.css';
-import Notification from './components/Notification/Notification.component';
+import Notification from './components/notification/Notification.component';
 import useNotificationStore from './store/notification.store';
 
 function App(): JSX.Element {

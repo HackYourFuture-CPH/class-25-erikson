@@ -1,11 +1,11 @@
 import React from 'react';
-import { FileDrop } from '../FileDrop/FileDrop';
+import { FileDrop } from '../fileDrop/FileDrop';
 import { Lesson, LessonData } from '../../../types/component';
 import FormWrapper from '../wrapper/FormWrapper';
 import trashcan from '../../../assets/icons/delete.svg';
 import add from '../../../assets/icons/add.svg';
 import styles from '../course/CourseForm.module.css';
-import classes from '../FileDrop/FileDrop.module.css';
+import classes from '../fileDrop/FileDrop.module.css';
 
 type LessonFormProps = LessonData & {
   updateFields: (fields: Partial<LessonData>) => void;
