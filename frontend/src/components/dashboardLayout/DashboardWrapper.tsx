@@ -48,62 +48,60 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
     <>
       <div className='dashboard-layout'>
         <nav className={`sidebar ${isSidebarOpen ? 'open' : 'hidden'}`}>
-
           <div className='sticky'>
- 
+            <div className='dashboard-logo'>
+              <img src={Dashboard} alt='dashboard' />
+            </div>
 
-          <div className='dashboard-logo'>
-            <img src={Dashboard} alt='dashboard' />
-          </div>
-
-          <div className='sidebar-menu'>
-            <div className='sidebar-item'>
-              <div>
-                <img src={Dashboard2} alt='dashboard2' />
-                <p>Dashboard</p>
-              </div>
-
-
-            <div className='sidebar-item'>
-              <div>
-                <img src={Goals} alt='dashboard2' />
-                <p>Goals</p>
-              </div>
-
-
-            <div className='sidebar-item'>
-              <div>
-                <img src={Video} alt='live schedule' />
-                <p>Live Schedule</p>
-
-              </div>
-
-            <div className='sidebar-item'>
-              <div>
-                <img src={Calender} alt='class schedule' />
-                <p>Class Schedule</p>
-              </div>
-
-
-            <div className='sidebar-item'>
-              <div>
-                <img src={Bookmark} alt='course' />
-                <p>Course</p>
-              </div>
-
-
-            <div className='sidebar-item'>
-              <div>
-                <img src={Document} alt='resources' />
-
-                  <p>Resources</p>
+            <div className='sidebar-menu'>
+              <div className='sidebar-item'>
+                <div>
+                  <img src={Dashboard2} alt='dashboard2' />
+                  <p>Dashboard</p>
                 </div>
               </div>
 
-            <div className='sidebar-item'>
-              <div>
-                <img src={Folder} alt='directory' />
-                <p>Directory</p>
+              <div className='sidebar-item'>
+                <div>
+                  <img src={Goals} alt='dashboard2' />
+                  <p>Goals</p>
+                </div>
+              </div>
+
+              <div className='sidebar-item'>
+                <div>
+                  <img src={Video} alt='live schedule' />
+                  <p>Live Schedule</p>
+                </div>
+              </div>
+
+              <div className='sidebar-item'>
+                <div>
+                  <img src={Calender} alt='class schedule' />
+                  <p>Class Schedule</p>
+                </div>
+              </div>
+
+              <div className='sidebar-item'>
+                <div>
+                  <img src={Bookmark} alt='course' />
+                  <p>Course</p>
+                </div>
+
+                <div className='sidebar-item'>
+                  <div>
+                    <img src={Document} alt='resources' />
+
+                    <p>Resources</p>
+                  </div>
+                </div>
+
+                <div className='sidebar-item'>
+                  <div>
+                    <img src={Folder} alt='directory' />
+                    <p>Directory</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
