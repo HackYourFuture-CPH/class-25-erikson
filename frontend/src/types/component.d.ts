@@ -36,11 +36,11 @@ export interface FilterStore {
 export interface CourseStore {
   selectedCourse: number | null;
   showAbout: boolean;
-  showReviews: boolean;
+  showFaqs: boolean;
   showResources: boolean;
   selectCourse: (courseId: number) => void;
   toggleAbout: () => void;
-  toggleReviews: () => void;
+  toggleFAQs: () => void;
   toggleResources: () => void;
 }
 

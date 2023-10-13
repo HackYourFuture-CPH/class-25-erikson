@@ -13,7 +13,6 @@ const useSignup = () => {
   const { error, setError } = useErrorSignupState();
 
   const signup = async (userType: string, email: string, password: string, firstName: string, lastName: string) => {
-  //const signup = async (email: string, password: string, firstName: string) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -33,7 +32,6 @@ const useSignup = () => {
 
         // To generate Firebase ID Token
         const idToken = await user.getIdToken();
-        console.log(idToken)
 
         // Sending user data and ID token as a Bearer token to the server
         const userData = {

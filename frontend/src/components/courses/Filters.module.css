@@ -2,11 +2,16 @@
   margin: 0 30px;
 }
 
+.defaultStyle {
+ font-size: 18px;
+}
+
 .active,
 .filters button:hover {
   color: #4440ba;
   background-color: #d8d9f5;
   border-radius: 4px;
+  font-size: 18px;
 }
 
 .filters button {

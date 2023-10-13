@@ -8,34 +8,11 @@ import Grid from '@mui/material/Grid';
 import useFilterStore from '../../store/filter.store';
 import useAllCoursesStore from '../../store/allcourses.store';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
-// import { useAuthContext } from '../../hooks/useAuthContext';
-// import axios from 'axios';
 import styles from './CourseList.module.css';
 
 const CourseList: React.FC = () => {
   const { selectedFilter } = useFilterStore();
-  // const { user } = useAuthContext();
   const { courses, setCourses } = useAllCoursesStore();
-
-  /* 
-  const fetchCourses = async () => {
-    try {
-      const idToken = await user?.getIdToken();
-      const response = await axios.get('/api/courses/all', {
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      });
-      setCourses(response.data);
-    } catch (error) {
-      console.error('Error fetching courses:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCourses();
-  }, [user, setCourses]);
-  */
 
   const { data: fetchedCourses, isLoading, error } = useAxiosFetch<any[]>('/api/courses/all');
 
@@ -64,7 +41,12 @@ const CourseList: React.FC = () => {
           ({ id, course_title, course_category, course_image, lesson_count }) => (
             <Card className={styles.singleCard} key={id}>
               <Link to={`/course/${id}`} className={styles.singleCourse}>
-                <CardMedia component='img' alt={course_title} image={course_image} />
+                <CardMedia 
+                  component='img' 
+                  alt={course_title} 
+                  image={course_image} 
+                  height='300'
+                />
                 <CardContent className={styles.cardContent}>
                   <Typography
                     pb={2}

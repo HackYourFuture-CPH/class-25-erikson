@@ -3,6 +3,14 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import signout from '../../hooks/signout';
 import Person from '../../assets/icons/person.svg';
+import Bookmark from '../../assets/dashboard/bookmark.svg';
+import Document from '../../assets/dashboard/document.svg';
+import Video from '../../assets/dashboard/video.svg';
+import Folder from '../../assets/dashboard/folder.svg';
+import Calender from '../../assets/dashboard/calendar.svg';
+import Goals from '../../assets/dashboard/goals.svg';
+import Dashboard from '../../assets/dashboard/dashboard.svg';
+import Dashboard2 from '../../assets/dashboard/dashboard2.svg';
 import './Dashboard.css';
 
 type FormWrapperProps = {
@@ -30,12 +38,10 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
   const handleArrow = (): void => {
     const logout = document.querySelector('.dropdown-menu');
-    const arrow = document.querySelector('.handleArrow')!
+    const arrow = document.querySelector('.handleArrow')!;
 
     logout?.classList.toggle('active');
     arrow.innerHTML = logout?.classList.contains('active') ? '▲' : '▼';
-
-    
   };
 
   return (
@@ -43,48 +49,48 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
       <div className='dashboard-layout'>
         <nav className={`sidebar ${isSidebarOpen ? 'open' : 'hidden'}`}>
           <div className='dashboard-logo'>
-            <img src='images/dashboard.svg' alt='dashboard' />
+            <img src={Dashboard} alt='dashboard' />
           </div>
 
           <div className='sidebar-menu'>
             <div className='sidebar-item'>
               <div>
-                <img src='images/dashboard2.svg' alt='dashboard2' />
+                <img src={Dashboard2} alt='dashboard2' />
                 <p>Dashboard</p>
               </div>
             </div>
 
             <div className='sidebar-item'>
               <div>
-                <img src='images/goals.svg' alt='dashboard2' />
+                <img src={Goals} alt='dashboard2' />
                 <p>Goals</p>
               </div>
             </div>
 
             <div className='sidebar-item'>
               <div>
-                <img src='images/video.svg' alt='live schedule' />
+                <img src={Video} alt='live schedule' />
                 <p>Live Schedule</p>
               </div>
             </div>
 
             <div className='sidebar-item'>
               <div>
-                <img src='images/calendar.svg' alt='class schedule' />
+                <img src={Calender} alt='class schedule' />
                 <p>Class Schedule</p>
               </div>
             </div>
 
             <div className='sidebar-item'>
               <div>
-                <img src='images/bookmark.svg' alt='course' />
+                <img src={Bookmark} alt='course' />
                 <p>Course</p>
               </div>
             </div>
 
             <div className='sidebar-item'>
               <div>
-                <img src='images/document.svg' alt='resources' />
+                <img src={Document} alt='resources' />
 
                 <p>Resources</p>
               </div>
@@ -92,7 +98,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
             <div className='sidebar-item'>
               <div>
-                <img src='images/folder.svg' alt='directory' />
+                <img src={Folder} alt='directory' />
                 <p>Directory</p>
               </div>
             </div>
@@ -116,7 +122,10 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
                 <div className='user-info'>
                   <img className='user-img' src={Person} alt='user-display' />
                   <p>
-                    {user?.displayName} <span className='handleArrow' onClick={handleArrow}>▼</span>
+                    {user?.displayName}{' '}
+                    <span className='handleArrow' onClick={handleArrow}>
+                      ▼
+                    </span>
                   </p>
                 </div>
                 <div className='dropdown-menu'>
