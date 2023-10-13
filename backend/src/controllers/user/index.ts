@@ -28,7 +28,7 @@ export const getUserById = async (req: Request, res: Response) => {
     if (!userData) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json({ user: userData });
+    res.status(200).json(userData);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -42,7 +42,7 @@ export const getUserByUid = async (req: Request, res: Response) => {
     if (!userData) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json({ user: userData });
+    res.status(200).json(userData);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

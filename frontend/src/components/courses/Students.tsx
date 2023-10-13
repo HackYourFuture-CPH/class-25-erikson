@@ -1,16 +1,13 @@
 import React from 'react';
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { useAuthContext } from '../../hooks/useAuthContext';
-// import axios from 'axios';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import axios from 'axios';
 import Filters from './Filters';
 import CourseList from './CourseList';
-import { users } from '../../data/data';
-// import useUserStore from '../../store/user.store';
+import useUserStore from '../../store/user.store';
 
 const StudentDashboard: React.FC = () => {
-  const userType = users[1].type;
-  /* 
   const { user } = useAuthContext();
   const { currentUser, setCurrentUser } = useUserStore()
 
@@ -22,12 +19,12 @@ const StudentDashboard: React.FC = () => {
         if (user?.emailVerified) {
           const idToken = await user.getIdToken();
 
-          const response = await axios.get(`/user/${user.uid}`, {
+          const response = await axios.get(`api/user/uid/${user.uid}`, {
             headers: {
               Authorization: `Bearer ${idToken}`
             }
           });
-
+          
           if (isMounted) {
             setCurrentUser(response.data);
           }
@@ -48,21 +45,20 @@ const StudentDashboard: React.FC = () => {
     return () => {
       isMounted = false;
     };
-  }, [user]);
+  }, [user, setCurrentUser]);
 
   if (!currentUser) {
     return <div>Loading...</div>;
   }
 
   const userType = currentUser.user_type;
-*/
 
   return (
     <div>
       <div className='create-course-wrapper'>
         <div className='create-course'>
           <h2>Course</h2>
-          {userType === 'Mentor' && (
+          {userType === "Mentor" && (
             <Link to='/add-course'>
               <button className='create-course-btn'>Create New Course+</button>
             </Link>
