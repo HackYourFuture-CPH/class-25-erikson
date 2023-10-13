@@ -1,6 +1,6 @@
-import { FileDrop } from '../FileDrop/FileDrop';
+import { FileDrop } from '../fileDrop/FileDrop';
 import FormWrapper from '../wrapper/FormWrapper';
-import classes from "../FileDrop/FileDrop.module.css"
+import classes from "../fileDrop/FileDrop.module.css"
 
 type CourseData = {
   course_title: string;

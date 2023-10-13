@@ -1,7 +1,7 @@
-import { FileDrop } from '../FileDrop/FileDrop';
+import { FileDrop } from '../fileDrop/FileDrop';
 import FormWrapper from '../wrapper/FormWrapper';
 import styles from './SalesForm.module.css';
-import classes from "../FileDrop/FileDrop.module.css";
+import classes from "../fileDrop/FileDrop.module.css";
 
 type SaleData = {
   sales_image: File;
