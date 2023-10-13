@@ -22,7 +22,7 @@ const Dashboard: React.FC = () => {
       navigate('/login', { replace: true });
     }
 
-  }, [fetchUser, setCurrentUser]);
+  }, [fetchUser, setCurrentUser, user?.emailVerified, navigate]);
   
   if (!user?.emailVerified) {
     navigate('/login', { replace: true });
