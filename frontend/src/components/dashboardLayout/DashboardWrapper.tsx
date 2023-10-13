@@ -3,6 +3,14 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import signout from '../../hooks/signout';
 import Person from '../../assets/icons/person.svg';
+import Bookmark from '../../assets/dashboard/bookmark.svg';
+import Document from '../../assets/dashboard/document.svg';
+import Video from '../../assets/dashboard/video.svg';
+import Folder from '../../assets/dashboard/folder.svg';
+import Calender from '../../assets/dashboard/calendar.svg';
+import Goals from '../../assets/dashboard/goals.svg';
+import Dashboard from '../../assets/dashboard/dashboard.svg';
+import Dashboard2 from '../../assets/dashboard/dashboard2.svg';
 import './Dashboard.css';
 
 type FormWrapperProps = {
@@ -40,60 +48,62 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
     <>
       <div className='dashboard-layout'>
         <nav className={`sidebar ${isSidebarOpen ? 'open' : 'hidden'}`}>
+
           <div className='sticky'>
-            <div className='dashboard-logo'>
-              <img src='images/dashboard.svg' alt='dashboard' />
-            </div>
+ 
 
-            <div className='sidebar-menu'>
-              <div className='sidebar-item'>
-                <div>
-                  <img src='images/dashboard2.svg' alt='dashboard2' />
-                  <p>Dashboard</p>
-                </div>
+          <div className='dashboard-logo'>
+            <img src={Dashboard} alt='dashboard' />
+          </div>
+
+          <div className='sidebar-menu'>
+            <div className='sidebar-item'>
+              <div>
+                <img src={Dashboard2} alt='dashboard2' />
+                <p>Dashboard</p>
               </div>
 
-              <div className='sidebar-item'>
-                <div>
-                  <img src='images/goals.svg' alt='dashboard2' />
-                  <p>Goals</p>
-                </div>
+
+            <div className='sidebar-item'>
+              <div>
+                <img src={Goals} alt='dashboard2' />
+                <p>Goals</p>
               </div>
 
-              <div className='sidebar-item'>
-                <div>
-                  <img src='images/video.svg' alt='live schedule' />
-                  <p>Live Schedule</p>
-                </div>
+
+            <div className='sidebar-item'>
+              <div>
+                <img src={Video} alt='live schedule' />
+                <p>Live Schedule</p>
+
               </div>
 
-              <div className='sidebar-item'>
-                <div>
-                  <img src='images/calendar.svg' alt='class schedule' />
-                  <p>Class Schedule</p>
-                </div>
+            <div className='sidebar-item'>
+              <div>
+                <img src={Calender} alt='class schedule' />
+                <p>Class Schedule</p>
               </div>
 
-              <div className='sidebar-item'>
-                <div>
-                  <img src='images/bookmark.svg' alt='course' />
-                  <p>Course</p>
-                </div>
+
+            <div className='sidebar-item'>
+              <div>
+                <img src={Bookmark} alt='course' />
+                <p>Course</p>
               </div>
 
-              <div className='sidebar-item'>
-                <div>
-                  <img src='images/document.svg' alt='resources' />
+
+            <div className='sidebar-item'>
+              <div>
+                <img src={Document} alt='resources' />
 
                   <p>Resources</p>
                 </div>
               </div>
 
-              <div className='sidebar-item'>
-                <div>
-                  <img src='images/folder.svg' alt='directory' />
-                  <p>Directory</p>
-                </div>
+            <div className='sidebar-item'>
+              <div>
+                <img src={Folder} alt='directory' />
+                <p>Directory</p>
               </div>
             </div>
           </div>
