@@ -1,3 +1,4 @@
+// login
 export interface LoginStore {
   email: string;
   password: string;
@@ -8,11 +9,13 @@ export interface LoginStore {
   resetForm: () => void;
 }
 
+// forgot password
 export interface PasswordStore {
   email: string;
   setEmail: (email: string) => void;
 }
 
+// signup
 export interface SignupStore {
   userType: string;
   firstName: string;
@@ -28,11 +31,13 @@ export interface SignupStore {
   setRememberMe: (remember: boolean) => void;
 }
 
+// filters
 export interface FilterStore {
   selectedFilter: string;
   setSelectedFilter: (filter: string) => void;
 }
 
+// temporary data
 export interface CourseStore {
   selectedCourse: number | null;
   showAbout: boolean;
@@ -44,11 +49,22 @@ export interface CourseStore {
   toggleResources: () => void;
 }
 
+// multi-step form
 export interface FormState {
   currentIndex: number;
   setCurrentIndex: (index: number) => void;
 }
 
+// user
+export interface User {
+  firstName: string;
+  lastName: string;
+  email: string;
+  user_type: string;
+  uid: string;
+}
+
+// courses
 export interface Resource {
   lesson_resources: string;
 }
@@ -73,6 +89,18 @@ export interface AddCourseDetail {
   course_price: number;
 }
 
+export interface GetCourseFields {
+  id: number;
+  course_title: string;
+  course_description: string;
+  course_category: string;
+  course_image: File;
+  course_price: number;
+  lessons: Lesson[];
+  faqs: Faq[];
+  key_learning: string;
+}
+
 export interface AddCourseFields {
   course_title: string;
   course_description: string;
@@ -85,12 +113,26 @@ export interface AddCourseFields {
   key_learning: string;
 }
 
+// get user
+export interface GetUser {
+  currentUser: User | null;
+  setCurrentUser: (currentUser: User | null) => void;
+}
+
+// get courses
+export interface GetAllCourses {
+  courses: GetCourseFields[];
+  setCourses: (courses: GetCourseFields[]) => void;
+}
+
+// post a course
 export interface AddSingleCourse {
   data: AddCourseFields;
   updateCourseFields: (fields: Partial<AddCourseFields>) => void;
   resetForm: () => void;
 }
 
+// form
 export interface CourseData {
   course_title: string;
   course_description: string;
