@@ -87,20 +87,20 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
                   <img src={Bookmark} alt='course' />
                   <p>Course</p>
                 </div>
+              </div>
 
-                <div className='sidebar-item'>
-                  <div>
-                    <img src={Document} alt='resources' />
+              <div className='sidebar-item'>
+                <div>
+                  <img src={Document} alt='resources' />
 
-                    <p>Resources</p>
-                  </div>
+                  <p>Resources</p>
                 </div>
+              </div>
 
-                <div className='sidebar-item'>
-                  <div>
-                    <img src={Folder} alt='directory' />
-                    <p>Directory</p>
-                  </div>
+              <div className='sidebar-item'>
+                <div>
+                  <img src={Folder} alt='directory' />
+                  <p>Directory</p>
                 </div>
               </div>
             </div>
