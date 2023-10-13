@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useLogin from '../../hooks/useLogin';
 import useLoginStore from '../../store/loginpage.store';
@@ -15,9 +15,11 @@ const Login: React.FC = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
-  if (user?.emailVerified) {
-    navigate('/courses', { replace: true });
-  }
+  useEffect(() => {
+    if (user?.emailVerified) {
+      navigate('/courses', { replace: true });
+    }
+  })
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
