@@ -5,7 +5,7 @@ const emptyFile: File = new File([], '', { type: '' });
 const initialCourseData: AddCourseFields = {
   course_title: '',
   course_description: '',
-  course_category: 'personal',
+  course_category: 'Personal',
   course_image: emptyFile,
   course_price: 50.0,
   lessons: [
