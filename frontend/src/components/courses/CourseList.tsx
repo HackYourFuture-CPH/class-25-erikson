@@ -1,81 +1,98 @@
 import { Link } from 'react-router-dom';
-import { courses } from '../../data/data';
+import { useEffect } from 'react';
+import { AllCourseFields, User } from '../../types/component';
+import useUserStore from '../../store/user.store';
 import useFilterStore from '../../store/filter.store';
+import useAllCoursesStore from '../../store/allcourses.store';
+import useAxiosFetch from '../../hooks/useAxiosFetch';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import styles from './CourseList.module.css';
-// import useAllCoursesStore from '../../store/allcourses.store';
-// import { useAuthContext } from '../../hooks/useAuthContext';
-// import axios from 'axios';
-// import { useEffect } from 'react';
 
 const CourseList: React.FC = () => {
   const { selectedFilter } = useFilterStore();
-  // const { user } = useAuthContext();
+  const currentUser: User | null = useUserStore((state) => state.currentUser);
+  const { allCourses, setAllCourses, setFilteredCourses } = useAllCoursesStore();
 
-  // const { courses, setCourses } = useAllCoursesStore();
+  const {
+    data: fetchedCourses,
+    isLoading,
+    error,
+  } = useAxiosFetch<AllCourseFields[]>('/api/courses/all');
 
-  // useEffect(() => {
-  //   const fetchCourses = async () => {
-  //     try {
-  //       const idToken = await user?.getIdToken();
-  //       const response = await axios.get('http://localhost:3000/courses', {
-  //         headers: {
-  //           Authorization: `Bearer ${idToken}`,
-  //         },
-  //       });
-  //       setCourses(response.data);
-  //     }
-  //     catch (error) {
-  //       console.error('Error fetching courses:', error);
-  //     }
-  //   };
+  useEffect(() => {
+    if (fetchedCourses) {
+      setAllCourses(fetchedCourses);
+      if (currentUser?.user_type === 'student') {
+        const studentCourses: AllCourseFields[] = allCourses.filter((course) => {
+          return course.students.includes(currentUser.id);
+        });
+        setFilteredCourses(studentCourses);
+      } else {
+        const mentorCourses: AllCourseFields[] = allCourses.filter((course) => {
+          return course.mentor === currentUser?.id;
+        });
+        setFilteredCourses(mentorCourses);
+      }
+    }
+  }, [fetchedCourses, setAllCourses, setFilteredCourses]);
 
-  //   fetchCourses();
-  // }, [currentUser, setCourses]);
-
-  const filteredCourses = courses.filter(
-    (course) => selectedFilter === 'All' || course.tag === selectedFilter,
+  const filterCourses = allCourses.filter(
+    (course) => selectedFilter === 'All' || course.course_category === selectedFilter,
   );
+
+  if (isLoading) {
+    return <div className='loading'>Loading...</div>;
+  }
+
+  if (error) {
+    return <div className='error'>{error?.message}</div>;
+  }
 
   return (
     <div className={styles.courseList}>
       <div className={styles.cardsWrapper}>
-        {filteredCourses.map((course) => (
-          <Card className={styles.singleCard} key={course.id}>
-            <Link to={`/course/${course.id}`} className={styles.singleCourse}>
-              <CardMedia component='img' alt={course.course_name} image={course.image} />
-              <CardContent className={styles.cardContent}>
-                <Typography pb={2} variant='h6' component='div' textAlign='start'>
-                  {course.course_name}
-                </Typography>
-                <Grid container justifyContent='space-between' alignItems='center'>
-                  <Grid item xs={6}>
-                    <div
-                      className={`${styles.tag} ${
-                        course.tag === 'Professional'
-                          ? styles.professional
-                          : course.tag === 'Personal'
-                          ? styles.personal
-                          : course.tag === 'Finance'
-                          ? styles.finance
-                          : course.tag === 'Live Event' && styles.event
-                      }`}
-                    >
-                      {course.tag}
-                    </div>
+        {filterCourses.map(
+          ({ id, course_title, course_category, course_image, lesson_count }: any) => (
+            <Card className={styles.singleCard} key={id}>
+              <Link to={`/course/${id}`} className={styles.singleCourse}>
+                <CardMedia component='img' alt={course_title} image={course_image} height='300' />
+                <CardContent className={styles.cardContent}>
+                  <Typography
+                    pb={2}
+                    variant='h6'
+                    component='div'
+                    textAlign='start'
+                    className={styles.heading}
+                  >
+                    {course_title}
+                  </Typography>
+                  <Grid container justifyContent='space-between' alignItems='center'>
+                    <Grid item xs={6}>
+                      <div
+                        className={`${styles.tag} ${
+                          course_category === 'Professional'
+                            ? styles.professional
+                            : course_category === 'Personal'
+                            ? styles.personal
+                            : course_category === 'Finance' && styles.finance
+                        }`}
+                      >
+                        {course_category}
+                      </div>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <span className='gray'>{lesson_count} Lessons</span>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <span>{course.contentOutline.lessons.length} Lessons</span>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Link>
-          </Card>
-        ))}
+                </CardContent>
+              </Link>
+            </Card>
+          ),
+        )}
       </div>
     </div>
   );
