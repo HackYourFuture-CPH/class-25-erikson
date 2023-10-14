@@ -35,7 +35,6 @@ export {
   sendPasswordResetEmail,
   // storage exports
   ref,
-  uploadString,
   getDownloadURL,
-  uploadBytes
+  uploadBytes,
 };
