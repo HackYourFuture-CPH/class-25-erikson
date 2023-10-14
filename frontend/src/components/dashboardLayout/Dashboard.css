@@ -1,6 +1,10 @@
 .dashboard-layout {
   display: flex;
-  height: 100vh;
+}
+
+.sticky {
+  position: sticky;
+  top: 20px
 }
 
 .sidebar {
