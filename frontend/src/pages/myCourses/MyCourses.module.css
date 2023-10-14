@@ -1,0 +1,105 @@
+h1 {
+  margin: 30px;
+}
+
+.courseList {
+  width: 100%;
+  padding: 30px;
+}
+
+.cardsWrapper {
+  padding: 30px;
+  display: grid;
+  background: #fff;
+  border-radius: 8px;
+  gap: 30px;
+}
+
+.singleCard {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.overflow {
+  width: 100%;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.singleCard h3 {
+  margin: 16px 0;
+}
+
+.singleCourse {
+  text-decoration: none;
+  color: #1f1f1f;
+}
+
+.imageDiv {
+  background: #ffb7b7;
+  margin-right: 30px;
+}
+
+.imageDiv,
+.singleCourse img {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+}
+
+.cardContent {
+  display: grid;
+  font-size: 1em;
+}
+
+@media screen and (max-width: 1100px) {
+  .courseList {
+    max-width: 700px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .overflow {
+    width: 300px;
+  }
+
+  .courseList {
+    max-width: 600px;
+    padding: 20px;
+  }
+
+  .cardsWrapper {
+    gap: 20px;
+  }
+
+  .imageDiv {
+    margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .overflow {
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .overflow {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .overflow {
+    width: 160px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .overflow {
+    width: 120px;
+  }
+}

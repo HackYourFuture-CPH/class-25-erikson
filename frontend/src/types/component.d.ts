@@ -113,6 +113,16 @@ export interface AddCourseFields {
   key_learning: string;
 }
 
+export interface AllCourseFields {
+  id: number;
+  course_title: string;
+  course_category: string;
+  course_image: string;
+  mentor: number;
+  students: number[];
+  lesson_count: number;
+}
+
 // get user
 export interface GetUser {
   currentUser: User | null;
@@ -123,6 +133,11 @@ export interface GetUser {
 export interface GetAllCourses {
   courses: GetCourseFields[];
   setCourses: (courses: GetCourseFields[]) => void;
+}
+
+export interface GetAllCourseDetails {
+  allCourses: AllCourseFields[];
+  setAllCourses: (allCourses: AllCourseFields[]) => void;
 }
 
 // post a course
