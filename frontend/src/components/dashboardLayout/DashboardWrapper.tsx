@@ -161,7 +161,6 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
                 <p className='sidebar-toggle-button' onClick={toggleSidebar}>
                   <img src='images/menu.svg' alt='menu' />
                 </p>
-                <img className='logo-mobile' src='images/Logo.svg' alt='mobile-logo' />
               </div>
             </div>
 
