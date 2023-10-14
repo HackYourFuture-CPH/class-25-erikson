@@ -1,10 +1,9 @@
 import React, { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { users } from '../../data/data';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { AddCourseFields } from '../../types/component';
 import { useMultistepForm } from '../../hooks/useMultiStepForm';
-// import axios from 'axios';
+import axios from 'axios';
 import CourseForm from '../../components/formDetails/course/CourseForm';
 import LessonForm from '../../components/formDetails/lesson/LessonForm';
 import SalesForm from '../../components/formDetails/sales/SalesForm';
@@ -12,15 +11,18 @@ import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper'
 import BackArrow from '../../assets/icons/back.svg';
 import FrontArrow from '../../assets/icons/front.svg';
 import styles from './AddCourseForm.module.css';
-// import useFirebaseStorage from '../../hooks/useFirebaseStorage';
+import useFirebaseStorage from '../../hooks/useFirebaseStorage';
 import useSingleCourseStore from '../../store/addSingleCourse.store';
+import useUserStore from '../../store/user.store';
 
 const AddCourseForm: React.FC = () => {
   const { user } = useAuthContext();
+  const { currentUser } = useUserStore();
+  const { generateUniqueFileName, uploadImageToFirebaseStorage } = useFirebaseStorage();
   const navigate = useNavigate();
-  // const { generateUniqueFileName, uploadImageToFirebaseStorage } = useFirebaseStorage();
 
-  const userType = users[1].type;
+  const userType = currentUser?.user_type;
+  const mentorId = currentUser?.id;
 
   if (!user?.emailVerified) {
     navigate('/login', { replace: true });
@@ -62,12 +64,10 @@ const AddCourseForm: React.FC = () => {
     }
   };
 
-  const submitForm = (e: FormEvent) => {
-    // const submitForm = async (e: FormEvent) => {
+    const submitForm = async (e: FormEvent) => {
     e.preventDefault();
     if (!isLastStep) return next();
-
-    /* 
+    
     try {
       // Upload course image to Firebase Storage
       const courseImagePath = `courses/${generateUniqueFileName(data.course_image.name)}`;
@@ -101,7 +101,7 @@ const AddCourseForm: React.FC = () => {
       
       // Posting form data to the server
       await axios.post(
-        'http://localhost:3000/courses',
+        `api/courses/${mentorId}/add_course`,
         formDataWithUrls,
         {
           headers: {
@@ -109,14 +109,14 @@ const AddCourseForm: React.FC = () => {
           }
         }
       );
-  */
+
     alert('Form Submitted');
     resetForm();
     goTo(0);
     navigate('/courses');
-    // } catch (error) {
-    //   console.error('Error submitting form:', error);
-    // }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (
