@@ -2,9 +2,13 @@
   display: flex;
 }
 
+.sticky {
+  position: sticky;
+  top: 20px
+}
+
 .sidebar {
   width: 258px;
-  height: 1354px;
   gap: 10px;
   background-color: rgba(17, 13, 89, 1);
   padding: 20px;
@@ -179,6 +183,13 @@
 
 .sidebar-toggle-button {
   color: gray;
+}
+
+.nav-link-active {
+  background-color: rgb(255, 255, 255);
+  color: rgba(17, 13, 89, 1);
+  border-radius: 8px;
+  gap: 5px;
 }
 
 @media (max-width: 769px) {
