@@ -1,10 +1,9 @@
 import React, { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { users } from '../../data/data';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { AddCourseFields } from '../../types/component';
 import { useMultistepForm } from '../../hooks/useMultiStepForm';
-// import axios from 'axios';
+import axios from 'axios';
 import CourseForm from '../../components/formDetails/course/CourseForm';
 import LessonForm from '../../components/formDetails/lesson/LessonForm';
 import SalesForm from '../../components/formDetails/sales/SalesForm';
@@ -12,15 +11,18 @@ import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper'
 import BackArrow from '../../assets/icons/back.svg';
 import FrontArrow from '../../assets/icons/front.svg';
 import styles from './AddCourseForm.module.css';
-// import useFirebaseStorage from '../../hooks/useFirebaseStorage';
+import useFirebaseStorage from '../../hooks/useFirebaseStorage';
 import useSingleCourseStore from '../../store/addSingleCourse.store';
+import useUserStore from '../../store/user.store';
 
 const AddCourseForm: React.FC = () => {
   const { user } = useAuthContext();
+  const { currentUser } = useUserStore();
+  const { generateUniqueFileName, uploadImageToFirebaseStorage } = useFirebaseStorage();
   const navigate = useNavigate();
-  // const { generateUniqueFileName, uploadImageToFirebaseStorage } = useFirebaseStorage();
 
-  const userType = users[1].type;
+  const userType = currentUser?.user_type;
+  const mentorId = currentUser?.id;
 
   if (!user?.emailVerified) {
     navigate('/login', { replace: true });
@@ -36,13 +38,11 @@ const AddCourseForm: React.FC = () => {
     updateCourseFields({ ...data, ...fields });
   };
 
-  const { steps, currentIndex, step, isFirstStep, isLastStep, back, next, goTo } = useMultistepForm(
-    [
-      <CourseForm {...data} updateFields={updateFields} />,
-      <LessonForm {...data} updateFields={updateFields} />,
-      <SalesForm {...data} updateFields={updateFields} />,
-    ],
-  );
+  const { step, isFirstStep, isLastStep, back, next, goTo } = useMultistepForm([
+    <CourseForm {...data} updateFields={updateFields} />,
+    <LessonForm {...data} updateFields={updateFields} />,
+    <SalesForm {...data} updateFields={updateFields} />,
+  ]);
 
   const checkImageAttached = async (e: FormEvent) => {
     if (isFirstStep && !data.course_image.name) {
@@ -64,62 +64,65 @@ const AddCourseForm: React.FC = () => {
     }
   };
 
-  const submitForm = (e: FormEvent) => {
-    // const submitForm = async (e: FormEvent) => {
+    const submitForm = async (e: FormEvent) => {
     e.preventDefault();
     if (!isLastStep) return next();
+    
+    try {
+      // Upload course image to Firebase Storage
+      const courseImagePath = `courses/${generateUniqueFileName(data.course_image.name)}`;
+      const courseImageUrl = await uploadImageToFirebaseStorage(data.course_image, courseImagePath);
 
-    // try {
-    // // Getting Firebase ID token
-    // const idToken = await user?.getIdToken();
-    // const courseImagePath = `courses/${generateUniqueFileName(data.course_image.name)}`;
-    // const lessonImagePath = `lessons/${generateUniqueFileName(data.lesson_image.name)}`;
-    // const salesImagePath = `sales/${generateUniqueFileName(data.sales_image.name)}`;
+      // Upload lesson images to Firebase Storage
+      const lessonsWithImageUrls = await Promise.all(data.lessons.map(async (lesson) => {
+        const lessonImagePath = `lessons/${generateUniqueFileName(lesson.lesson_image.name)}`;
+        const lessonImageUrl = await uploadImageToFirebaseStorage(lesson.lesson_image, lessonImagePath);
+        
+        return {
+          ...lesson,
+          lesson_image: lessonImageUrl
+        };
+      }));
 
-    // const [courseImageUrl, lessonImageUrl, salesImageUrl] = await Promise.all([
-    //   uploadImageToFirebaseStorage(data.course_image, courseImagePath),
-    //   uploadImageToFirebaseStorage(data.lesson_image, lessonImagePath),
-    //   uploadImageToFirebaseStorage(data.sales_image, salesImagePath)
-    // ]);
+      // Upload sales image to Firebase Storage
+      const salesImagePath = `sales/${generateUniqueFileName(data.sales_image.name)}`;
+      const salesImageUrl = await uploadImageToFirebaseStorage(data.sales_image, salesImagePath);
 
-    // const formDataWithUrls = {
-    //   ...data,
-    //   course_image: courseImageUrl,
-    //   lesson_image: lessonImageUrl,
-    //   sales_image: salesImageUrl
-    // };
+      // Update data with image URLs
+      const formDataWithUrls = {
+        ...data,
+        course_image: courseImageUrl,
+        lessons: lessonsWithImageUrls,
+        sales_image: salesImageUrl
+      };
 
-    // // Posting form data to the server
-    // await axios.post(
-    //   'http://localhost:3000/courses',
-    //   formDataWithUrls,
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${idToken}`,
-    //     }
-    //   }
-    // );
-
-    //   navigate('/courses');
-    // }
-    // catch (error) {
-    //   console.error('Error submitting form:', error);
-    // }
+      // Getting Firebase ID token
+      const idToken = await user?.getIdToken();
+      
+      // Posting form data to the server
+      await axios.post(
+        `api/courses/${mentorId}/add_course`,
+        formDataWithUrls,
+        {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          }
+        }
+      );
 
     alert('Form Submitted');
-    console.log(data);
     resetForm();
     goTo(0);
     navigate('/courses');
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (
     <DashboardWrapper>
       <div className={styles.addCourse}>
         <form onSubmit={submitForm}>
-          <div>
-            {currentIndex + 1} / {steps.length}
-          </div>
           {step}
           <div className={styles.buttonsDiv}>
             {!isFirstStep && (

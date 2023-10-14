@@ -1,7 +1,8 @@
-import { FileDrop } from '../FileDrop/FileDrop';
+import { FileDrop } from '../fileDrop/FileDrop';
 import { CourseData } from '../../../types/component';
 import FormWrapper from '../wrapper/FormWrapper';
-import classes from '../FileDrop/FileDrop.module.css';
+import classes from '../fileDrop/FileDrop.module.css';
+import styles from './CourseForm.module.css';
 
 type CourseFormProps = CourseData & {
   updateFields: (fields: Partial<CourseData>) => void;
@@ -25,41 +26,46 @@ const CourseForm = ({
 
   return (
     <FormWrapper title='Overview'>
-      {course_image.name ? (
-        <img
-          src={URL.createObjectURL(course_image)}
-          alt='CourseImg'
-          className={classes.attachedPhoto}
-        />
-      ) : (
-        <FileDrop onImageSelect={handleImageChange} />
-      )}
-      <label>Course Title</label>
+      <div className={styles.fileImport}>
+        {course_image.name ? (
+          <img
+            src={URL.createObjectURL(course_image)}
+            alt='CourseImg'
+            className={classes.attachedPhoto}
+          />
+        ) : (
+          <FileDrop onImageSelect={handleImageChange} />
+        )}
+      </div>
+      <label className={styles.label}>Course Title</label>
       <input
+        className={styles.input}
         autoFocus
         required
         type='text'
         value={course_title}
         onChange={(e) => updateFields({ course_title: e.target.value })}
       />
-      <label>Description</label>
+      <label className={styles.label}>Description</label>
       <textarea
+        className={styles.textArea}
         required
         value={course_description}
         onChange={(e) => updateFields({ course_description: e.target.value })}
       />
-      <label>Price</label>
+      <label className={styles.label}>Price</label>
       <input
+        className={styles.input}
         required
         type='number'
         value={course_price}
         onChange={(e) => updateFields({ course_price: e.target.valueAsNumber })}
       />
-      <label>category</label>
-      <select value={course_category} onChange={handleCategoryChange}>
-        <option value='personal'>Personal</option>
-        <option value='finance'> Finance</option>
-        <option value='professional'>Professional</option>
+      <label className={styles.label}>category</label>
+      <select className={styles.select} value={course_category} onChange={handleCategoryChange}>
+        <option value='Personal'>Personal</option>
+        <option value='Finance'> Finance</option>
+        <option value='Professional'>Professional</option>
       </select>
     </FormWrapper>
   );

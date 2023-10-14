@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { storage, ref, uploadString, getDownloadURL } from '../firebase/config';
+import { storage, ref, getDownloadURL, uploadBytes } from '../firebase/config';
 
 const useFirebaseStorage = () => {
   const [isUploading, setIsUploading] = useState(false);
@@ -13,22 +13,12 @@ const useFirebaseStorage = () => {
 
   const uploadImageToFirebaseStorage = async (file: File, path: string) => {
     setIsUploading(true);
-    const storageRef = ref(storage, path);
+    const storageRef = ref(storage, path);  
     try {
-      const fileReader = new FileReader();
-      fileReader.onloadend = async (event) => {
-        if (event.target?.result && typeof event.target.result === 'string') {
-          const base64String = event.target.result.split(',')[1];
-          await uploadString(storageRef, base64String, 'data_url');
-          const downloadURL = await getDownloadURL(storageRef);
-          setIsUploading(false);
-          return downloadURL;
-        } else {
-          setIsUploading(false);
-          throw new Error('Error reading file or converting to base64.');
-        }
-      };
-      fileReader.readAsDataURL(file);
+      await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
+      setIsUploading(false);
+      return downloadURL;
     } catch (error) {
       setIsUploading(false);
       console.error(error);
