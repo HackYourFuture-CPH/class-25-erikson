@@ -58,8 +58,8 @@ export interface FormState {
 // user
 export interface User {
   id: number;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   user_type: string;
   uid: string;
@@ -138,7 +138,9 @@ export interface GetAllCourses {
 
 export interface GetAllCourseDetails {
   allCourses: AllCourseFields[];
+  filteredCourses: AllCourseFields[];
   setAllCourses: (allCourses: AllCourseFields[]) => void;
+  setFilteredCourses: (filteredCourses: AllCourseFields[]) => void;
 }
 
 // post a course
