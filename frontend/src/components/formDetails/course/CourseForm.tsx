@@ -63,9 +63,9 @@ const CourseForm = ({
       />
       <label className={styles.label}>category</label>
       <select className={styles.select} value={course_category} onChange={handleCategoryChange}>
-        <option value='personal'>Personal</option>
-        <option value='finance'> Finance</option>
-        <option value='professional'>Professional</option>
+        <option value='Personal'>Personal</option>
+        <option value='Finance'> Finance</option>
+        <option value='Professional'>Professional</option>
       </select>
     </FormWrapper>
   );
