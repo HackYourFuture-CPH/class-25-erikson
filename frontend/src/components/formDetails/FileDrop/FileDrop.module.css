@@ -1,6 +1,6 @@
 .dropArea {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  text-align: center;
   align-items: center;
   border: 4px dashed lightgray;
   border-radius: 1rem;
@@ -25,4 +25,8 @@
 
 .title img {
   width: 30px;
+}
+
+.fileInput {
+  margin: 0 auto;
 }

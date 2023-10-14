@@ -8,6 +8,8 @@ import AddCourseForm from './pages/form/AddCourseForm';
 import './App.css';
 import Notification from './components/notification/Notification.component';
 import useNotificationStore from './store/notification.store';
+import './App.css';
+import MyCourses from './pages/myCourses/MyCourses';
 import UnderConstruction from './pages/underConstruction/underConstruction';
 
 function App(): JSX.Element {
@@ -40,6 +42,10 @@ function App(): JSX.Element {
     {
       path: '/course/:id',
       element: <CourseDetails />,
+    },
+    {
+      path: '/my-courses',
+      element: <MyCourses />,
     },
 
     {

@@ -27,9 +27,9 @@ const ResourcesSection: React.FC<ResourcesSectionProps> = ({ lessons }) => {
     <div className={styles.container}>
       {lessons.map((lesson) => (
           lesson.lesson_resources.map((resource, resourceIndex) => (
-            <div className={styles.rowWrap}>
+            <div className={styles.rowWrap} key={resourceIndex}>
               <img src={playVideo} className={styles.videoIcon} alt='video-icon'/>
-              <div key={resourceIndex}>
+              <div className='icons-wrap'>
                 <a href={resource.lesson_resources} target='_blank' rel="noreferrer" >
                   {resource.lesson_resources}
                 </a>

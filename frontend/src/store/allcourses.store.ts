@@ -1,13 +1,9 @@
 import { create } from 'zustand';
+import { GetAllCourses } from '../types/component';
 
-interface AllCoursesStore {
-  courses: any[]; 
-  setCourses: (courses: any[]) => void;
-}
-
-const useAllCoursesStore = create<AllCoursesStore>((set) => ({
+const useAllCoursesStore = create<GetAllCourses>((set) => ({
   courses: [],
-  setCourses: (courses: any) => set({ courses }),
+  setCourses: (courses) => set({ courses }),
 }));
 
 export default useAllCoursesStore;

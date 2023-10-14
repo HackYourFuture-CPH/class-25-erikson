@@ -38,7 +38,7 @@ const CourseList: React.FC = () => {
     <div className={styles.courseList}>
       <div className={styles.cardsWrapper}>
         {filteredCourses.map(
-          ({ id, course_title, course_category, course_image, lesson_count }) => (
+          ({ id, course_title, course_category, course_image, lesson_count }: any) => (
             <Card className={styles.singleCard} key={id}>
               <Link to={`/course/${id}`} className={styles.singleCourse}>
                 <CardMedia 

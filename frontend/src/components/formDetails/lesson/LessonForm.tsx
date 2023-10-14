@@ -2,7 +2,9 @@ import React from 'react';
 import { FileDrop } from '../fileDrop/FileDrop';
 import { Lesson, LessonData } from '../../../types/component';
 import FormWrapper from '../wrapper/FormWrapper';
-import styles from './LessonForm.module.css';
+import trashcan from '../../../assets/icons/delete.svg';
+import add from '../../../assets/icons/add.svg';
+import styles from '../course/CourseForm.module.css';
 import classes from '../fileDrop/FileDrop.module.css';
 
 type LessonFormProps = LessonData & {
@@ -95,49 +97,60 @@ const LessonForm: React.FC<LessonFormProps> = ({ lessons, updateFields }: Lesson
   };
 
   return (
-    <FormWrapper title='Lesson'>
+    <FormWrapper title='Lessons'>
       {lessons.map((lesson, index) => (
-        <div key={index} className={styles.container}>
-          {lesson.lesson_image.name ? (
-            <img
-              src={URL.createObjectURL(lesson.lesson_image)}
-              alt='LessonImg'
-              className={classes.attachedPhoto}
-            />
-          ) : (
-            <FileDrop onImageSelect={(selectedImage) => handleImageChange(selectedImage, index)} />
-          )}
-          <label>Lesson Title</label>
+        <div key={index}>
+          <div className={styles.fileImport}>
+            {lesson.lesson_image.name ? (
+              <img
+                src={URL.createObjectURL(lesson.lesson_image)}
+                alt='LessonImg'
+                className={classes.attachedPhoto}
+              />
+            ) : (
+              <FileDrop
+                onImageSelect={(selectedImage) => handleImageChange(selectedImage, index)}
+              />
+            )}
+          </div>
+          <label className={styles.label}>Lesson Title</label>
           <input
-            className={styles.titleInput}
+            className={styles.input}
             required
             type='text'
             placeholder='Set course title'
             value={lesson.lesson_title}
             onChange={(e) => handleLessonTitleChange(e.target.value, index)}
           />
-          <label>Lesson Description</label>
+          <label className={styles.label}>Lesson Description</label>
           <input
-            className={styles.descriptionInput}
+            className={styles.input}
             required
             type='text'
             placeholder='Input Text Here'
             value={lesson.lesson_description}
             onChange={(e) => handleLessonDescriptionChange(e.target.value, index)}
           />
-          <label>Lesson Resources</label>
+          <label className={styles.label}>Lesson Resources</label>
           <input
-            className={styles.resourcesInput}
+            className={styles.input}
             required
             type='text'
             placeholder='Resources Here'
             value={lesson.resources[0].lesson_resources}
             onChange={(e) => handleLessonResourcesChange(e.target.value, index)}
           />
-          <button onClick={() => handleDeleteLesson(index)}>Delete Lesson</button>
+          <button onClick={() => handleDeleteLesson(index)} className={styles.trashcan}>
+            <img src={trashcan} alt='delete-icon' />
+          </button>
         </div>
       ))}
-      <button onClick={handleAddLesson}>Add Lesson</button>
+      <button onClick={handleAddLesson} className={styles.add}>
+        <span>
+          <img src={add} alt='add-icon' />
+        </span>
+        <span>Add more lessons</span>
+      </button>
     </FormWrapper>
   );
 };

@@ -17,6 +17,7 @@ const CourseDetails: React.FC = () => {
   const { user } = useAuthContext();
   const [ singleCourse, setSingleCourse ] = useState<any>(null);
   const navigate = useNavigate();
+  // const courses = useAllCoursesStore((state) => state.courses);
 
   if (!user?.emailVerified) {
     navigate('/login', { replace: true });

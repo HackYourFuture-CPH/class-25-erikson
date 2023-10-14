@@ -1,0 +1,76 @@
+.fileImport {
+  padding: 40px 0;
+  padding-bottom: 0px;
+}
+
+.label,
+.input,
+.select,
+.textArea {
+  display: grid;
+}
+
+.label {
+  margin-top: 40px;
+}
+
+.input,
+.select,
+.textArea {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 8px;
+  background: #f8f9fd;
+  color: #b3b1bb;
+  border: 0.2px solid #b3b1bb;
+}
+
+.input,
+.select {
+  height: 49px;
+  padding: 14px 16px;
+}
+
+.textArea {
+  height: 98px;
+  padding: 14px 8px 8px 16px;
+}
+
+.trashcan,
+.add {
+  border: none;
+  cursor: pointer;
+}
+
+.trashcan img,
+.add img {
+  width: 30px;
+}
+
+.add span img {
+  filter: invert(1);
+  width: 20px;
+  margin-right: 10px;
+  margin-top: 3px;
+}
+
+.trashcan {
+  width: 100%;
+  margin: 40px auto;
+  padding-bottom: 40px;
+  text-align: end;
+  background: transparent;
+  border-bottom: 1px solid #b3b1bb;
+}
+
+.add {
+  display: flex;
+  width: 100%;
+  border: none;
+  background: #f18524;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+}

@@ -9,8 +9,16 @@ type FormWrapperProps = {
 const FormWrapper = ({ title, children }: FormWrapperProps) => {
   return (
     <div className={styles.formWrapper}>
-      <h2 className={styles.formHeading}>{title}</h2>
-      <div className={styles.formChildren}>{children}</div>
+      <ul className={styles.formTitleContainer}>
+        {['Overview', 'Lessons', 'Sales Page'].map((each) => (
+          <li key={each} className={each === title ? styles.active : 'gray'}>
+            {each}
+          </li>
+        ))}
+      </ul>
+      <div className={styles.formContent}>
+        <div className={styles.formChildren}>{children}</div>
+      </div>
     </div>
   );
 };
