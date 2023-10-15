@@ -11,6 +11,8 @@ import ContentOutline from '../../components/courseDetails/ContentOutline';
 import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import BackArrow from '../../assets/icons/arrow_back.svg';
 import styles from './CourseDetails.module.css';
+// import useAllCoursesStore from '../../store/allcourses.store';
+// import { GetCourseFields } from '../../types/component';
 
 const convertDurationToMinutes = (duration: string): number => {
   const match = duration.match(/(\d+) minutes/);
@@ -23,6 +25,7 @@ const convertDurationToMinutes = (duration: string): number => {
 const CourseDetails: React.FC = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
+  // const courses = useAllCoursesStore((state) => state.courses);
 
   if (!user?.emailVerified) {
     navigate('/login', { replace: true });
@@ -42,9 +45,11 @@ const CourseDetails: React.FC = () => {
   const courseId = id ? parseInt(id, 10) : null;
 
   let course: Course | undefined;
+  // let course: GetCourseFields | undefined;
 
   if (selectedCourse && typeof selectedCourse === 'object') {
     course = selectedCourse as Course;
+    // course = selectedCourse as GetCourseFields;
   } else if (courseId) {
     course = courses.find((c) => c.id === courseId);
   }

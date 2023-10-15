@@ -1,75 +1,156 @@
-import { FileDrop } from '../FileDrop/FileDrop';
+import React from 'react';
+import { FileDrop } from '../fileDrop/FileDrop';
+import { Lesson, LessonData } from '../../../types/component';
 import FormWrapper from '../wrapper/FormWrapper';
-import styles from './LessonForm.module.css';
-import classes from '../FileDrop/FileDrop.module.css';
-
-type LessonData = {
-  lesson_title: string;
-  lesson_image: File;
-  lesson_description: string;
-  lesson_resources: string;
-};
+import trashcan from '../../../assets/icons/delete.svg';
+import add from '../../../assets/icons/add.svg';
+import styles from '../course/CourseForm.module.css';
+import classes from '../fileDrop/FileDrop.module.css';
 
 type LessonFormProps = LessonData & {
   updateFields: (fields: Partial<LessonData>) => void;
 };
 
-const LessonForm = ({
-  lesson_title,
-  lesson_image,
-  lesson_description,
-  lesson_resources,
-  updateFields,
-}: LessonFormProps) => {
-  const handleImageChange = (selectedImage: File | undefined) => {
-    updateFields({ lesson_image: selectedImage });
+const LessonForm: React.FC<LessonFormProps> = ({ lessons, updateFields }: LessonFormProps) => {
+  const handleImageChange = (selectedImage: File | undefined, index: number) => {
+    const updatedLessons = lessons.map((lesson, i) => {
+      if (i === index) {
+        return {
+          ...lesson,
+          lesson_image: selectedImage || new File([], ''),
+        };
+      }
+      return lesson;
+    });
+
+    updateFields({
+      lessons: updatedLessons,
+    });
   };
+
+  const handleLessonTitleChange = (value: string, index: number) => {
+    const updatedLessons = lessons.map((lesson, i) => {
+      if (i === index) {
+        return {
+          ...lesson,
+          lesson_title: value,
+        };
+      }
+      return lesson;
+    });
+
+    updateFields({
+      lessons: updatedLessons,
+    });
+  };
+
+  const handleLessonDescriptionChange = (value: string, index: number) => {
+    const updatedLessons = lessons.map((lesson, i) => {
+      if (i === index) {
+        return {
+          ...lesson,
+          lesson_description: value,
+        };
+      }
+      return lesson;
+    });
+
+    updateFields({
+      lessons: updatedLessons,
+    });
+  };
+
+  const handleLessonResourcesChange = (value: string, index: number) => {
+    const updatedLessons = lessons.map((lesson, i) => {
+      if (i === index) {
+        return {
+          ...lesson,
+          resources: [{ lesson_resources: value }],
+        };
+      }
+      return lesson;
+    });
+
+    updateFields({
+      lessons: updatedLessons,
+    });
+  };
+
+  const handleAddLesson = () => {
+    const newLesson: Lesson = {
+      lesson_title: '',
+      lesson_image: new File([], ''),
+      lesson_description: '',
+      resources: [{ lesson_resources: '' }],
+    };
+
+    updateFields({
+      lessons: [...lessons, newLesson],
+    });
+  };
+
+  const handleDeleteLesson = (index: number) => {
+    const updatedLessons = lessons.filter((lesson, i) => i !== index);
+    updateFields({
+      lessons: updatedLessons,
+    });
+  };
+
   return (
-    <FormWrapper title='Lesson'>
-      <div className={styles.container}>
-        <div className={styles.titleContainer}>
-            {lesson_image.name ? 
-            <img 
-            src={URL.createObjectURL(lesson_image)} 
-            alt="LessonImg" 
-            className={classes.attachedPhoto} />
-          : 
-          <FileDrop onImageSelect={handleImageChange} />
-          }
-          <label>Lesson Title</label>
+    <FormWrapper title='Lessons'>
+      {lessons.map((lesson, index) => (
+        <div key={index}>
+          <div className={styles.fileImport}>
+            {lesson.lesson_image.name ? (
+              <img
+                src={URL.createObjectURL(lesson.lesson_image)}
+                alt='LessonImg'
+                className={classes.attachedPhoto}
+              />
+            ) : (
+              <FileDrop
+                onImageSelect={(selectedImage) => handleImageChange(selectedImage, index)}
+              />
+            )}
+          </div>
+          <label className={styles.label}>Lesson Title</label>
           <input
-            className={styles.titleInput}
+            className={styles.input}
             required
             type='text'
             placeholder='Set course title'
-            value={lesson_title}
-            onChange={(e) => updateFields({ lesson_title: e.target.value })}
+            value={lesson.lesson_title}
+            onChange={(e) => handleLessonTitleChange(e.target.value, index)}
           />
-        </div>
-        <div className={styles.descriptionContainer}>
-          <label>lessson description</label>
+          <label className={styles.label}>Lesson Description</label>
           <input
-            className={styles.descriptionInput}
+            className={styles.input}
             required
             type='text'
             placeholder='Input Text Here'
-            value={lesson_description}
-            onChange={(e) => updateFields({ lesson_description: e.target.value })}
+            value={lesson.lesson_description}
+            onChange={(e) => handleLessonDescriptionChange(e.target.value, index)}
           />
-        </div>
-
-        <div className={styles.resourcesContainer}>
-          <label>Lesson Resources</label>
+          <label className={styles.label}>Lesson Resources</label>
           <input
-            className={styles.resourcesInput}
+            className={styles.input}
             required
             type='text'
             placeholder='Resources Here'
-            value={lesson_resources}
-            onChange={(e) => updateFields({ lesson_resources: e.target.value })}
+            value={lesson.resources[0].lesson_resources}
+            onChange={(e) => handleLessonResourcesChange(e.target.value, index)}
           />
+          <button onClick={() => handleDeleteLesson(index)} className={styles.trashcan}>
+            <img src={trashcan} alt='delete-icon' />
+          </button>
         </div>
-      </div>
+      ))}
+      <button onClick={handleAddLesson} className={styles.add}>
+        <span>
+          <img src={add} alt='add-icon' />
+        </span>
+        <span>Add more lessons</span>
+      </button>
     </FormWrapper>
   );
 };

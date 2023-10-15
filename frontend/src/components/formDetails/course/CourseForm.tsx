@@ -1,15 +1,8 @@
-import { FileDrop } from '../FileDrop/FileDrop';
+import { FileDrop } from '../fileDrop/FileDrop';
+import { CourseData } from '../../../types/component';
 import FormWrapper from '../wrapper/FormWrapper';
-import classes from "../FileDrop/FileDrop.module.css"
-
-type CourseData = {
-  course_title: string;
-  course_description: string;
-  course_category: string;
-  course_image: File;
-  course_subscriptionType: string;
-  course_price: number;
-};
+import classes from '../fileDrop/FileDrop.module.css';
+import styles from './CourseForm.module.css';
 
 type CourseFormProps = CourseData & {
   updateFields: (fields: Partial<CourseData>) => void;
@@ -20,7 +13,6 @@ const CourseForm = ({
   course_description,
   course_category,
   course_image,
-  course_subscriptionType,
   course_price,
   updateFields,
 }: CourseFormProps) => {
@@ -32,79 +24,49 @@ const CourseForm = ({
     updateFields({ course_image: selectedImage });
   };
 
-  const handleSubscriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateFields({ course_subscriptionType: e.target.value });
-  };
-
   return (
     <FormWrapper title='Overview'>
-      {course_image.name ? 
-        <img 
-        src={URL.createObjectURL(course_image)} 
-        alt="CourseImg" 
-        className={classes.attachedPhoto} />
-      : 
-      <FileDrop onImageSelect={handleImageChange} />
-      }
-      <label>Course Title</label>
+      <div className={styles.fileImport}>
+        {course_image.name ? (
+          <img
+            src={URL.createObjectURL(course_image)}
+            alt='CourseImg'
+            className={classes.attachedPhoto}
+          />
+        ) : (
+          <FileDrop onImageSelect={handleImageChange} />
+        )}
+      </div>
+      <label className={styles.label}>Course Title</label>
       <input
+        className={styles.input}
         autoFocus
         required
         type='text'
         value={course_title}
         onChange={(e) => updateFields({ course_title: e.target.value })}
       />
-      <label>Description</label>
+      <label className={styles.label}>Description</label>
       <textarea
+        className={styles.textArea}
         required
         value={course_description}
         onChange={(e) => updateFields({ course_description: e.target.value })}
       />
-      <label>category</label>
-      <select value={course_category} onChange={handleCategoryChange}>
-        <option value='personal'>Personal</option>
-        <option value='finance'> Finanace</option>
-        <option value='profesional'>Profesional</option>
+      <label className={styles.label}>Price</label>
+      <input
+        className={styles.input}
+        required
+        type='number'
+        value={course_price}
+        onChange={(e) => updateFields({ course_price: e.target.valueAsNumber })}
+      />
+      <label className={styles.label}>category</label>
+      <select className={styles.select} value={course_category} onChange={handleCategoryChange}>
+        <option value='Personal'>Personal</option>
+        <option value='Finance'> Finance</option>
+        <option value='Professional'>Professional</option>
       </select>
-      <label>Subscription Type</label>
-      <div>
-        <label>
-          <input
-            type='radio'
-            value='monthly'
-            checked={course_subscriptionType === 'monthly'}
-            onChange={handleSubscriptionChange}
-          />
-          Monthly
-          {course_subscriptionType === 'monthly' && (
-            <input
-              type='number'
-              value={course_price}
-              onChange={(e) => updateFields({ course_price: parseFloat(e.target.value) })}
-              placeholder='Monthly Price'
-            />
-          )}
-        </label>
-      </div>
-      <div>
-        <label>
-          <input
-            type='radio'
-            value='individual'
-            checked={course_subscriptionType === 'individual'}
-            onChange={handleSubscriptionChange}
-          />
-          Individual
-          {course_subscriptionType === 'individual' && (
-            <input
-              type='number'
-              value={course_price}
-              onChange={(e) => updateFields({ course_price: parseFloat(e.target.value) })}
-              placeholder=' individual Price'
-            />
-          )}
-        </label>
-      </div>
     </FormWrapper>
   );
 };

@@ -1,5 +1,5 @@
 .addCourse {
-  padding: 25px 100px;
+  padding: 25px 120px;
 }
 
 .buttonsDiv {
@@ -8,8 +8,7 @@
   width: 100%;
   background: #fff;
   padding: 25px 40px;
-  margin-top: 20px;
-  border-radius: 8px;
+  border-radius: 0 0 10px 10px;
 }
 
 .buttonsDiv button {
@@ -18,6 +17,8 @@
   justify-content: center;
   border: none;
   color: #fff;
+  margin-top: 60px;
+  margin-bottom: 40px;
   padding: 10px;
   background: #f18524;
   text-align: center;
@@ -37,4 +38,28 @@
 
 .buttonsDiv button:hover img {
   filter: none;
+}
+
+@media screen and (max-width: 900px) {
+  .addCourse {
+    padding: 25px 80px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .addCourse {
+    padding: 25px 60px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .addCourse {
+    padding: 25px 30px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .addCourse {
+    padding: 15px 15px;
+  }
 }
