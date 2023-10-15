@@ -193,6 +193,10 @@
   gap: 5px;
 }
 
+.logo-mobile {
+  margin-left: -40px;
+}
+
 @media (max-width: 769px) {
   .sidebar {
     display: none;

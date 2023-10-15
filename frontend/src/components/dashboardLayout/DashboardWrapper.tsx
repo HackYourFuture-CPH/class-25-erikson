@@ -12,8 +12,9 @@ import Calender from '../../assets/dashboard/calendar.svg';
 import Goals from '../../assets/dashboard/goals.svg';
 import Dashboard from '../../assets/dashboard/dashboard.svg';
 import Dashboard2 from '../../assets/dashboard/dashboard2.svg';
+import MobileLogo from '../../assets/dashboard/MobileLogo.svg';
 import { useLocation } from 'react-router-dom';
-
+import Menu from '../../assets/dashboard/menu.svg';
 type FormWrapperProps = {
   children: ReactNode;
 };
@@ -159,9 +160,9 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
               <div className='top-bar-phone-content'>
                 <p className='sidebar-toggle-button' onClick={toggleSidebar}>
-                  <img src='images/menu.svg' alt='menu' />
+                  <img src={Menu} alt='menu' />
                 </p>
-                <img className='logo-mobile' src='images/Logo.svg' alt='mobile-logo' />
+                <img className='logo-mobile' src={MobileLogo} alt='mobile-logo' />
               </div>
             </div>
 
