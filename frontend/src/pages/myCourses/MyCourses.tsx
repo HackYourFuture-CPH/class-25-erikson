@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import { AllCourseFields, User } from '../../types/component';
 import useAllCoursesStore from '../../store/allcourses.store';
 import useUserStore from '../../store/user.store';
 import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import styles from './MyCourses.module.css';
 import events from '../../components/courses/CourseList.module.css';
-import { useAuthContext } from '../../hooks/useAuthContext';
 
 const MyCourses: React.FC = () => {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ const MyCourses: React.FC = () => {
                     {currentUser?.user_type === 'students' ? (
                       <div>{course.lesson_count} Lessons</div>
                     ) : (
-                      <div>Enrolled: {course.students.length}</div>
+                      <div>Enrolled: {course.students?.length}</div>
                     )}
                   </div>
                 </div>

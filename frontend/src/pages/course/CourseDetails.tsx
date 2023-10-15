@@ -19,6 +19,7 @@ import styles from './CourseDetails.module.css';
 const CourseDetails: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
+  const { setFilteredCourses } = useAllCoursesStore();
 
   const [singleCourse, setSingleCourse] = useState<any>(null);
   const [isLessonIdExists, setIsLessonIdExists] = useState<boolean>(false);
@@ -37,19 +38,20 @@ const CourseDetails: React.FC = () => {
     error,
   } = useAxiosFetch<GetCourseFields>(`/api/courses/course/${courseId}`);
 
+  const isStudent = currentUser?.user_type === 'student';
+
   useEffect(() => {
     if (fetchedCourse) {
       setSingleCourse(fetchedCourse);
     }
-  }, [fetchedCourse, setSingleCourse]);
+  }, [fetchedCourse]);
 
-  const isStudent = currentUser?.user_type === 'student';
-  const checkId: boolean = userCourses.some((course) => course.students.includes(singleCourse.id));
-  setIsLessonIdExists(checkId);
-
-  if (!user?.emailVerified) {
-    navigate('/login', { replace: true });
-  }
+  useEffect(() => {
+    const checkId: boolean = userCourses.some(
+      (course) => course.students?.includes(singleCourse.id),
+    );
+    setIsLessonIdExists(checkId);
+  }, [userCourses, singleCourse.id]);
 
   if (isLoading) {
     return <div className='loading'>Loading...</div>;
@@ -68,19 +70,26 @@ const CourseDetails: React.FC = () => {
     );
   }
 
+  if (!user?.emailVerified) {
+    navigate('/login', { replace: true });
+  }
+
   const handleEnrollClick = () => {
     if (isStudent && !isLessonIdExists) {
       const updatedCourses = userCourses.map((course) => {
         if (course.id === singleCourse.id) {
+          const newStudents = course.students
+            ? [...course.students, currentUser?.id]
+            : [currentUser?.id];
           return {
             ...course,
-            students: [...course.students, currentUser.id],
+            students: newStudents,
           };
         }
         return course;
       });
 
-      useAllCoursesStore.getState().setFilteredCourses(updatedCourses);
+      setFilteredCourses(updatedCourses);
 
       setIsLessonIdExists(true);
     }

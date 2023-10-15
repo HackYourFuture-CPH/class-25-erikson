@@ -29,17 +29,21 @@ const CourseList: React.FC = () => {
     }
   }, [fetchedCourses, setAllCourses]);
 
-  if (currentUser?.user_type === 'student') {
-    const studentCourses: AllCourseFields[] = allCourses.filter((course) => {
-      return course.students.includes(currentUser.id);
-    });
-    setFilteredCourses(studentCourses);
-  } else {
-    const mentorCourses: AllCourseFields[] = allCourses.filter((course) => {
-      return course.mentor === currentUser?.id;
-    });
-    setFilteredCourses(mentorCourses);
-  }
+  useEffect(() => {
+    if (!currentUser) {
+      return;
+    }
+
+    let filteredCourses: AllCourseFields[] = [];
+
+    if (currentUser.user_type === 'student') {
+      filteredCourses = allCourses.filter((course) => course.students?.includes(currentUser.id));
+    } else {
+      filteredCourses = allCourses.filter((course) => course.mentor === currentUser?.id);
+    }
+
+    setFilteredCourses(filteredCourses);
+  }, [currentUser, allCourses, setFilteredCourses]);
 
   const filterCourses = allCourses.filter(
     (course) => selectedFilter === 'All' || course.course_category === selectedFilter,

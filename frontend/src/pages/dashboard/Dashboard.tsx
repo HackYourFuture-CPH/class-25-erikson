@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import { User } from '../../types/component';
@@ -14,18 +14,8 @@ const Dashboard: React.FC = () => {
 
   const { data: fetchUser, isLoading, error } = useAxiosFetch<User>(`api/user/uid/${user?.uid}`);
 
-  useEffect(() => {
-    if (fetchUser) {
-      setCurrentUser(fetchUser);
-    }
-
-    if (!user?.emailVerified) {
-      navigate('/login', { replace: true });
-    }
-  }, [fetchUser, setCurrentUser, user?.emailVerified, navigate]);
-
-  if (!user?.emailVerified) {
-    navigate('/login', { replace: true });
+  if (fetchUser) {
+    setCurrentUser(fetchUser);
   }
 
   if (isLoading) {
@@ -34,6 +24,10 @@ const Dashboard: React.FC = () => {
 
   if (error) {
     return <div className='error'>{error?.message}</div>;
+  }
+
+  if (!user?.emailVerified) {
+    navigate('/login', { replace: true });
   }
 
   return (
