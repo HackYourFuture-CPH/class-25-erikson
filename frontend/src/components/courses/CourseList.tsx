@@ -10,6 +10,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import useFilterStore from '../../store/filter.store';
+import useAllCoursesStore from '../../store/allcourses.store';
+import useAxiosFetch from '../../hooks/useAxiosFetch';
 import styles from './CourseList.module.css';
 
 const CourseList: React.FC = () => {
