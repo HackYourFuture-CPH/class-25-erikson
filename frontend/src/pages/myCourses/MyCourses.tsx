@@ -6,11 +6,18 @@ import useUserStore from '../../store/user.store';
 import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import styles from './MyCourses.module.css';
 import events from '../../components/courses/CourseList.module.css';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const MyCourses: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useAuthContext();
+
   const currentUser: User | null = useUserStore((state) => state.currentUser);
   const userCourses: AllCourseFields[] = useAllCoursesStore((state) => state.filteredCourses);
+
+  if (!user?.emailVerified) {
+    navigate('/login', { replace: true });
+  }
 
   return (
     <DashboardWrapper>
