@@ -1,10 +1,13 @@
 import React from 'react';
-import { Lesson } from '../../data/data';
 import Schedule from '../../assets/icons/schedule.svg';
 import styles from './CourseComponents.module.css';
 
 interface ContentOutlineProps {
-  lessons: Lesson[];
+  lessons: {
+    lesson_title: string; 
+    lesson_description: string, 
+    lesson_image: string, 
+  }[];
 }
 
 const ContentOutline: React.FC<ContentOutlineProps> = ({ lessons }) => {
@@ -14,12 +17,12 @@ const ContentOutline: React.FC<ContentOutlineProps> = ({ lessons }) => {
       <ul>
         {lessons.map((lesson, index) => (
           <li key={index}>
-            <div className={styles.lessonTitle}>{lesson.title}</div>
+            <div className={styles.lessonTitle}>{lesson.lesson_title}</div>
             <div className={styles.lessonDuration}>
               <p>
                 <img src={Schedule} alt='schedule-icon' />
               </p>
-              <p>{lesson.duration}</p>
+              <p>15 min</p>
             </div>
           </li>
         ))}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FormEvent } from 'react';
+import React, { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useSignup from '../../hooks/useSignup';
 import useSignupStore from '../../store/signuppage.store';
@@ -27,21 +27,14 @@ const Signup: React.FC = () => {
   const { signup, error } = useSignup();
   const { user } = useAuthContext();
   const navigate = useNavigate();
-  const [isFormValid, setIsFormValid] = useState(false);
 
   if (user?.emailVerified) {
     navigate('/courses', { replace: true });
   }
 
-  useEffect(() => {
-    const reqFields = [userType, firstName, lastName, email, password];
-    const isNotEmpty = reqFields.every((field) => field !== '');
-    setIsFormValid(isNotEmpty);
-  }, [userType, firstName, lastName, email, password]);
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    await signup(email, password, firstName);
+    await signup(userType, email, password, firstName, lastName);
   };
 
   return (

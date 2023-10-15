@@ -4,12 +4,12 @@ import { CourseStore } from "../types/component";
 export const useCourseStore = create<CourseStore>((set) => ({
   selectedCourse: null,
   showAbout: true,
-  showReviews: false,
+  showFaqs: false,
   showResources: false,
   selectCourse: (courseId) => {
-    set({ selectedCourse: courseId, showAbout: true, showReviews: false, showResources: false });
+    set({ selectedCourse: courseId, showAbout: true, showFaqs: false, showResources: false });
   },
-  toggleAbout: () => set(() => ({ showAbout: true, showReviews: false, showResources: false })),
-  toggleReviews: () => set(() => ({ showAbout: false, showReviews: true, showResources: false })),
-  toggleResources: () => set(() => ({ showAbout: false, showReviews: false, showResources: true })),
+  toggleAbout: () => set(() => ({ showAbout: true, showFaqs: false, showResources: false })),
+  toggleFAQs: () => set(() => ({ showAbout: false, showFaqs: true, showResources: false })),
+  toggleResources: () => set(() => ({ showAbout: false, showFaqs: false, showResources: true })),
 }));

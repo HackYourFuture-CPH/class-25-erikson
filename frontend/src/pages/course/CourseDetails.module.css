@@ -15,6 +15,7 @@
 .courseDetails {
   width: 100%;
   padding: 0 30px;
+  padding-bottom: 30px;
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 30px;
@@ -24,6 +25,7 @@
 .gridRight {
   background: #fff;
   padding: 30px;
+  margin-bottom: 15px;
   border-radius: 8px;
 }
 
@@ -38,4 +40,24 @@
   font-size: medium;
   border-radius: 8px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1100px) {
+  .courseDetails {
+    grid-template-columns: 1fr;
+  }
+
+  .breadCrump h1 {
+    font-size: 1.8em;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .breadCrump h1 {
+    font-size: 1.6em;
+  }
+
+  .startButton {
+    padding: 15px;
+  }
 }

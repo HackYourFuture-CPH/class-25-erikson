@@ -6,14 +6,13 @@ import {
 } from '../firebase/config';
 import useErrorSignupState from '../store/errorsignup.store';
 import useNotificationStore from '../store/notification.store';
-// import axios from 'axios';
+import axios from 'axios';
 
 const useSignup = () => {
   const { setNotification } = useNotificationStore();
   const { error, setError } = useErrorSignupState();
 
-  // const signup = async (userType: string, email: string, password: string, firstName: string, lastName: string) => {
-  const signup = async (email: string, password: string, firstName: string) => {
+  const signup = async (userType: string, email: string, password: string, firstName: string, lastName: string) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -32,23 +31,23 @@ const useSignup = () => {
         });
 
         // To generate Firebase ID Token
-        // const idToken = await user.getIdToken();
+        const idToken = await user.getIdToken();
 
         // Sending user data and ID token as a Bearer token to the server
-        // const userData = {
-        //   email,
-        //   uid: user.uid,
-        //   first_name: firstName,
-        //   last_name: lastName,
-        //   user_type: userType,
-        // };
+        const userData = {
+          email,
+          uid: user.uid,
+          first_name: firstName,
+          last_name: lastName,
+          user_type: userType,
+        };
 
         // Send a POST request to your server with Bearer token in the Authorization header
-        // await axios.post('http://localhost:3000/users', userData, {
-        //   headers: {
-        //     Authorization: `Bearer ${idToken}`,
-        //   },
-        // });
+        await axios.post('/api/user/create', userData, {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        });
 
         setError('A verification link has been sent to your e-mail.');
       }

@@ -4,14 +4,14 @@ import styles from './Filters.module.css';
 const Filters: React.FC = () => {
   const { selectedFilter, setSelectedFilter } = useFilterStore();
 
-  const filterButtons = ['All', 'Personal', 'Finance', 'Professional', 'Live Event'];
+  const filterButtons = ['All', 'Personal', 'Finance', 'Professional'];
 
   return (
     <div className={styles.filters}>
       {filterButtons.map((filter) => (
         <button
           key={filter}
-          className={selectedFilter === filter ? styles.active : ''}
+          className={selectedFilter === filter ? styles.active : styles.defaultStyle}
           onClick={() => setSelectedFilter(filter)}
         >
           {filter}
