@@ -13,8 +13,8 @@ import useAxiosFetch from '../../hooks/useAxiosFetch';
 import styles from './CourseList.module.css';
 
 const CourseList: React.FC = () => {
-  const { selectedFilter } = useFilterStore();
   const currentUser: User | null = useUserStore((state) => state.currentUser);
+  const { selectedFilter } = useFilterStore();
   const { allCourses, setAllCourses, setFilteredCourses } = useAllCoursesStore();
 
   const {
@@ -26,19 +26,20 @@ const CourseList: React.FC = () => {
   useEffect(() => {
     if (fetchedCourses) {
       setAllCourses(fetchedCourses);
-      if (currentUser?.user_type === 'student') {
-        const studentCourses: AllCourseFields[] = allCourses.filter((course) => {
-          return course.students.includes(currentUser.id);
-        });
-        setFilteredCourses(studentCourses);
-      } else {
-        const mentorCourses: AllCourseFields[] = allCourses.filter((course) => {
-          return course.mentor === currentUser?.id;
-        });
-        setFilteredCourses(mentorCourses);
-      }
     }
-  }, [fetchedCourses, setAllCourses, setFilteredCourses]);
+  }, [fetchedCourses, setAllCourses]);
+
+  if (currentUser?.user_type === 'student') {
+    const studentCourses: AllCourseFields[] = allCourses.filter((course) => {
+      return course.students.includes(currentUser.id);
+    });
+    setFilteredCourses(studentCourses);
+  } else {
+    const mentorCourses: AllCourseFields[] = allCourses.filter((course) => {
+      return course.mentor === currentUser?.id;
+    });
+    setFilteredCourses(mentorCourses);
+  }
 
   const filterCourses = allCourses.filter(
     (course) => selectedFilter === 'All' || course.course_category === selectedFilter,
