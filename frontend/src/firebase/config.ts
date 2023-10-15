@@ -8,7 +8,7 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
 } from 'firebase/auth';
-import { getStorage, ref, uploadString, getDownloadURL, uploadBytes } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -35,6 +35,6 @@ export {
   sendPasswordResetEmail,
   // storage exports
   ref,
-  getDownloadURL,
   uploadBytes,
+  getDownloadURL,
 };

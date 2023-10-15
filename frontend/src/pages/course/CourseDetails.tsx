@@ -1,31 +1,28 @@
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useCourseStore } from '../../store/courses.store';
-import { courses, Course } from '../../data/data';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { AllCourseFields, GetCourseFields, User } from '../../types/component';
+import useUserStore from '../../store/user.store';
+import useAllCoursesStore from '../../store/allcourses.store';
+import useAxiosFetch from '../../hooks/useAxiosFetch';
 import CourseHeader from '../../components/courseDetails/CourseHeader';
 import CourseActions from '../../components/courseDetails/CourseActions';
-import AboutSection from '../../components/courseDetails/AboutSection';
-import ResourcesSection from '../../components/courseDetails/ResourcesSection';
-import ReviewsSection from '../../components/courseDetails/ReviewsSection';
+import AboutSection from '../../components/courseDetails/aboutSection/AboutSection';
+import ResourcesSection from '../../components/courseDetails/resourcesSection/ResourcesSection';
+import FaqsSection from '../../components/courseDetails/faqsSection/FaqsSection';
 import ContentOutline from '../../components/courseDetails/ContentOutline';
 import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import BackArrow from '../../assets/icons/arrow_back.svg';
 import styles from './CourseDetails.module.css';
-// import useAllCoursesStore from '../../store/allcourses.store';
-// import { GetCourseFields } from '../../types/component';
-
-const convertDurationToMinutes = (duration: string): number => {
-  const match = duration.match(/(\d+) minutes/);
-  if (match) {
-    return parseInt(match[1], 10);
-  }
-  return 0;
-};
 
 const CourseDetails: React.FC = () => {
   const { user } = useAuthContext();
+  const [singleCourse, setSingleCourse] = useState<any>(null);
+  const [isLessonIdExists, setIsLessonIdExists] = useState<boolean>(false);
   const navigate = useNavigate();
-  // const courses = useAllCoursesStore((state) => state.courses);
+  const currentUser: User | null = useUserStore((state) => state.currentUser);
+  const userCourses: AllCourseFields[] = useAllCoursesStore((state) => state.filteredCourses);
 
   if (!user?.emailVerified) {
     navigate('/login', { replace: true });
@@ -33,28 +30,34 @@ const CourseDetails: React.FC = () => {
 
   const { id } = useParams<{ id: string }>();
 
-  const {
-    selectedCourse,
-    showAbout,
-    showReviews,
-    showResources,
-    toggleAbout,
-    toggleReviews,
-    toggleResources,
-  } = useCourseStore();
+  const { showAbout, showFaqs, toggleAbout, toggleFAQs } = useCourseStore();
   const courseId = id ? parseInt(id, 10) : null;
 
-  let course: Course | undefined;
-  // let course: GetCourseFields | undefined;
+  const {
+    data: fetchedCourse,
+    isLoading,
+    error,
+  } = useAxiosFetch<GetCourseFields>(`/api/courses/course/${courseId}`);
 
-  if (selectedCourse && typeof selectedCourse === 'object') {
-    course = selectedCourse as Course;
-    // course = selectedCourse as GetCourseFields;
-  } else if (courseId) {
-    course = courses.find((c) => c.id === courseId);
+  useEffect(() => {
+    if (fetchedCourse) {
+      setSingleCourse(fetchedCourse);
+    }
+  }, [fetchedCourse, setSingleCourse]);
+
+  const isStudent = currentUser?.user_type === 'student';
+  const checkId: boolean = userCourses.some((course) => course.students.includes(singleCourse.id));
+  setIsLessonIdExists(checkId);
+
+  if (isLoading) {
+    return <div className='loading'>Loading...</div>;
   }
 
-  if (!course) {
+  if (error) {
+    return <div className='error'>{error?.message}</div>;
+  }
+
+  if (!singleCourse) {
     return (
       <>
         <div>This course does not exists.</div>
@@ -63,19 +66,23 @@ const CourseDetails: React.FC = () => {
     );
   }
 
-  const formatDuration = (totalDurationMinutes: number): string => {
-    const hours = Math.floor(totalDurationMinutes / 60);
-    const minutes = totalDurationMinutes % 60;
+  const handleEnrollClick = () => {
+    if (isStudent && !isLessonIdExists) {
+      const updatedCourses = userCourses.map((course) => {
+        if (course.id === singleCourse.id) {
+          return {
+            ...course,
+            students: [...course.students, currentUser.id],
+          };
+        }
+        return course;
+      });
 
-    return hours > 0 ? `${hours}hr ${minutes}m` : `${minutes}m`;
+      useAllCoursesStore.getState().setFilteredCourses(updatedCourses);
+
+      setIsLessonIdExists(true);
+    }
   };
-
-  const totalDurationMinutes = course.contentOutline.lessons.reduce(
-    (total, lesson) => total + convertDurationToMinutes(lesson.duration),
-    0,
-  );
-
-  const formattedDuration = formatDuration(totalDurationMinutes);
 
   return (
     <>
@@ -89,23 +96,35 @@ const CourseDetails: React.FC = () => {
         <div className={styles.courseDetails}>
           <div className={styles.gridLeft}>
             <CourseHeader
-              courseName={course.course_name}
-              tag={course.tag}
-              formattedDuration={formattedDuration}
-              videoSource={course.contentOutline.lessons[0].video}
+              courseName={singleCourse.course_title}
+              tag={singleCourse.course_category}
+              link={singleCourse.course_image}
+              formattedDuration='8 min'
             />
-            <CourseActions
-              toggleAbout={toggleAbout}
-              toggleReviews={toggleReviews}
-              toggleResources={toggleResources}
-            />
-            {showAbout && <AboutSection description={course.description} />}
-            {showReviews && <ReviewsSection reviews={course.comments} />}
-            {showResources && <ResourcesSection lessons={course.contentOutline.lessons} />}
-            <button className={styles.startButton}>Start</button>
+            <CourseActions toggleAbout={toggleAbout} toggleFAQs={toggleFAQs} />
+            {showAbout && <AboutSection description={singleCourse.course_description} />}
+            {showFaqs && <FaqsSection faqs={singleCourse.faqs} />}
+            {isStudent && (
+              <button
+                className={styles.startButton}
+                disabled={isLessonIdExists}
+                onClick={handleEnrollClick}
+              >
+                {isLessonIdExists ? 'Start' : 'Enroll'}
+              </button>
+            )}
           </div>
-          <div className={styles.gridRight}>
-            <ContentOutline lessons={course.contentOutline.lessons} />
+
+          <div className={styles.gridWrapper}>
+            <div className={styles.gridRight}>
+              <ContentOutline lessons={singleCourse.lessons} />
+            </div>
+
+            {singleCourse.lessons.length > 0 && (
+              <div className={styles.gridRight}>
+                <ResourcesSection lessons={singleCourse.lessons} />
+              </div>
+            )}
           </div>
         </div>
       </DashboardWrapper>
