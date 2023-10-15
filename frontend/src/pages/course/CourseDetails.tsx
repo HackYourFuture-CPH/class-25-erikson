@@ -11,9 +11,6 @@ import CourseActions from '../../components/courseDetails/CourseActions';
 import AboutSection from '../../components/courseDetails/aboutSection/AboutSection';
 import ResourcesSection from '../../components/courseDetails/resourcesSection/ResourcesSection';
 import FaqsSection from '../../components/courseDetails/faqsSection/FaqsSection';
-import AboutSection from '../../components/courseDetails/aboutSection/AboutSection';
-import ResourcesSection from '../../components/courseDetails/resourcesSection/ResourcesSection';
-import FaqsSection from '../../components/courseDetails/faqsSection/FaqsSection';
 import ContentOutline from '../../components/courseDetails/ContentOutline';
 import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import BackArrow from '../../assets/icons/arrow_back.svg';
@@ -99,10 +96,6 @@ const CourseDetails: React.FC = () => {
         <div className={styles.courseDetails}>
           <div className={styles.gridLeft}>
             <CourseHeader
-              courseName={singleCourse.course_title}
-              tag={singleCourse.course_category}
-              link={singleCourse.course_image}
-              formattedDuration='8 min'
               courseName={singleCourse.course_title}
               tag={singleCourse.course_category}
               link={singleCourse.course_image}

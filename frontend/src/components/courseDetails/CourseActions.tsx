@@ -25,11 +25,8 @@ const CourseActions: React.FC<CourseActionsProps> = ({ toggleAbout, toggleFAQs }
       <button
         className={activeButton === 'faqs' ? styles.activeButton : ''}
         onClick={() => handleButtonClick('faqs', toggleFAQs)}
-        className={activeButton === 'faqs' ? styles.activeButton : ''}
-        onClick={() => handleButtonClick('faqs', toggleFAQs)}
       >
-        FAQs
-        FAQs
+        FAQs FAQs
       </button>
     </div>
   );
