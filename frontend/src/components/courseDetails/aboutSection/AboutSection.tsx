@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './AboutSection.module.css';
 
 interface AboutSectionProps {
   description: string;
@@ -6,9 +7,9 @@ interface AboutSectionProps {
 
 const AboutSection: React.FC<AboutSectionProps> = ({ description }) => {
   return (
-    <div className="course-section">
+    <div className='course-section'>
       <h3>About</h3>
-      <p>{description}</p>
+      <p className={styles.descriptionWrap}>{description}</p>
     </div>
   );
 };

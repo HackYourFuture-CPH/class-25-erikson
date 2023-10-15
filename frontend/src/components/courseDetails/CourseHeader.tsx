@@ -7,14 +7,14 @@ interface CourseHeaderProps {
   courseName: string;
   tag: string;
   formattedDuration: string;
-  videoSource: string;
+  link: string;
 }
 
 const CourseHeader: React.FC<CourseHeaderProps> = ({
   courseName,
   tag,
   formattedDuration,
-  videoSource,
+  link,
 }) => {
   return (
     <div className={styles.courseHeader}>
@@ -26,9 +26,7 @@ const CourseHeader: React.FC<CourseHeaderProps> = ({
               ? tags.professional
               : tag === 'Personal'
               ? tags.personal
-              : tag === 'Finance'
-              ? tags.finance
-              : tag === 'Live Event' && tags.event
+              : tag === 'Finance' && tags.finance
           }`}
         >
           {tag}
@@ -37,10 +35,9 @@ const CourseHeader: React.FC<CourseHeaderProps> = ({
         <img src={Schedule} alt='schedule-icon' />
         <p>{formattedDuration}</p>
       </div>
-      <video controls className={styles.video}>
-        <source src={videoSource} type='video/mp4' />
-        Your browser does not support the video tag.
-      </video>
+      <div className={styles.imageContainer}>
+        <img src={link} className={styles.photo} alt='course-img' />
+      </div>
     </div>
   );
 };
