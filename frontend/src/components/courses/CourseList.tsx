@@ -1,28 +1,46 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import { AllCourseFields, User } from '../../types/component';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import useFilterStore from '../../store/filter.store';
+import useUserStore from '../../store/user.store';
 import useAllCoursesStore from '../../store/allcourses.store';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
 import styles from './CourseList.module.css';
 
 const CourseList: React.FC = () => {
   const { selectedFilter } = useFilterStore();
-  const { courses, setCourses } = useAllCoursesStore();
+  const currentUser: User | null = useUserStore((state) => state.currentUser);
+  const { allCourses, setAllCourses, setFilteredCourses } = useAllCoursesStore();
 
-  const { data: fetchedCourses, isLoading, error } = useAxiosFetch<any[]>('/api/courses/all');
+  const {
+    data: fetchedCourses,
+    isLoading,
+    error,
+  } = useAxiosFetch<AllCourseFields[]>('/api/courses/all');
 
   useEffect(() => {
     if (fetchedCourses) {
-      setCourses(fetchedCourses);
+      setAllCourses(fetchedCourses);
+      if (currentUser?.user_type === 'student') {
+        const studentCourses: AllCourseFields[] = allCourses.filter((course) => {
+          return course.students.includes(currentUser.id);
+        });
+        setFilteredCourses(studentCourses);
+      } else {
+        const mentorCourses: AllCourseFields[] = allCourses.filter((course) => {
+          return course.mentor === currentUser?.id;
+        });
+        setFilteredCourses(mentorCourses);
+      }
     }
-  }, [fetchedCourses, setCourses]);
+  }, [fetchedCourses, setAllCourses, setFilteredCourses]);
 
-  const filteredCourses = courses.filter(
+  const filterCourses = allCourses.filter(
     (course) => selectedFilter === 'All' || course.course_category === selectedFilter,
   );
 
@@ -37,16 +55,11 @@ const CourseList: React.FC = () => {
   return (
     <div className={styles.courseList}>
       <div className={styles.cardsWrapper}>
-        {filteredCourses.map(
+        {filterCourses.map(
           ({ id, course_title, course_category, course_image, lesson_count }: any) => (
             <Card className={styles.singleCard} key={id}>
               <Link to={`/course/${id}`} className={styles.singleCourse}>
-                <CardMedia 
-                  component='img' 
-                  alt={course_title} 
-                  image={course_image} 
-                  height='300'
-                />
+                <CardMedia component='img' alt={course_title} image={course_image} height='300' />
                 <CardContent className={styles.cardContent}>
                   <Typography
                     pb={2}
