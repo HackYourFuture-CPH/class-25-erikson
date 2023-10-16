@@ -4,9 +4,9 @@ import useLogin from '../../hooks/useLogin';
 import useLoginStore from '../../store/loginpage.store';
 import styles from './Login.module.css';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import Input from '../../tmp_components/input/Input.component';
-import Checkbox from '../../tmp_components/checkbox/Checkbox.component';
-import Button from '../../tmp_components/button/Button.component';
+import Input from '../../components/input/Input.component';
+import Checkbox from '../../components/checkbox/Checkbox.component';
+import Button from '../../components/button/Button.component';
 
 const Login: React.FC = () => {
   const { email, setEmail, password, setPassword, rememberMe, setRememberMe, resetForm } =

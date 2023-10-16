@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import StudentDashboard from '../../tmp_components/courses/Students';
+import StudentDashboard from '../../components/courses/Students';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
-import DashboardWrapper from '../../tmp_components/dashboardLayout/DashboardWrapper';
+import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
 import useUserStore from '../../store/user.store';
 
