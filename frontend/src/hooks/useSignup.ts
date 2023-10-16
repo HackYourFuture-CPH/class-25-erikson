@@ -29,6 +29,10 @@ const useSignup = () => {
         await updateProfile(user, {
           displayName,
         });
+        setNotification({
+          message: 'A verification link has been sent to your e-mail.',
+          severity: 'info',
+        });
 
         // To generate Firebase ID Token
         const idToken = await user.getIdToken();

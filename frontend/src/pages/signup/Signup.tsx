@@ -24,7 +24,7 @@ const Signup: React.FC = () => {
     setRememberMe,
   } = useSignupStore();
 
-  const { signup, error } = useSignup();
+  const { signup } = useSignup();
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
@@ -125,8 +125,6 @@ const Signup: React.FC = () => {
               Log in
             </Link>
           </p>
-
-          {error && <p>{error}</p>}
         </div>
 
         <div className='auth-right'>

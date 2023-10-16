@@ -19,7 +19,7 @@ const Login: React.FC = () => {
     if (user?.emailVerified) {
       navigate('/courses', { replace: true });
     }
-  })
+  });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
@@ -68,7 +68,6 @@ const Login: React.FC = () => {
             <div className={styles.submitButton}>
               <Button label={'Login'} type='submit' />
             </div>
-            {error && <p>{error}</p>}
           </form>
 
           <p className={styles.redirect}>

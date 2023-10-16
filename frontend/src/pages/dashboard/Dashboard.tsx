@@ -11,30 +11,29 @@ const Dashboard: React.FC = () => {
   const { setCurrentUser } = useUserStore();
   const navigate = useNavigate();
 
-  const { data: fetchUser, isLoading, error } = useAxiosFetch<any>(`api/user/uid/${user?.uid}`)
-  
+  const { data: fetchUser, isLoading, error } = useAxiosFetch<any>(`api/user/uid/${user?.uid}`);
+
   useEffect(() => {
     if (fetchUser) {
-      setCurrentUser(fetchUser)
-    };
+      setCurrentUser(fetchUser);
+    }
 
     if (!user?.emailVerified) {
       navigate('/login', { replace: true });
     }
-
   }, [fetchUser, setCurrentUser, user?.emailVerified, navigate]);
-  
+
   if (!user?.emailVerified) {
     navigate('/login', { replace: true });
-  };
+  }
 
   if (isLoading) {
     return <div className='loadin'>Loading...</div>;
-  };
+  }
 
   if (error) {
-    return <div className='error'>{error?.message}</div>
-  };
+    return <div className='error'>{error?.message}</div>;
+  }
 
   return (
     <DashboardWrapper>

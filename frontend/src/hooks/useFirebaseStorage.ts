@@ -13,7 +13,7 @@ const useFirebaseStorage = () => {
 
   const uploadImageToFirebaseStorage = async (file: File, path: string) => {
     setIsUploading(true);
-    const storageRef = ref(storage, path);  
+    const storageRef = ref(storage, path);
     try {
       await uploadBytes(storageRef, file);
       const downloadURL = await getDownloadURL(storageRef);

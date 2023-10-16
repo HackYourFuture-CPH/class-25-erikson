@@ -5,7 +5,7 @@ import CourseList from './CourseList';
 import useUserStore from '../../store/user.store';
 
 const StudentDashboard: React.FC = () => {
-  const { currentUser } = useUserStore()
+  const { currentUser } = useUserStore();
   const userType = currentUser?.user_type;
 
   return (
@@ -13,7 +13,7 @@ const StudentDashboard: React.FC = () => {
       <div className='create-course-wrapper'>
         <div className='create-course'>
           <h2>Course</h2>
-          {userType === "Mentor" && (
+          {userType === 'Mentor' && (
             <Link to='/add-course'>
               <button className='create-course-btn'>Create New Course+</button>
             </Link>

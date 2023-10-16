@@ -37,5 +37,5 @@ export {
   ref,
   uploadString,
   getDownloadURL,
-  uploadBytes
+  uploadBytes,
 };

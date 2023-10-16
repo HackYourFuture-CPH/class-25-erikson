@@ -64,25 +64,30 @@ const AddCourseForm: React.FC = () => {
     }
   };
 
-    const submitForm = async (e: FormEvent) => {
+  const submitForm = async (e: FormEvent) => {
     e.preventDefault();
     if (!isLastStep) return next();
-    
+
     try {
       // Upload course image to Firebase Storage
       const courseImagePath = `courses/${generateUniqueFileName(data.course_image.name)}`;
       const courseImageUrl = await uploadImageToFirebaseStorage(data.course_image, courseImagePath);
 
       // Upload lesson images to Firebase Storage
-      const lessonsWithImageUrls = await Promise.all(data.lessons.map(async (lesson) => {
-        const lessonImagePath = `lessons/${generateUniqueFileName(lesson.lesson_image.name)}`;
-        const lessonImageUrl = await uploadImageToFirebaseStorage(lesson.lesson_image, lessonImagePath);
-        
-        return {
-          ...lesson,
-          lesson_image: lessonImageUrl
-        };
-      }));
+      const lessonsWithImageUrls = await Promise.all(
+        data.lessons.map(async (lesson) => {
+          const lessonImagePath = `lessons/${generateUniqueFileName(lesson.lesson_image.name)}`;
+          const lessonImageUrl = await uploadImageToFirebaseStorage(
+            lesson.lesson_image,
+            lessonImagePath,
+          );
+
+          return {
+            ...lesson,
+            lesson_image: lessonImageUrl,
+          };
+        }),
+      );
 
       // Upload sales image to Firebase Storage
       const salesImagePath = `sales/${generateUniqueFileName(data.sales_image.name)}`;
@@ -93,27 +98,23 @@ const AddCourseForm: React.FC = () => {
         ...data,
         course_image: courseImageUrl,
         lessons: lessonsWithImageUrls,
-        sales_image: salesImageUrl
+        sales_image: salesImageUrl,
       };
 
       // Getting Firebase ID token
       const idToken = await user?.getIdToken();
-      
-      // Posting form data to the server
-      await axios.post(
-        `api/courses/${mentorId}/add_course`,
-        formDataWithUrls,
-        {
-          headers: {
-            Authorization: `Bearer ${idToken}`,
-          }
-        }
-      );
 
-    alert('Form Submitted');
-    resetForm();
-    goTo(0);
-    navigate('/courses');
+      // Posting form data to the server
+      await axios.post(`api/courses/${mentorId}/add_course`, formDataWithUrls, {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      });
+
+      alert('Form Submitted');
+      resetForm();
+      goTo(0);
+      navigate('/courses');
     } catch (error) {
       console.error('Error submitting form:', error);
     }

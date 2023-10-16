@@ -9,7 +9,7 @@ import Button from '../../components/button/Button.component';
 
 const Password: React.FC = () => {
   const { email, setEmail } = usePasswordStore();
-  const { resetPassword, error, successMessage } = useReset();
+  const { resetPassword } = useReset();
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
@@ -48,9 +48,6 @@ const Password: React.FC = () => {
             <div className={styles.submitButton}>
               <Button label={'Reset Password'} type='submit' />
             </div>
-
-            {error && <p>{error}</p>}
-            {successMessage && <p>{successMessage}</p>}
           </form>
         </div>
 
