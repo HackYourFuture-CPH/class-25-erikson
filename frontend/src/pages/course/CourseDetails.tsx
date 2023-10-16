@@ -15,7 +15,7 @@ import useAxiosFetch from '../../hooks/useAxiosFetch';
 
 const CourseDetails: React.FC = () => {
   const { user } = useAuthContext();
-  const [ singleCourse, setSingleCourse ] = useState<any>(null);
+  const [singleCourse, setSingleCourse] = useState<any>(null);
   const navigate = useNavigate();
   // const courses = useAllCoursesStore((state) => state.courses);
 
@@ -25,15 +25,14 @@ const CourseDetails: React.FC = () => {
 
   const { id } = useParams<{ id: string }>();
 
-  const {
-    showAbout,
-    showFaqs,
-    toggleAbout,
-    toggleFAQs,
-  } = useCourseStore();
+  const { showAbout, showFaqs, toggleAbout, toggleFAQs } = useCourseStore();
   const courseId = id ? parseInt(id, 10) : null;
-  
-  const { data: fetchedCourses, isLoading, error } = useAxiosFetch<any>(`/api/courses/course/${courseId}`);
+
+  const {
+    data: fetchedCourses,
+    isLoading,
+    error,
+  } = useAxiosFetch<any>(`/api/courses/course/${courseId}`);
   useEffect(() => {
     if (fetchedCourses) {
       setSingleCourse(fetchedCourses);
@@ -74,10 +73,7 @@ const CourseDetails: React.FC = () => {
               link={singleCourse.course_image}
               formattedDuration='8 min'
             />
-            <CourseActions
-              toggleAbout={toggleAbout}
-              toggleFAQs={toggleFAQs}
-            />
+            <CourseActions toggleAbout={toggleAbout} toggleFAQs={toggleFAQs} />
             {showAbout && <AboutSection description={singleCourse.course_description} />}
             {showFaqs && <FaqsSection faqs={singleCourse.faqs} />}
             <button className={styles.startButton}>Start</button>
@@ -88,11 +84,11 @@ const CourseDetails: React.FC = () => {
               <ContentOutline lessons={singleCourse.lessons} />
             </div>
 
-            {singleCourse.lessons.length > 0 && 
-            <div className={styles.gridRight}>
-              <ResourcesSection lessons={singleCourse.lessons} />
-            </div>
-            }
+            {singleCourse.lessons.length > 0 && (
+              <div className={styles.gridRight}>
+                <ResourcesSection lessons={singleCourse.lessons} />
+              </div>
+            )}
           </div>
         </div>
       </DashboardWrapper>

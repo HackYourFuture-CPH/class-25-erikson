@@ -6,10 +6,7 @@ interface CourseActionsProps {
   toggleFAQs: () => void;
 }
 
-const CourseActions: React.FC<CourseActionsProps> = ({
-  toggleAbout,
-  toggleFAQs,
-}) => {
+const CourseActions: React.FC<CourseActionsProps> = ({ toggleAbout, toggleFAQs }) => {
   const [activeButton, setActiveButton] = useState<string>('');
 
   const handleButtonClick = (buttonName: string, toggleFunction: () => void) => {

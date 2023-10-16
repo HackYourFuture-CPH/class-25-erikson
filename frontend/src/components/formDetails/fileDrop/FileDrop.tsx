@@ -54,13 +54,20 @@ export function FileDrop({ onImageSelect }: FileDropProps) {
         <div className={styles.title}>
           <div style={{ position: 'relative' }}>
             <input
-              type="file"
-              accept="image/*"
+              type='file'
+              accept='image/*'
               onChange={handleFileSelect}
-              className={styles.fileInput} 
-              style={{ opacity: 0, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+              className={styles.fileInput}
+              style={{
+                opacity: 0,
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+              }}
             />
-            <img src="images/gallery.png" alt="background-drop"/>
+            <img src='images/gallery.png' alt='background-drop' />
           </div>
           <p>Drag an image here or click to select</p>
         </div>
