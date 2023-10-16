@@ -4,9 +4,9 @@ import styles from './CourseComponents.module.css';
 
 interface ContentOutlineProps {
   lessons: {
-    lesson_title: string; 
-    lesson_description: string, 
-    lesson_image: string, 
+    lesson_title: string;
+    lesson_description: string;
+    lesson_image: string;
   }[];
 }
 

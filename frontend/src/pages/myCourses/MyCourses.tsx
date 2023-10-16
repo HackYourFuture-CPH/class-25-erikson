@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AllCourseFields } from '../../types/component';
-import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
+import DashboardWrapper from '../../tmp_components/dashboardLayout/DashboardWrapper';
 import styles from './MyCourses.module.css';
 import events from '../../components/courses/CourseList.module.css';
 

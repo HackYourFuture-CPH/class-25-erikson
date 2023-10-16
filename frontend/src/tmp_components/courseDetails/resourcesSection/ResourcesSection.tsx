@@ -22,31 +22,31 @@ interface ResourcesSectionProps {
 
 const ResourcesSection: React.FC<ResourcesSectionProps> = ({ lessons }) => {
   return (
-  <>
-    <h3>Resources</h3>
-    <div className={styles.container}>
-      {lessons.map((lesson) => (
+    <>
+      <h3>Resources</h3>
+      <div className={styles.container}>
+        {lessons.map((lesson) =>
           lesson.lesson_resources.map((resource, resourceIndex) => (
             <div className={styles.rowWrap} key={resourceIndex}>
-              <img src={playVideo} className={styles.videoIcon} alt='video-icon'/>
+              <img src={playVideo} className={styles.videoIcon} alt='video-icon' />
               <div className='icons-wrap'>
-                <a href={resource.lesson_resources} target='_blank' rel="noreferrer" >
+                <a href={resource.lesson_resources} target='_blank' rel='noreferrer'>
                   {resource.lesson_resources}
                 </a>
 
                 <div className={styles.resourceInfo}>
                   <img src={timeCircle} alt='time-icon' />
                   <p>8 min</p>
-                  <img src={grayDot} className={styles.grayDot} alt='dot-icon'/>
-                  <img src={dangerCircle} className={styles.grayDot} alt='warning-icon'/>
+                  <img src={grayDot} className={styles.grayDot} alt='dot-icon' />
+                  <img src={dangerCircle} className={styles.grayDot} alt='warning-icon' />
                   <p>24MB</p>
-              </div>
+                </div>
               </div>
             </div>
-          ))
-        ))}
-    </div>
-  </>
+          )),
+        )}
+      </div>
+    </>
   );
 };
 

@@ -4,8 +4,8 @@ import useReset from '../../hooks/useReset';
 import usePasswordStore from '../../store/resetpage.store';
 import styles from './Password.module.css';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import Input from '../../components/input/Input.component';
-import Button from '../../components/button/Button.component';
+import Input from '../../tmp_components/input/Input.component';
+import Button from '../../tmp_components/button/Button.component';
 
 const Password: React.FC = () => {
   const { email, setEmail } = usePasswordStore();

@@ -7,7 +7,7 @@ interface AboutSectionProps {
 
 const AboutSection: React.FC<AboutSectionProps> = ({ description }) => {
   return (
-    <div className="course-section">
+    <div className='course-section'>
       <h3>About</h3>
       <p className={styles.descriptionWrap}>{description}</p>
     </div>
