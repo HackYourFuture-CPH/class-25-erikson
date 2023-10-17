@@ -11,7 +11,7 @@ import Button from '../../components/button/Button.component';
 const Login: React.FC = () => {
   const { email, setEmail, password, setPassword, rememberMe, setRememberMe, resetForm } =
     useLoginStore();
-  const { login, error } = useLogin();
+  const { login } = useLogin();
   const { user } = useAuthContext();
   const navigate = useNavigate();
 

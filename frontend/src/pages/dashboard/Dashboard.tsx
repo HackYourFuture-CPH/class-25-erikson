@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import StudentDashboard from '../../components/courses/Students';
 import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 

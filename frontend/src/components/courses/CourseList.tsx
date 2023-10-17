@@ -15,7 +15,7 @@ import styles from './CourseList.module.css';
 const CourseList: React.FC = () => {
   const currentUser: User | null = useUserStore((state) => state.currentUser);
   const { selectedFilter } = useFilterStore();
-  const { allCourses, filteredCourses, setAllCourses, setFilteredCourses } = useAllCoursesStore();
+  const { allCourses, setAllCourses, setFilteredCourses } = useAllCoursesStore();
 
   const {
     data: fetchedCourses,
@@ -44,7 +44,6 @@ const CourseList: React.FC = () => {
 
     setFilteredCourses(userCourses);
   }, [currentUser, allCourses, setFilteredCourses]);
-  console.log(filteredCourses);
 
   const filterCourses = allCourses.filter(
     (course) => selectedFilter === 'All' || course.course_category === selectedFilter,
