@@ -1,13 +1,10 @@
 import React from 'react';
+import { GetLesson } from '../../types/component';
 import Schedule from '../../assets/icons/schedule.svg';
 import styles from './CourseComponents.module.css';
 
 interface ContentOutlineProps {
-  lessons: {
-    lesson_title: string; 
-    lesson_description: string, 
-    lesson_image: string, 
-  }[];
+  lessons: GetLesson[];
 }
 
 const ContentOutline: React.FC<ContentOutlineProps> = ({ lessons }) => {

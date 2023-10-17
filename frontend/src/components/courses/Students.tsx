@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import Filters from './Filters';
 import CourseList from './CourseList';
 import useUserStore from '../../store/user.store';
+import useAxiosFetch from '../../hooks/useAxiosFetch';
 
 const StudentDashboard: React.FC = () => {
-  const { currentUser } = useUserStore();
+  const { currentUser, setCurrentUser } = useUserStore();
+  const { user } = useAuthContext();
+
+  const { data: fetchUser, isLoading, error } = useAxiosFetch<any>(`api/user/uid/${user?.uid}`);
+
+  useEffect(() => {
+    if (fetchUser) {
+      setCurrentUser(fetchUser);
+    }
+  }, [fetchUser, setCurrentUser]);
+
   const userType = currentUser?.user_type;
+
+  if (isLoading) {
+    return <div className='loading'>Loading...</div>;
+  }
+
+  if (error) {
+    return <div className='error'>{error?.message}</div>;
+  }
 
   return (
     <div>

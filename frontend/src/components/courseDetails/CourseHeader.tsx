@@ -26,8 +26,7 @@ const CourseHeader: React.FC<CourseHeaderProps> = ({
               ? tags.professional
               : tag === 'Personal'
               ? tags.personal
-              : tag === 'Finance'
-              && tags.finance
+              : tag === 'Finance' && tags.finance
           }`}
         >
           {tag}
@@ -36,9 +35,9 @@ const CourseHeader: React.FC<CourseHeaderProps> = ({
         <img src={Schedule} alt='schedule-icon' />
         <p>{formattedDuration}</p>
       </div>
-        <div className={styles.imageContainer}>
-          <img src={link} className={styles.photo} alt='course-img'/>
-        </div>
+      <div className={styles.imageContainer}>
+        <img src={link} className={styles.photo} alt='course-img' />
+      </div>
     </div>
   );
 };
