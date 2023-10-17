@@ -1,9 +1,11 @@
 import { create } from 'zustand';
-import { GetAllCourses } from '../types/component';
+import { GetAllCourseDetails } from '../types/component';
 
-const useAllCoursesStore = create<GetAllCourses>((set) => ({
-  courses: [],
-  setCourses: (courses) => set({ courses }),
+const useAllCoursesStore = create<GetAllCourseDetails>((set) => ({
+  allCourses: [],
+  filteredCourses: [],
+  setAllCourses: (allCourses) => set({ allCourses }),
+  setFilteredCourses: (filteredCourses) => set({ filteredCourses }),
 }));
 
 export default useAllCoursesStore;

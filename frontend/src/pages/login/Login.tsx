@@ -1,9 +1,9 @@
 import React, { FormEvent, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import useLogin from '../../hooks/useLogin';
 import useLoginStore from '../../store/loginpage.store';
 import styles from './Login.module.css';
-import { useAuthContext } from '../../hooks/useAuthContext';
 import Input from '../../components/input/Input.component';
 import Checkbox from '../../components/checkbox/Checkbox.component';
 import Button from '../../components/button/Button.component';
@@ -11,7 +11,7 @@ import Button from '../../components/button/Button.component';
 const Login: React.FC = () => {
   const { email, setEmail, password, setPassword, rememberMe, setRememberMe, resetForm } =
     useLoginStore();
-  const { login, error } = useLogin();
+  const { login } = useLogin();
   const { user } = useAuthContext();
   const navigate = useNavigate();
 

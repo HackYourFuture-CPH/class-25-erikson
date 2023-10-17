@@ -1,6 +1,6 @@
 import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useCourseStore } from '../../store/courses.store';
-import { useAuthContext } from '../../hooks/useAuthContext';
 import CourseHeader from '../../components/courseDetails/CourseHeader';
 import CourseActions from '../../components/courseDetails/CourseActions';
 import AboutSection from '../../components/courseDetails/aboutSection/AboutSection';
@@ -10,18 +10,11 @@ import ContentOutline from '../../components/courseDetails/ContentOutline';
 import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import BackArrow from '../../assets/icons/arrow_back.svg';
 import styles from './CourseDetails.module.css';
-import { useEffect, useState } from 'react';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
 
 const CourseDetails: React.FC = () => {
-  const { user } = useAuthContext();
   const [singleCourse, setSingleCourse] = useState<any>(null);
   const navigate = useNavigate();
-  // const courses = useAllCoursesStore((state) => state.courses);
-
-  if (!user?.emailVerified) {
-    navigate('/login', { replace: true });
-  }
 
   const { id } = useParams<{ id: string }>();
 
@@ -33,6 +26,7 @@ const CourseDetails: React.FC = () => {
     isLoading,
     error,
   } = useAxiosFetch<any>(`/api/courses/course/${courseId}`);
+
   useEffect(() => {
     if (fetchedCourses) {
       setSingleCourse(fetchedCourses);

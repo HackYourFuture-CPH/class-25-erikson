@@ -1,16 +1,15 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
+import useNotificationStore from './store/notification.store';
 import Signup from './pages/signup/Signup';
 import Login from './pages/login/Login';
 import Password from './pages/password/Password';
 import Dashboard from './pages/dashboard/Dashboard';
 import CourseDetails from './pages/course/CourseDetails';
 import AddCourseForm from './pages/form/AddCourseForm';
-import './App.css';
 import Notification from './components/notification/Notification.component';
-import useNotificationStore from './store/notification.store';
-import './App.css';
 import MyCourses from './pages/myCourses/MyCourses';
 import UnderConstruction from './pages/underConstruction/underConstruction';
+import './App.css';
 
 function App(): JSX.Element {
   const { notification } = useNotificationStore();
@@ -47,7 +46,6 @@ function App(): JSX.Element {
       path: '/my-courses',
       element: <MyCourses />,
     },
-
     {
       path: '/underconstruction',
       element: <UnderConstruction />,
