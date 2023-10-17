@@ -12,6 +12,8 @@ import Calender from '../../assets/dashboard/calendar.svg';
 import Goals from '../../assets/dashboard/goals.svg';
 import Dashboard from '../../assets/dashboard/dashboard.svg';
 import Dashboard2 from '../../assets/dashboard/dashboard2.svg';
+import Mobile from '../../assets/dashboard/mobile.svg';
+import Menu from '../../assets/dashboard/menu.svg';
 import './Dashboard.css';
 
 type FormWrapperProps = {
@@ -23,7 +25,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [isSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleLogout = async (): Promise<void> => {
     setUser(null);
@@ -32,6 +34,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
   };
 
   const toggleSidebar = (): void => {
+    setIsSidebarOpen(!isSidebarOpen);
     const sidebar = document.querySelector('.sidebar');
     if (sidebar) {
       sidebar.classList.toggle('open');
@@ -163,8 +166,11 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
               <div className='top-bar-phone-content'>
                 <p className='sidebar-toggle-button' onClick={toggleSidebar}>
-                  <img src='images/menu.svg' alt='menu' />
+                  <img src={Menu} alt='menu' />
                 </p>
+                {isSidebarOpen ? null : (
+                  <img className='logo-mobile' src={Mobile} alt='logo-mobile' />
+                )}
               </div>
             </div>
 
