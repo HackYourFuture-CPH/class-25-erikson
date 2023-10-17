@@ -1,9 +1,9 @@
 import { ReactNode, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import signout from '../../hooks/signout';
 import Person from '../../assets/icons/person.svg';
-import './Dashboard.css';
 import Bookmark from '../../assets/dashboard/bookmark.svg';
 import Document from '../../assets/dashboard/document.svg';
 import Video from '../../assets/dashboard/video.svg';
@@ -12,16 +12,16 @@ import Calender from '../../assets/dashboard/calendar.svg';
 import Goals from '../../assets/dashboard/goals.svg';
 import Dashboard from '../../assets/dashboard/dashboard.svg';
 import Dashboard2 from '../../assets/dashboard/dashboard2.svg';
-import { useLocation } from 'react-router-dom';
+import './Dashboard.css';
 
 type FormWrapperProps = {
   children: ReactNode;
 };
 
 const DashboardWrapper = ({ children }: FormWrapperProps) => {
-  const location = useLocation();
   const { user, setUser } = useAuthContext();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isSidebarOpen] = useState(false);
 
@@ -45,6 +45,10 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
     logout?.classList.toggle('active');
     arrow.innerHTML = logout?.classList.contains('active') ? '▲' : '▼';
   };
+
+  if (!user?.emailVerified) {
+    navigate('/login', { replace: true });
+  }
 
   return (
     <>

@@ -58,8 +58,8 @@ export interface FormState {
 // user
 export interface User {
   id: number;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   user_type: string;
   uid: string;
@@ -75,6 +75,13 @@ export interface Lesson {
   lesson_image: File;
   lesson_description: string;
   resources: Resource[];
+}
+
+export interface GetLesson {
+  lesson_title: string;
+  lesson_image: string;
+  lesson_description: string;
+  lesson_resources: Resource[];
 }
 
 export interface Faq {
@@ -95,9 +102,9 @@ export interface GetCourseFields {
   course_title: string;
   course_description: string;
   course_category: string;
-  course_image: File;
+  course_image: string;
   course_price: number;
-  lessons: Lesson[];
+  lessons: GetLesson[];
   faqs: Faq[];
   key_learning: string;
 }
@@ -120,7 +127,7 @@ export interface AllCourseFields {
   course_category: string;
   course_image: string;
   mentor: number;
-  students: number[];
+  students?: (number | undefined)[];
   lesson_count: number;
 }
 
@@ -138,7 +145,9 @@ export interface GetAllCourses {
 
 export interface GetAllCourseDetails {
   allCourses: AllCourseFields[];
+  filteredCourses: AllCourseFields[];
   setAllCourses: (allCourses: AllCourseFields[]) => void;
+  setFilteredCourses: (filteredCourses: AllCourseFields[]) => void;
 }
 
 // post a course
