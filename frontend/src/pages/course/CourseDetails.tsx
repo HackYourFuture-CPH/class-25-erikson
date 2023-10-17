@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useCourseStore } from '../../store/courses.store';
 import CourseHeader from '../../components/courseDetails/CourseHeader';
 import CourseActions from '../../components/courseDetails/CourseActions';
-import AboutSection from '../../components/courseDetails/aboutSection/AboutSection';
 import ResourcesSection from '../../components/courseDetails/resourcesSection/ResourcesSection';
 import FaqsSection from '../../components/courseDetails/faqsSection/FaqsSection';
 import ContentOutline from '../../components/courseDetails/ContentOutline';
@@ -11,6 +10,7 @@ import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper'
 import BackArrow from '../../assets/icons/arrow_back.svg';
 import styles from './CourseDetails.module.css';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
+import AboutSection from '../../components/courseDetails/aboutSection/AboutSection';
 
 const CourseDetails: React.FC = () => {
   const [singleCourse, setSingleCourse] = useState<any>(null);

@@ -52,7 +52,7 @@ export function FileDrop({ onImageSelect }: FileDropProps) {
         <img src={imageData} alt='Dropped ImageData' className={styles.attachedPhoto} />
       ) : (
         <div className={styles.title}>
-          <div style={{ position: 'relative' }}>
+          <div className={styles.container}>
             <input
               type='file'
               accept='image/*'

@@ -7,13 +7,41 @@ const getAll = async(req: Request, res: Response) => {
     const courses = await db('course')
     .select(
       'course.id',
+      'course_title',
+      'course_category',
+      'course_image',
+      'mentor',
+      db.raw('COALESCE(student_courses.students, ARRAY[]::integer[]) AS students'),
+      'lessons.lesson_count'
+    )
+    .leftJoin(
+      db
+        .select(
+          'course_id',
+          db.raw('ARRAY_AGG(DISTINCT student_id) AS students'))
+        .from('student_course')
+        .groupBy('course_id')
+        .as ('student_courses'),
+      { 'student_courses.course_id': 'course.id' }
+    )
+    .leftJoin(
+      db
+        .select('course_id')
+        .count('id AS lesson_count')
+        .from('lesson')
+        .groupBy('course_id')
+        .as('lessons'),
+      { 'lessons.course_id': 'course.id' }
+    )
+    .groupBy(
+      'course.id', 
       'course_title', 
       'course_category', 
-      'course_image',
-    )
-    .count('lesson.id as lesson_count')
-    .join('lesson', {'course_id': 'course.id'})
-    .groupBy('course.id');
+      'course_image', 
+      'lesson_count', 
+      'student_courses.students'
+    );
+
     courses.length === 0 
     ? res.status(404).json({message: 'No courses'})
     : res.status(200).json(courses);
@@ -73,7 +101,10 @@ const getCourseById = async(req: Request, res: Response) => {
     };
 
     const existingLesson = courseMap[courseId].lessons.find(
-      (l) => l.lesson_title === row.lesson_title
+      (l) => 
+        l.lesson_title === row.lesson_title &&
+        l.lesson_description === row.lesson_description &&
+        l.lesson_image === row.lesson_image
     );
 
     if (!existingLesson) {
@@ -174,8 +205,36 @@ const addNewCourse = async(req: Request, res: Response) => {
   }
 }
 
+const startNewCourse = async(req: Request, res: Response) => {
+  try {
+    const studentId = req.params.studentId;
+    const courseId = req.params.courseId;
+
+    const existingEnrollment = await db('student_course')
+    .where({ 
+      student_id: studentId, 
+      course_id: courseId 
+    })
+    .first();
+
+    if (existingEnrollment) {
+      return res.status(400).json({ error: 'Student is already enrolled in the course' });
+    };
+
+    await db('student_course').insert({
+      student_id : studentId,
+      course_id : courseId,
+    });
+
+    res.status(200).json({ message: 'Course started successfully' });
+  } catch (error) {
+    res.status(500).json({ error: `Can't start course: ${error}` });    
+  }
+}
+
 export {
   getAll,
   getCourseById, 
-  addNewCourse
+  addNewCourse,
+  startNewCourse
 }
