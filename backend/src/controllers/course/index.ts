@@ -10,6 +10,7 @@ const getAll = async(req: Request, res: Response) => {
       'course_title',
       'course_category',
       'course_image',
+      'course_price',
       'mentor',
       db.raw('COALESCE(student_courses.students, ARRAY[]::integer[]) AS students'),
       'lessons.lesson_count'
