@@ -233,9 +233,30 @@ const startNewCourse = async(req: Request, res: Response) => {
   }
 }
 
+const checkEnrollment = async(req: Request, res: Response) => {
+  try {
+    const studentId = req.params.studentId;
+    const courseId = req.params.courseId;
+
+    const existingEnrollment = await db('student_course')
+    .where({ 
+      student_id: studentId, 
+      course_id: courseId 
+    })
+    .first();
+
+    existingEnrollment 
+    ? res.status(200).json(existingEnrollment)
+    : res.status(404).json({ error: "Enrollment information not found" })
+  } catch (error) {
+    res.status(500).json({ error: `Error fetching enrollment information: ${error}` });    
+  }
+}
+
 export {
   getAll,
   getCourseById, 
   addNewCourse,
-  startNewCourse
+  startNewCourse,
+  checkEnrollment
 }
