@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -27,6 +27,12 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  useEffect(() => {
+    if (user && !user.emailVerified) {
+      navigate('/login', { replace: true });
+    }
+  }, [user, navigate]);
+
   const handleLogout = async (): Promise<void> => {
     setUser(null);
     await signout();
@@ -49,136 +55,126 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
     arrow.innerHTML = logout?.classList.contains('active') ? '▲' : '▼';
   };
 
-  if (!user?.emailVerified) {
-    navigate('/login', { replace: true });
-  }
-
   return (
-    <>
-      <>
-        <div className='dashboard-layout'>
-          <nav className={`sidebar ${isSidebarOpen ? 'open' : 'hidden'}`}>
-            <div className='sticky'>
-              <div className='dashboard-logo'>
-                <img src={Dashboard} alt='dashboard' />
-              </div>
+    <div className='dashboard-layout'>
+      <nav className={`sidebar ${isSidebarOpen ? 'open' : 'hidden'}`}>
+        <div className='sticky'>
+          <div className='dashboard-logo'>
+            <img src={Dashboard} alt='dashboard' />
+          </div>
 
-              <div className='sidebar-menu'>
-                <div className='sidebar-item'>
-                  <Link to='/my-courses'>
-                    <div>
-                      <img src={Dashboard2} alt='dashboard2' />
-                      <p>Dashboard</p>
-                    </div>
-                  </Link>
+          <div className='sidebar-menu'>
+            <div className='sidebar-item'>
+              <Link to='/my-courses'>
+                <div>
+                  <img src={Dashboard2} alt='dashboard2' />
+                  <p>Dashboard</p>
                 </div>
-
-                <div className='sidebar-item'>
-                  <Link to='/underconstruction'>
-                    <div>
-                      <img src={Goals} alt='dashboard2' />
-                      <p>Goals</p>
-                    </div>
-                  </Link>
-                </div>
-
-                <div className='sidebar-item'>
-                  <Link to='/underconstruction'>
-                    <div>
-                      <img src={Video} alt='live schedule' />
-                      <p>Live Schedule</p>
-                    </div>
-                  </Link>
-                </div>
-
-                <div className='sidebar-item'>
-                  <Link to='/underconstruction'>
-                    <div>
-                      <img src={Calender} alt='class schedule' />
-                      <p>Class Schedule</p>
-                    </div>
-                  </Link>
-                </div>
-
-                <div
-                  className={`sidebar-item ${
-                    location.pathname === '/courses' ? 'nav-link-active' : ''
-                  }`}
-                >
-                  <Link to='/courses'>
-                    <div>
-                      <img src={Bookmark} alt='course' />
-                      <p>Course</p>
-                    </div>
-                  </Link>
-                </div>
-
-                <div className='sidebar-item'>
-                  <Link to='/underconstruction'>
-                    <div>
-                      <img src={Document} alt='resources' />
-
-                      <p>Resources</p>
-                    </div>
-                  </Link>
-                </div>
-
-                <div className='sidebar-item'>
-                  <Link to='/underconstruction'>
-                    <div>
-                      <img src={Folder} alt='directory' />
-                      <p>Directory</p>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </nav>
-
-          <div className='main'>
-            <div className='top-bar-container'>
-              <div className='top-bar'>
-                <form>
-                  <input
-                    className='search'
-                    type='text'
-                    id='search'
-                    name='search'
-                    placeholder='Search Anything'
-                  />
-                </form>
-
-                <div className='user'>
-                  <div className='user-info'>
-                    <img className='user-img' src={Person} alt='user-display' />
-                    <p>
-                      {user?.displayName}{' '}
-                      <span className='handleArrow' onClick={handleArrow}>
-                        ▼
-                      </span>
-                    </p>
-                  </div>
-                  <div className='dropdown-menu'>
-                    <button onClick={handleLogout}>Log out</button>
-                  </div>
-                </div>
-              </div>
-
-              <div className='top-bar-phone-content'>
-                <p className='sidebar-toggle-button' onClick={toggleSidebar}>
-                  <img src={Menu} alt='menu' />
-                </p>
-                {isSidebarOpen ? null : (
-                  <img className='logo-mobile' src={Mobile} alt='logo-mobile' />
-                )}
-              </div>
+              </Link>
             </div>
 
-            <div> {children}</div>
+            <div className='sidebar-item'>
+              <Link to='/underconstruction'>
+                <div>
+                  <img src={Goals} alt='dashboard2' />
+                  <p>Goals</p>
+                </div>
+              </Link>
+            </div>
+
+            <div className='sidebar-item'>
+              <Link to='/underconstruction'>
+                <div>
+                  <img src={Video} alt='live schedule' />
+                  <p>Live Schedule</p>
+                </div>
+              </Link>
+            </div>
+
+            <div className='sidebar-item'>
+              <Link to='/underconstruction'>
+                <div>
+                  <img src={Calender} alt='class schedule' />
+                  <p>Class Schedule</p>
+                </div>
+              </Link>
+            </div>
+
+            <div
+              className={`sidebar-item ${
+                location.pathname === '/courses' ? 'nav-link-active' : ''
+              }`}
+            >
+              <Link to='/courses'>
+                <div>
+                  <img src={Bookmark} alt='course' />
+                  <p>Course</p>
+                </div>
+              </Link>
+            </div>
+
+            <div className='sidebar-item'>
+              <Link to='/underconstruction'>
+                <div>
+                  <img src={Document} alt='resources' />
+
+                  <p>Resources</p>
+                </div>
+              </Link>
+            </div>
+
+            <div className='sidebar-item'>
+              <Link to='/underconstruction'>
+                <div>
+                  <img src={Folder} alt='directory' />
+                  <p>Directory</p>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
-      </>
-    </>
+      </nav>
+
+      <div className='main'>
+        <div className='top-bar-container'>
+          <div className='top-bar'>
+            <form>
+              <input
+                className='search'
+                type='text'
+                id='search'
+                name='search'
+                placeholder='Search Anything'
+              />
+            </form>
+
+            <div className='user'>
+              <div className='user-info'>
+                <img className='user-img' src={Person} alt='user-display' />
+                <p>
+                  {user?.displayName}{' '}
+                  <span className='handleArrow' onClick={handleArrow}>
+                    ▼
+                  </span>
+                </p>
+              </div>
+              <div className='dropdown-menu'>
+                <button onClick={handleLogout}>Log out</button>
+              </div>
+            </div>
+          </div>
+
+          <div className='top-bar-phone-content'>
+            <p className='sidebar-toggle-button' onClick={toggleSidebar}>
+              <img src={Menu} alt='menu' />
+            </p>
+            {isSidebarOpen ? null : <img className='logo-mobile' src={Mobile} alt='logo-mobile' />}
+          </div>
+        </div>
+
+        <div className='dashboard-wrapper'>{children}</div>
+      </div>
+    </div>
   );
 };
 

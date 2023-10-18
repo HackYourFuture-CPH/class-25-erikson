@@ -5,6 +5,7 @@ import Filters from './Filters';
 import CourseList from './CourseList';
 import useUserStore from '../../store/user.store';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
+import Button from '../button/Button.component';
 
 const StudentDashboard: React.FC = () => {
   const { currentUser, setCurrentUser } = useUserStore();
@@ -35,7 +36,7 @@ const StudentDashboard: React.FC = () => {
           <h2>Course</h2>
           {userType === 'Mentor' && (
             <Link to='/add-course'>
-              <button className='create-course-btn'>Create New Course+</button>
+              <Button isLoading={isLoading} label={'Create New Course+'} type='submit' />
             </Link>
           )}
         </div>

@@ -1,13 +1,8 @@
 import React from 'react';
 import StudentDashboard from '../../components/courses/Students';
-import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 
 const Dashboard: React.FC = () => {
-  return (
-    <DashboardWrapper>
-      <StudentDashboard />
-    </DashboardWrapper>
-  );
+  return <StudentDashboard />;
 };
 
 export default Dashboard;

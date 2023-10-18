@@ -10,6 +10,7 @@ import Notification from './components/notification/Notification.component';
 import MyCourses from './pages/myCourses/MyCourses';
 import UnderConstruction from './pages/underConstruction/underConstruction';
 import './App.css';
+import DashboardWrapper from './components/dashboardLayout/DashboardWrapper';
 
 function App(): JSX.Element {
   const { notification } = useNotificationStore();
@@ -32,23 +33,43 @@ function App(): JSX.Element {
     },
     {
       path: '/courses',
-      element: <Dashboard />,
+      element: (
+        <DashboardWrapper>
+          <Dashboard />
+        </DashboardWrapper>
+      ),
     },
     {
       path: '/add-course',
-      element: <AddCourseForm />,
+      element: (
+        <DashboardWrapper>
+          <AddCourseForm />
+        </DashboardWrapper>
+      ),
     },
     {
       path: '/course/:id',
-      element: <CourseDetails />,
+      element: (
+        <DashboardWrapper>
+          <CourseDetails />
+        </DashboardWrapper>
+      ),
     },
     {
       path: '/my-courses',
-      element: <MyCourses />,
+      element: (
+        <DashboardWrapper>
+          <MyCourses />
+        </DashboardWrapper>
+      ),
     },
     {
       path: '/underconstruction',
-      element: <UnderConstruction />,
+      element: (
+        <DashboardWrapper>
+          <UnderConstruction />
+        </DashboardWrapper>
+      ),
     },
   ]);
 

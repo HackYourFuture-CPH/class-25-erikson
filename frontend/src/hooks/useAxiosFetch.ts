@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useAuthContext } from './useAuthContext';
+import useNotificationStore from '../store/notification.store';
 
 interface FetchResponse<T> {
   data: T | null;
@@ -16,6 +17,7 @@ const useAxiosFetch = <T>(
   config?: AxiosRequestConfig,
 ): FetchResponse<T> => {
   const { user } = useAuthContext();
+  const { setNotification } = useNotificationStore();
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -27,7 +29,7 @@ const useAxiosFetch = <T>(
       setIsLoading(true);
 
       try {
-        if (user?.emailVerified) {
+        if (user && user.emailVerified) {
           const idToken = await user.getIdToken();
 
           const response: AxiosResponse<T> = await axios.request({
@@ -47,7 +49,8 @@ const useAxiosFetch = <T>(
         } else {
           throw new Error('User has not verified his email');
         }
-      } catch (error) {
+      } catch (error: any) {
+        setNotification({ message: error.message, severity: 'error' });
         if (isMounted) {
           setError(error as Error);
           setData(null);
@@ -63,7 +66,7 @@ const useAxiosFetch = <T>(
     return () => {
       isMounted = false;
     };
-  }, [url, method, config, user]);
+  }, [url, method, config, user, setNotification]);
 
   return { data, error, isLoading };
 };

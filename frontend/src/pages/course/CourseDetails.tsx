@@ -6,7 +6,6 @@ import CourseActions from '../../components/courseDetails/CourseActions';
 import ResourcesSection from '../../components/courseDetails/resourcesSection/ResourcesSection';
 import FaqsSection from '../../components/courseDetails/faqsSection/FaqsSection';
 import ContentOutline from '../../components/courseDetails/ContentOutline';
-import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import BackArrow from '../../assets/icons/arrow_back.svg';
 import styles from './CourseDetails.module.css';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
@@ -52,40 +51,38 @@ const CourseDetails: React.FC = () => {
 
   return (
     <>
-      <DashboardWrapper>
-        <div className={styles.breadCrump} onClick={() => navigate('/courses')}>
-          <p>
-            <img src={BackArrow} alt='back-arrow' />
-          </p>
-          <h1>Course Details</h1>
+      <div className={styles.breadCrump} onClick={() => navigate('/courses')}>
+        <p>
+          <img src={BackArrow} alt='back-arrow' />
+        </p>
+        <h1>Course Details</h1>
+      </div>
+      <div className={styles.courseDetails}>
+        <div className={styles.gridLeft}>
+          <CourseHeader
+            courseName={singleCourse.course_title}
+            tag={singleCourse.course_category}
+            link={singleCourse.course_image}
+            formattedDuration='8 min'
+          />
+          <CourseActions toggleAbout={toggleAbout} toggleFAQs={toggleFAQs} />
+          {showAbout && <AboutSection description={singleCourse.course_description} />}
+          {showFaqs && <FaqsSection faqs={singleCourse.faqs} />}
+          <button className={styles.startButton}>Start</button>
         </div>
-        <div className={styles.courseDetails}>
-          <div className={styles.gridLeft}>
-            <CourseHeader
-              courseName={singleCourse.course_title}
-              tag={singleCourse.course_category}
-              link={singleCourse.course_image}
-              formattedDuration='8 min'
-            />
-            <CourseActions toggleAbout={toggleAbout} toggleFAQs={toggleFAQs} />
-            {showAbout && <AboutSection description={singleCourse.course_description} />}
-            {showFaqs && <FaqsSection faqs={singleCourse.faqs} />}
-            <button className={styles.startButton}>Start</button>
+
+        <div className={styles.gridWrapper}>
+          <div className={styles.gridRight}>
+            <ContentOutline lessons={singleCourse.lessons} />
           </div>
 
-          <div className={styles.gridWrapper}>
+          {singleCourse.lessons.length > 0 && (
             <div className={styles.gridRight}>
-              <ContentOutline lessons={singleCourse.lessons} />
+              <ResourcesSection lessons={singleCourse.lessons} />
             </div>
-
-            {singleCourse.lessons.length > 0 && (
-              <div className={styles.gridRight}>
-                <ResourcesSection lessons={singleCourse.lessons} />
-              </div>
-            )}
-          </div>
+          )}
         </div>
-      </DashboardWrapper>
+      </div>
     </>
   );
 };

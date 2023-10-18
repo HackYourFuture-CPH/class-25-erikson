@@ -10,7 +10,6 @@ import useUserStore from '../../store/user.store';
 import CourseForm from '../../components/formDetails/course/CourseForm';
 import LessonForm from '../../components/formDetails/lesson/LessonForm';
 import SalesForm from '../../components/formDetails/sales/SalesForm';
-import DashboardWrapper from '../../components/dashboardLayout/DashboardWrapper';
 import BackArrow from '../../assets/icons/back.svg';
 import FrontArrow from '../../assets/icons/front.svg';
 import styles from './AddCourseForm.module.css';
@@ -131,7 +130,7 @@ const AddCourseForm: React.FC = () => {
   };
 
   return (
-    <DashboardWrapper>
+    <>
       {isLoading && <Loader />}
 
       {!isLoading && (
@@ -165,7 +164,7 @@ const AddCourseForm: React.FC = () => {
       {success && <SuccessModal onClose={() => setSuccess(false)} />}
 
       {failure && <FailureModal onClose={() => setFailure(false)} />}
-    </DashboardWrapper>
+    </>
   );
 };
 
