@@ -1,4 +1,4 @@
-h1 {
+.h1 {
   margin: 30px;
 }
 
@@ -9,9 +9,8 @@ h1 {
 }
 
 .cardsWrapper {
-  padding: 30px;
+  max-width: 900px;
   display: grid;
-  background: #fff;
   border-radius: 8px;
   gap: 30px;
 }
@@ -20,10 +19,13 @@ h1 {
   display: flex;
   align-items: center;
   cursor: pointer;
+  background: #fff;
+  padding: 30px;
+  border-radius: 1rem;
 }
 
 .overflow {
-  width: 100%;
+  width: 300px;
   display: block;
   white-space: nowrap;
   overflow: hidden;
@@ -39,9 +41,16 @@ h1 {
   color: #1f1f1f;
 }
 
-.imageDiv {
-  background: #ffb7b7;
-  margin-right: 30px;
+.imageDiv img {
+  width: 120px;
+  height: 120px;
+  border-radius: 1rem;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .imageDiv,
@@ -49,6 +58,7 @@ h1 {
   width: 120px;
   height: 120px;
   border-radius: 8px;
+  margin-right: 20px;
 }
 
 .cardContent {
@@ -63,10 +73,6 @@ h1 {
 }
 
 @media screen and (max-width: 650px) {
-  .overflow {
-    width: 300px;
-  }
-
   .courseList {
     max-width: 600px;
     padding: 20px;
@@ -76,9 +82,6 @@ h1 {
     gap: 20px;
   }
 
-  .imageDiv {
-    margin-right: 20px;
-  }
 }
 
 @media screen and (max-width: 550px) {

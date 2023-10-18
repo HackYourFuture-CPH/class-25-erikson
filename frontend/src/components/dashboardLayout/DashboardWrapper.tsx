@@ -65,7 +65,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
               <div className='sidebar-menu'>
                 <div className='sidebar-item'>
-                  <Link to='/'>
+                  <Link to='/my-courses'>
                     <div>
                       <img src={Dashboard2} alt='dashboard2' />
                       <p>Dashboard</p>

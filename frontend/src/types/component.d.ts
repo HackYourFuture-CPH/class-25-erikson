@@ -127,6 +127,7 @@ export interface AllCourseFields {
   course_category: string;
   course_image: string;
   mentor: number;
+  course_price: number;
   students?: (number | undefined)[];
   lesson_count: number;
 }
