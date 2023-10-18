@@ -9,7 +9,7 @@ import Button from '../../components/button/Button.component';
 
 const Password: React.FC = () => {
   const { email, setEmail } = usePasswordStore();
-  const { resetPassword } = useReset();
+  const { resetPassword, isLoading } = useReset();
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
@@ -19,7 +19,6 @@ const Password: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-
     await resetPassword(email);
   };
 
@@ -46,7 +45,7 @@ const Password: React.FC = () => {
             </div>
 
             <div className={styles.submitButton}>
-              <Button label={'Reset Password'} type='submit' />
+              <Button isLoading={isLoading} label={'Reset Password'} type='submit' />
             </div>
           </form>
         </div>

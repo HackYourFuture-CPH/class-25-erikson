@@ -11,7 +11,7 @@ import Button from '../../components/button/Button.component';
 const Login: React.FC = () => {
   const { email, setEmail, password, setPassword, rememberMe, setRememberMe, resetForm } =
     useLoginStore();
-  const { login } = useLogin();
+  const { login, isLoading } = useLogin();
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
@@ -66,7 +66,7 @@ const Login: React.FC = () => {
             </div>
 
             <div className={styles.submitButton}>
-              <Button label={'Login'} type='submit' />
+              <Button isLoading={isLoading} label={'Login'} type='submit' />
             </div>
           </form>
 

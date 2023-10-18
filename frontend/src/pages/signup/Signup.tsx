@@ -24,7 +24,7 @@ const Signup: React.FC = () => {
     setRememberMe,
   } = useSignupStore();
 
-  const { signup } = useSignup();
+  const { signup, isLoading } = useSignup();
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
@@ -115,7 +115,7 @@ const Signup: React.FC = () => {
             </div>
 
             <div className={styles.submitButton}>
-              <Button label={'Sign up'} type='submit' />
+              <Button isLoading={isLoading} label={'Sign up'} type='submit' />
             </div>
           </form>
 

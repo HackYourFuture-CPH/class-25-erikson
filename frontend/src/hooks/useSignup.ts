@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -11,9 +12,17 @@ import axios from 'axios';
 const useSignup = () => {
   const { setNotification } = useNotificationStore();
   const { error, setError } = useErrorSignupState();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const signup = async (userType: string, email: string, password: string, firstName: string, lastName: string) => {
+  const signup = async (
+    userType: string,
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+  ) => {
     try {
+      setIsLoading(true);
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const capitalizedFirstWords = firstName
@@ -55,13 +64,15 @@ const useSignup = () => {
 
         setError('A verification link has been sent to your e-mail.');
       }
+      setIsLoading(false);
     } catch (err: any) {
       setError(err.message);
       setNotification({ message: err.message, severity: 'error' });
+      setIsLoading(false);
     }
   };
 
-  return { signup, error };
+  return { signup, error, isLoading };
 };
 
 export default useSignup;

@@ -24,3 +24,7 @@
 .button:hover {
   cursor: pointer;
 }
+
+.spinner {
+  margin-right: 20px;
+}
