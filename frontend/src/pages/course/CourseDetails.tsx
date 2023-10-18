@@ -1,6 +1,7 @@
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useCourseStore } from '../../store/courses.store';
+import { GetCourseFields } from '../../types/component';
 import CourseHeader from '../../components/courseDetails/CourseHeader';
 import CourseActions from '../../components/courseDetails/CourseActions';
 import ResourcesSection from '../../components/courseDetails/resourcesSection/ResourcesSection';
@@ -24,7 +25,7 @@ const CourseDetails: React.FC = () => {
     data: fetchedCourses,
     isLoading,
     error,
-  } = useAxiosFetch<any>(`/api/courses/course/${courseId}`);
+  } = useAxiosFetch<GetCourseFields>(`/api/courses/course/${courseId}`);
 
   useEffect(() => {
     if (fetchedCourses) {

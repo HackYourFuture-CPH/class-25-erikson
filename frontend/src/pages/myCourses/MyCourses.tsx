@@ -1,52 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AllCourseFields, User } from '../../types/component';
 import styles from './MyCourses.module.css';
 import events from '../../components/courses/CourseList.module.css';
-import { useAuthContext } from '../../hooks/useAuthContext';
-import useAxiosFetch from '../../hooks/useAxiosFetch';
-import { AllCourseFields, User } from '../../types/component';
 
-const initialUser = {
-  id: 0,
-  first_name: '',
-  last_name: '',
-  email: '',
-  uid: '',
-  user_type: '',
-};
+interface MyCoursesProps {
+  currentUser: User | null;
+  allCourses: AllCourseFields[];
+  isLoading: boolean;
+  error: Error | null;
+}
 
-const initialCourse: AllCourseFields[] = [
-  {
-    id: 0,
-    course_title: '',
-    course_category: '',
-    course_image: '',
-    course_price: 0,
-    mentor: 0,
-    students: [],
-    lesson_count: 0,
-  },
-];
-
-const MyCourses: React.FC = () => {
-  const { user } = useAuthContext();
-  const [currentUser, setCurrentUser] = useState(initialUser);
-  const [allCourses, setAllCourses] = useState(initialCourse);
+const MyCourses: React.FC<MyCoursesProps> = ({ currentUser, allCourses, isLoading, error }) => {
   const navigate = useNavigate();
-
-  const { data: fetchUser, isLoading, error } = useAxiosFetch<User>(`api/user/uid/${user?.uid}`);
-  const { data: fetchCourses } = useAxiosFetch<AllCourseFields[]>('/api/courses/all');
-
-  useEffect(() => {
-    fetchUser && setCurrentUser(fetchUser);
-    fetchCourses && setAllCourses(fetchCourses);
-  }, [fetchUser, fetchCourses]);
 
   const userType = currentUser?.user_type;
   const myCourses: AllCourseFields[] = [];
 
   if (userType === 'Mentor') {
-    myCourses.push(...allCourses.filter((course) => course.mentor === currentUser.id));
+    myCourses.push(...allCourses.filter((course) => course.mentor === currentUser?.id));
   } else if (userType === 'Student') {
     myCourses.push(...allCourses.filter((course) => course.students?.includes(currentUser?.id)));
   }

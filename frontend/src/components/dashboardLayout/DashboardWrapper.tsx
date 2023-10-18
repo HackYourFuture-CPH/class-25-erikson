@@ -1,8 +1,10 @@
-import { ReactNode, useEffect, useState } from 'react';
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { AllCourseFields, User } from '../../types/component';
 import signout from '../../hooks/signout';
+import useAxiosFetch from '../../hooks/useAxiosFetch';
 import Person from '../../assets/icons/person.svg';
 import Bookmark from '../../assets/dashboard/bookmark.svg';
 import Document from '../../assets/dashboard/document.svg';
@@ -20,18 +22,64 @@ type FormWrapperProps = {
   children: ReactNode;
 };
 
+const initialUser: User = {
+  id: 0,
+  first_name: '',
+  last_name: '',
+  email: '',
+  uid: '',
+  user_type: '',
+};
+
+const initialCourse: AllCourseFields[] = [
+  {
+    id: 0,
+    course_title: '',
+    course_category: '',
+    course_image: '',
+    course_price: 0,
+    mentor: 0,
+    students: [],
+    lesson_count: 0,
+  },
+];
+
 const DashboardWrapper = ({ children }: FormWrapperProps) => {
   const { user, setUser } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [currentUser, setCurrentUser] = useState<User | null>(initialUser);
+  const [allCourses, setAllCourses] = useState<AllCourseFields[] | null>(initialCourse);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const {
+    data: fetchUser,
+    isLoading: loading,
+    error: notLoading,
+  } = useAxiosFetch<User>(`api/user/uid/${user?.uid}`);
+  const { data: fetchCourses } = useAxiosFetch<AllCourseFields[]>('/api/courses/all');
+
   useEffect(() => {
-    if (user && !user.emailVerified) {
-      navigate('/login', { replace: true });
-    }
-  }, [user, navigate]);
+    const checkEmailVerification = () => {
+      if (user && !user.emailVerified) {
+        navigate('/login', { replace: true });
+      } else {
+        if (fetchUser && fetchCourses) {
+          setCurrentUser(fetchUser);
+          setIsLoading(loading);
+          setAllCourses(fetchCourses);
+        } else {
+          setError(notLoading);
+          console.error('Error fetching data:', notLoading);
+        }
+      }
+    };
+
+    checkEmailVerification();
+  }, [user, navigate, fetchUser, fetchCourses, loading, notLoading, setCurrentUser, setAllCourses]);
 
   const handleLogout = async (): Promise<void> => {
     setUser(null);
@@ -172,7 +220,19 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
           </div>
         </div>
 
-        <div className='dashboard-wrapper'>{children}</div>
+        <div className='dashboard-wrapper'>
+          {React.Children.toArray(children).map((child) => {
+            if (React.isValidElement(child)) {
+              return React.cloneElement(child as ReactElement, {
+                currentUser,
+                allCourses,
+                isLoading,
+                error,
+              });
+            }
+            return child;
+          })}
+        </div>
       </div>
     </div>
   );
