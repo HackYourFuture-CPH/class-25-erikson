@@ -1,0 +1,29 @@
+.select {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.selectLabel {
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 150%;
+  letter-spacing: 0.24px;
+}
+
+.selectText {
+  width: 100%;
+  border: 1px solid #8d9296;
+  border-radius: 8px;
+  padding: 14px 16px 14px 16px;
+  background-color: #f8f9fd;
+  height: 50px;
+  margin-top: 8px;
+  color: #2b283d;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: 0.28px;
+}

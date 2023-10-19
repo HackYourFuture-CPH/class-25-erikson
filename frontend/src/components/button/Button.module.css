@@ -28,3 +28,11 @@
 .spinner {
   margin-right: 20px;
 }
+
+.leftIcon {
+  padding-right: 1rem;
+}
+
+.rightIcon {
+  padding-left: 1rem;
+}

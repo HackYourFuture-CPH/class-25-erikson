@@ -1,13 +1,16 @@
-import { ChangeEvent, DragEvent, useState } from 'react';
+import { ChangeEvent, DragEvent, useRef, useState } from 'react';
 import styles from './FileDrop.module.css';
 
 interface FileDropProps {
-  onImageSelect: (selectedImage: File) => void;
+  onImageSelect: (selectedImage: File | undefined) => void;
+  selectedImage?: File;
+  label?: string;
 }
 
-export function FileDrop({ onImageSelect }: FileDropProps) {
+export function FileDrop({ onImageSelect, label, selectedImage }: FileDropProps) {
   const [imageData, setImageData] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -22,6 +25,12 @@ export function FileDrop({ onImageSelect }: FileDropProps) {
     const files = event.target.files;
     if (files) {
       handleFiles(files);
+    }
+  };
+
+  const uploadFile = () => {
+    if (inputRef && inputRef.current) {
+      inputRef.current.click();
     }
   };
 
@@ -46,10 +55,30 @@ export function FileDrop({ onImageSelect }: FileDropProps) {
     }
   };
 
+  const clearImage = () => {
+    setImageData(null);
+    onImageSelect(undefined);
+  };
+
   return (
-    <div className={styles.dropArea} onDragOver={handleDragOver} onDrop={handleDrop}>
-      {imageData ? (
-        <img src={imageData} alt='Dropped ImageData' className={styles.attachedPhoto} />
+    <div
+      className={styles.dropArea}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+      onClick={uploadFile}
+    >
+      <span className={styles.label}>{label}</span>
+      {imageData || selectedImage ? (
+        <div className={styles.imageContainer}>
+          <i className={styles.closeButton} onClick={clearImage}>
+            x
+          </i>
+          <img
+            src={imageData || (selectedImage && URL.createObjectURL(selectedImage))}
+            alt='Dropped ImageData'
+            className={styles.attachedPhoto}
+          />
+        </div>
       ) : (
         <div className={styles.title}>
           <div className={styles.container}>
@@ -58,6 +87,7 @@ export function FileDrop({ onImageSelect }: FileDropProps) {
               accept='image/*'
               onChange={handleFileSelect}
               className={styles.fileInput}
+              ref={inputRef as any}
               style={{
                 opacity: 0,
                 position: 'absolute',

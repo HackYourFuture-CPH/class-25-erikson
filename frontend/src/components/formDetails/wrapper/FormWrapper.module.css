@@ -25,6 +25,12 @@
   border-radius: 8px;
 }
 
+.formChildren {
+  display: flex;
+  flex-flow: column;
+  gap: 1.5rem;
+}
+
 @media screen and (max-width: 900px) {
   .formTitleContainer {
     margin-left: -70px;

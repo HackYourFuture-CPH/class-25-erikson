@@ -3,6 +3,12 @@
   padding-bottom: 0px;
 }
 
+.elementWrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 1.5rem;
+}
+
 .label,
 .input,
 .select,
@@ -55,12 +61,10 @@
 }
 
 .trashcan {
-  width: 100%;
-  margin: 40px auto;
-  padding-bottom: 40px;
+  border: none;
+  cursor: pointer;
   text-align: end;
   background: transparent;
-  border-bottom: 1px solid #b3b1bb;
 }
 
 .add {
@@ -73,4 +77,19 @@
   border-radius: 8px;
   align-items: center;
   justify-content: center;
+}
+
+.faqSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.faqTitle {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  letter-spacing: 0.24px;
 }

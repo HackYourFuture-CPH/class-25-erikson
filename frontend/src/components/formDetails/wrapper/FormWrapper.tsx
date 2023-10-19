@@ -3,10 +3,11 @@ import styles from './FormWrapper.module.css';
 
 type FormWrapperProps = {
   title: string;
+  noStyle?: boolean;
   children: ReactNode;
 };
 
-const FormWrapper = ({ title, children }: FormWrapperProps) => {
+const FormWrapper = ({ title, children, noStyle }: FormWrapperProps) => {
   return (
     <div className={styles.formWrapper}>
       <ul className={styles.formTitleContainer}>
@@ -16,8 +17,8 @@ const FormWrapper = ({ title, children }: FormWrapperProps) => {
           </li>
         ))}
       </ul>
-      <div className={styles.formContent}>
-        <div className={styles.formChildren}>{children}</div>
+      <div className={!noStyle ? styles.formContent : undefined}>
+        <div className={!noStyle ? styles.formChildren : undefined}>{children}</div>
       </div>
     </div>
   );

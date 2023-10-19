@@ -72,7 +72,7 @@ export interface Resource {
 
 export interface Lesson {
   lesson_title: string;
-  lesson_image: File;
+  lesson_image: File | undefined;
   lesson_description: string;
   resources: Resource[];
 }
@@ -113,10 +113,10 @@ export interface AddCourseFields {
   course_title: string;
   course_description: string;
   course_category: string;
-  course_image: File;
+  course_image: File | undefined;
   course_price: number;
   lessons: Lesson[];
-  sales_image: File;
+  sales_image: File | undefined;
   faqs: Faq[];
   key_learning: string;
 }
@@ -163,7 +163,7 @@ export interface CourseData {
   course_title: string;
   course_description: string;
   course_category: string;
-  course_image: File;
+  course_image: File | undefined;
   course_price: number;
 }
 

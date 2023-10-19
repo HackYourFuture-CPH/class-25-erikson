@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FileDrop } from '../fileDrop/FileDrop';
 import { Lesson, LessonData } from '../../../types/component';
 import FormWrapper from '../wrapper/FormWrapper';
 import trashcan from '../../../assets/icons/delete.svg';
-import add from '../../../assets/icons/add.svg';
-import styles from '../course/CourseForm.module.css';
-import classes from '../fileDrop/FileDrop.module.css';
+import styles from './LessonForm.module.css';
+import Input from '../../input/Input.component';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import Button from '../../button/Button.component';
 
 type LessonFormProps = LessonData & {
   updateFields: (fields: Partial<LessonData>) => void;
 };
 
 const LessonForm: React.FC<LessonFormProps> = ({ lessons, updateFields }: LessonFormProps) => {
+  const [expanded, setExpanded] = useState<number>(0);
+
   const handleImageChange = (selectedImage: File | undefined, index: number) => {
     const updatedLessons = lessons.map((lesson, i) => {
       if (i === index) {
         return {
           ...lesson,
-          lesson_image: selectedImage || new File([], ''),
+          lesson_image: selectedImage || undefined,
         };
       }
       return lesson;
@@ -79,10 +82,12 @@ const LessonForm: React.FC<LessonFormProps> = ({ lessons, updateFields }: Lesson
   const handleAddLesson = () => {
     const newLesson: Lesson = {
       lesson_title: '',
-      lesson_image: new File([], ''),
+      lesson_image: undefined,
       lesson_description: '',
       resources: [{ lesson_resources: '' }],
     };
+
+    handleAccordionChange(lessons.length)({} as React.SyntheticEvent, false);
 
     updateFields({
       lessons: [...lessons, newLesson],
@@ -96,61 +101,70 @@ const LessonForm: React.FC<LessonFormProps> = ({ lessons, updateFields }: Lesson
     });
   };
 
+  const handleAccordionChange =
+    (panel: number) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+      setExpanded(panel);
+    };
+
   return (
-    <FormWrapper title='Lessons'>
-      {lessons.map((lesson, index) => (
-        <div key={index}>
-          <div className={styles.fileImport}>
-            {lesson.lesson_image.name ? (
-              <img
-                src={URL.createObjectURL(lesson.lesson_image)}
-                alt='LessonImg'
-                className={classes.attachedPhoto}
-              />
-            ) : (
-              <FileDrop
-                onImageSelect={(selectedImage) => handleImageChange(selectedImage, index)}
-              />
-            )}
-          </div>
-          <label className={styles.label}>Lesson Title</label>
-          <input
-            className={styles.input}
-            required
-            type='text'
-            placeholder='Set course title'
-            value={lesson.lesson_title}
-            onChange={(e) => handleLessonTitleChange(e.target.value, index)}
-          />
-          <label className={styles.label}>Lesson Description</label>
-          <input
-            className={styles.input}
-            required
-            type='text'
-            placeholder='Input Text Here'
-            value={lesson.lesson_description}
-            onChange={(e) => handleLessonDescriptionChange(e.target.value, index)}
-          />
-          <label className={styles.label}>Lesson Resources</label>
-          <input
-            className={styles.input}
-            required
-            type='text'
-            placeholder='Resources Here'
-            value={lesson.resources[0].lesson_resources}
-            onChange={(e) => handleLessonResourcesChange(e.target.value, index)}
-          />
-          <button onClick={() => handleDeleteLesson(index)} className={styles.trashcan}>
-            <img src={trashcan} alt='delete-icon' />
-          </button>
-        </div>
-      ))}
-      <button onClick={handleAddLesson} className={styles.add}>
-        <span>
-          <img src={add} alt='add-icon' />
-        </span>
-        <span>Add more lessons</span>
-      </button>
+    <FormWrapper noStyle={true} title='Lessons'>
+      <div>
+        {lessons.map((lesson, index) => (
+          <Accordion
+            expanded={expanded === index}
+            onChange={handleAccordionChange(index)}
+            key={index}
+          >
+            <AccordionSummary>
+              <div className={styles.lessonSummary}>
+                <div className={styles.lessonTitle}>Lesson {index + 1}</div>
+                <button
+                  type='button'
+                  onClick={() => handleDeleteLesson(index)}
+                  className={styles.trashcan}
+                >
+                  <img src={trashcan} alt='delete-icon' />
+                </button>
+              </div>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div className={styles.lessonWrapper}>
+                <div className={styles.fileImport}>
+                  <FileDrop
+                    label='Lesson thumbnail'
+                    selectedImage={lesson.lesson_image}
+                    onImageSelect={(selectedImage: File | undefined) =>
+                      handleImageChange(selectedImage, index)
+                    }
+                  />
+                </div>
+                <Input
+                  label='Lesson Title'
+                  isRequired={true}
+                  placeholder='Set lesson title'
+                  value={lesson.lesson_title}
+                  setValue={(title) => handleLessonTitleChange(title, index)}
+                />
+                <Input
+                  label='Lesson Description'
+                  isRequired={true}
+                  placeholder='Add lesson description'
+                  value={lesson.lesson_description}
+                  setValue={(description) => handleLessonDescriptionChange(description, index)}
+                />
+                <Input
+                  label='Lesson Resource url'
+                  isRequired={true}
+                  placeholder='Add lesson url'
+                  value={lesson.resources[0].lesson_resources}
+                  setValue={(resource) => handleLessonResourcesChange(resource, index)}
+                />
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </div>
+      <Button label='Add more lessons' onClick={handleAddLesson} />
     </FormWrapper>
   );
 };

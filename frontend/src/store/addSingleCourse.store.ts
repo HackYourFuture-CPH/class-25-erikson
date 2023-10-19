@@ -1,17 +1,16 @@
 import { create } from 'zustand';
 import { AddCourseFields, AddSingleCourse } from '../types/component';
 
-const emptyFile: File = new File([], '', { type: '' });
 const initialCourseData: AddCourseFields = {
   course_title: '',
   course_description: '',
   course_category: 'Personal',
-  course_image: emptyFile,
+  course_image: undefined,
   course_price: 50.0,
   lessons: [
     {
       lesson_title: '',
-      lesson_image: emptyFile,
+      lesson_image: undefined,
       lesson_description: '',
       resources: [
         {
@@ -20,7 +19,7 @@ const initialCourseData: AddCourseFields = {
       ],
     },
   ],
-  sales_image: emptyFile,
+  sales_image: undefined,
   faqs: [
     {
       faq: '',

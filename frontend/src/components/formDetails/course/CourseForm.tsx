@@ -1,12 +1,20 @@
 import { FileDrop } from '../fileDrop/FileDrop';
 import { CourseData } from '../../../types/component';
 import FormWrapper from '../wrapper/FormWrapper';
-import classes from '../fileDrop/FileDrop.module.css';
 import styles from './CourseForm.module.css';
+import Input from '../../input/Input.component';
+import Textarea from '../../textarea/Textarea.component';
+import Select from '../../select/Select.component';
 
 type CourseFormProps = CourseData & {
   updateFields: (fields: Partial<CourseData>) => void;
 };
+
+const categoryList = [
+  { value: 'Personal', label: 'Personal' },
+  { value: 'Finance', label: 'Finance' },
+  { value: 'Professional', label: 'Professional' },
+];
 
 const CourseForm = ({
   course_title,
@@ -16,10 +24,6 @@ const CourseForm = ({
   course_price,
   updateFields,
 }: CourseFormProps) => {
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    updateFields({ course_category: e.target.value });
-  };
-
   const handleImageChange = (selectedImage: File | undefined) => {
     updateFields({ course_image: selectedImage });
   };
@@ -27,46 +31,39 @@ const CourseForm = ({
   return (
     <FormWrapper title='Overview'>
       <div className={styles.fileImport}>
-        {course_image.name ? (
-          <img
-            src={URL.createObjectURL(course_image)}
-            alt='CourseImg'
-            className={classes.attachedPhoto}
-          />
-        ) : (
-          <FileDrop onImageSelect={handleImageChange} />
-        )}
+        <FileDrop
+          label='Course thumbnail'
+          selectedImage={course_image}
+          onImageSelect={handleImageChange}
+        />
       </div>
-      <label className={styles.label}>Course Title</label>
-      <input
-        className={styles.input}
-        autoFocus
-        required
+      <Input
+        label='Course Title'
+        autoFocus={true}
+        isRequired={true}
         type='text'
         value={course_title}
-        onChange={(e) => updateFields({ course_title: e.target.value })}
+        setValue={(course_title) => updateFields({ course_title })}
       />
-      <label className={styles.label}>Description</label>
-      <textarea
-        className={styles.textArea}
-        required
+      <Textarea
+        label='Description'
+        isRequired={true}
         value={course_description}
-        onChange={(e) => updateFields({ course_description: e.target.value })}
+        setValue={(course_description) => updateFields({ course_description })}
       />
-      <label className={styles.label}>Price</label>
-      <input
-        className={styles.input}
-        required
+      <Input
+        label='Price'
+        isRequired={true}
         type='number'
         value={course_price}
-        onChange={(e) => updateFields({ course_price: e.target.valueAsNumber })}
+        setValue={(course_price) => updateFields({ course_price: Number(course_price) })}
       />
-      <label className={styles.label}>category</label>
-      <select className={styles.select} value={course_category} onChange={handleCategoryChange}>
-        <option value='Personal'>Personal</option>
-        <option value='Finance'> Finance</option>
-        <option value='Professional'>Professional</option>
-      </select>
+      <Select
+        label='Category'
+        items={categoryList}
+        value={course_category}
+        setValue={(course_category) => updateFields({ course_category })}
+      />
     </FormWrapper>
   );
 };

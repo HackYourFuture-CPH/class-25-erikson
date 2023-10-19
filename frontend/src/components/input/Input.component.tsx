@@ -3,9 +3,10 @@ import styles from './Input.module.css';
 
 interface InputProps {
   label: string;
-  type: string;
-  value: string;
+  value: string | number;
   setValue: (val: string) => void;
+  type?: string;
+  autoFocus?: boolean;
   placeholder?: string;
   isRequired?: boolean;
 }
@@ -15,6 +16,7 @@ const Input: React.FC<InputProps> = ({
   isRequired,
   type,
   placeholder,
+  autoFocus,
   value,
   setValue,
 }: InputProps) => {
@@ -24,7 +26,8 @@ const Input: React.FC<InputProps> = ({
       <input
         className={styles.inputText}
         required={isRequired}
-        type={type}
+        autoFocus={autoFocus}
+        type={type || 'text'}
         placeholder={placeholder}
         onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
         value={value}

@@ -1,0 +1,36 @@
+.lessonWrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 1.5rem;
+}
+
+.fileImport {
+  padding: 40px 0;
+  padding-bottom: 0px;
+}
+
+.lessonSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.lessonTitle {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 0.24px;
+}
+
+.trashcan {
+  border: none;
+  cursor: pointer;
+  text-align: end;
+  background: transparent;
+}
+
+.trashcan img {
+  width: 30px;
+}
