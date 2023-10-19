@@ -1,0 +1,16 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.image {
+  width: 300px;
+}
+
+.link {
+  width: 300px;
+}

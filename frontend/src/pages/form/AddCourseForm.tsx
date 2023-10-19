@@ -1,12 +1,11 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { AddCourseFields } from '../../types/component';
+import { AddCourseFields, User } from '../../types/component';
 import { useMultistepForm } from '../../hooks/useMultiStepForm';
 import axios from 'axios';
 import useFirebaseStorage from '../../hooks/useFirebaseStorage';
 import useSingleCourseStore from '../../store/addSingleCourse.store';
-import useUserStore from '../../store/user.store';
 import CourseForm from '../../components/formDetails/course/CourseForm';
 import LessonForm from '../../components/formDetails/lesson/LessonForm';
 import SalesForm from '../../components/formDetails/sales/SalesForm';
@@ -18,16 +17,18 @@ import FailureModal from './FailureModal';
 import Loader from './Loader';
 import useNotificationStore from '../../store/notification.store';
 import Button from '../../components/button/Button.component';
+import useAxiosFetch from '../../hooks/useAxiosFetch';
 
 const AddCourseForm: React.FC = () => {
   const { user } = useAuthContext();
-  const { currentUser } = useUserStore();
   const { generateUniqueFileName, uploadImageToFirebaseStorage } = useFirebaseStorage();
   const { setNotification } = useNotificationStore();
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [failure, setFailure] = useState(false);
   const navigate = useNavigate();
+
+  const { data: currentUser } = useAxiosFetch<User>(`api/user/uid/${user?.uid}`);
 
   const userType = currentUser?.user_type;
   const mentorId = currentUser?.id;
@@ -117,7 +118,6 @@ const AddCourseForm: React.FC = () => {
 
       // Getting Firebase ID token
       const idToken = await user?.getIdToken();
-
       // Posting form data to the server
       await axios.post(`api/courses/${mentorId}/add_course`, formDataWithUrls, {
         headers: {
@@ -147,7 +147,7 @@ const AddCourseForm: React.FC = () => {
 
             <div className={styles.buttonsDiv}>
               {!isFirstStep ? (
-                <Button label='Go Back' leftIcon={BackArrow} onClick={back} />
+                <Button type='button' label='Go Back' leftIcon={BackArrow} onClick={back} />
               ) : (
                 <div></div>
               )}

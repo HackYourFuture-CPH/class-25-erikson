@@ -10,10 +10,14 @@ import BackArrow from '../../assets/icons/arrow_back.svg';
 import styles from './CourseDetails.module.css';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
 import AboutSection from '../../components/courseDetails/aboutSection/AboutSection';
+import useUserStore from '../../store/user.store';
+import { User } from '../../types/component';
+import Button from '../../components/button/Button.component';
 
 const CourseDetails: React.FC = () => {
   const [singleCourse, setSingleCourse] = useState<any>(null);
   const navigate = useNavigate();
+  const currentUser: User | null = useUserStore((state) => state.currentUser);
 
   const { id } = useParams<{ id: string }>();
 
@@ -55,7 +59,7 @@ const CourseDetails: React.FC = () => {
         <p>
           <img src={BackArrow} alt='back-arrow' />
         </p>
-        <h1>Course Details</h1>
+        <h3>Course Details</h3>
       </div>
       <div className={styles.courseDetails}>
         <div className={styles.gridLeft}>
@@ -68,7 +72,7 @@ const CourseDetails: React.FC = () => {
           <CourseActions toggleAbout={toggleAbout} toggleFAQs={toggleFAQs} />
           {showAbout && <AboutSection description={singleCourse.course_description} />}
           {showFaqs && <FaqsSection faqs={singleCourse.faqs} />}
-          <button className={styles.startButton}>Start</button>
+          {currentUser?.user_type === 'Student' && <Button label='Start' />}
         </div>
 
         <div className={styles.gridWrapper}>

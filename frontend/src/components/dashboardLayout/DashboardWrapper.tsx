@@ -138,16 +138,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
       <div className='main'>
         <div className='top-bar-container'>
           <div className='top-bar'>
-            <form>
-              <input
-                className='search'
-                type='text'
-                id='search'
-                name='search'
-                placeholder='Search Anything'
-              />
-            </form>
-
+            <div></div>
             <div className='user'>
               <div className='user-info'>
                 <img className='user-img' src={Person} alt='user-display' />

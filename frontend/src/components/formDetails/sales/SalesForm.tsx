@@ -5,7 +5,6 @@ import trashcan from '../../../assets/icons/delete.svg';
 import add from '../../../assets/icons/add.svg';
 import styles from '../course/CourseForm.module.css';
 import Input from '../../input/Input.component';
-import React from 'react';
 
 type SaleFormProps = {
   sales_image: File | undefined;

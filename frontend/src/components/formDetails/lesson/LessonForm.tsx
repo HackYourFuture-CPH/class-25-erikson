@@ -108,7 +108,7 @@ const LessonForm: React.FC<LessonFormProps> = ({ lessons, updateFields }: Lesson
 
   return (
     <FormWrapper noStyle={true} title='Lessons'>
-      <div>
+      <div className={styles.wrapper}>
         {lessons.map((lesson, index) => (
           <Accordion
             expanded={expanded === index}

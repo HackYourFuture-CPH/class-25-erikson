@@ -4,6 +4,7 @@
   align-content: center;
   padding: 30px;
   cursor: pointer;
+  width: 240px;
 }
 
 .breadCrump img {

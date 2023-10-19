@@ -6,6 +6,7 @@ import CourseList from './CourseList';
 import useUserStore from '../../store/user.store';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
 import Button from '../button/Button.component';
+import NoCourse from '../noCourse/NoCourse.component';
 
 const StudentDashboard: React.FC = () => {
   const { currentUser, setCurrentUser } = useUserStore();
@@ -26,7 +27,7 @@ const StudentDashboard: React.FC = () => {
   }
 
   if (error) {
-    return <div className='error'>{error?.message}</div>;
+    return <NoCourse userType={userType} />;
   }
 
   return (

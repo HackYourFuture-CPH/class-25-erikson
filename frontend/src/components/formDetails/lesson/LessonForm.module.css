@@ -34,3 +34,8 @@
 .trashcan img {
   width: 30px;
 }
+
+.wrapper {
+  background: white;
+  padding: 10px;
+}
