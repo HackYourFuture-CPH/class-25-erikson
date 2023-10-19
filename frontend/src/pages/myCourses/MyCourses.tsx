@@ -60,7 +60,7 @@ const MyCourses: React.FC = () => {
   }
 
   if (myCourses.length === 0) {
-    return <p>"You don't have any courses yet."</p>;
+    return <p>You don't have any courses yet</p>;
   }
 
   return (
