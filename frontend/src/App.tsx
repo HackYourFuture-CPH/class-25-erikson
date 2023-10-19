@@ -9,8 +9,8 @@ import AddCourseForm from './pages/form/AddCourseForm';
 import Notification from './components/notification/Notification.component';
 import MyCourses from './pages/myCourses/MyCourses';
 import UnderConstruction from './pages/underConstruction/underConstruction';
-import './App.css';
 import DashboardWrapper from './components/dashboardLayout/DashboardWrapper';
+import './App.css';
 
 function App(): JSX.Element {
   const { notification } = useNotificationStore();
@@ -59,7 +59,7 @@ function App(): JSX.Element {
       path: '/my-courses',
       element: (
         <DashboardWrapper>
-          <MyCourses />
+          <MyCourses currentUser={null} allCourses={[]} isLoading={false} error={null} />
         </DashboardWrapper>
       ),
     },

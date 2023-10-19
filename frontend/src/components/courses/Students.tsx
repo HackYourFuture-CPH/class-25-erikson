@@ -1,25 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthContext } from '../../hooks/useAuthContext';
+import { AllCourseFields, User } from '../../types/component';
 import Filters from './Filters';
 import CourseList from './CourseList';
-import useUserStore from '../../store/user.store';
-import useAxiosFetch from '../../hooks/useAxiosFetch';
 import Button from '../button/Button.component';
 import NoCourse from '../noCourse/NoCourse.component';
 
-const StudentDashboard: React.FC = () => {
-  const { currentUser, setCurrentUser } = useUserStore();
-  const { user } = useAuthContext();
+interface UserListProps {
+  currentUser: User | null;
+  allCourses: AllCourseFields[];
+  isLoading: boolean;
+  error: Error | null;
+}
 
-  const { data: fetchUser, isLoading, error } = useAxiosFetch<any>(`api/user/uid/${user?.uid}`);
-
-  useEffect(() => {
-    if (fetchUser) {
-      setCurrentUser(fetchUser);
-    }
-  }, [fetchUser, setCurrentUser]);
-
+const StudentDashboard: React.FC<UserListProps> = ({
+  currentUser,
+  allCourses,
+  isLoading,
+  error,
+}) => {
   const userType = currentUser?.user_type;
 
   if (isLoading) {
@@ -43,7 +42,12 @@ const StudentDashboard: React.FC = () => {
         </div>
       </div>
       <Filters />
-      <CourseList />
+      <CourseList
+        currentUser={currentUser}
+        allCourses={allCourses}
+        isLoading={isLoading}
+        error={error}
+      />
     </div>
   );
 };
