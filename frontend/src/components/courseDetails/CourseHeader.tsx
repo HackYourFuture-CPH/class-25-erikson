@@ -40,8 +40,10 @@ const CourseHeader: React.FC<CourseHeaderProps> = ({
           title={lessonTitle}
           width='420'
           height='315'
+          frameBorder='0'
           src={lessonSource}
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+          allowFullScreen
         ></iframe>
         // <video controls className={styles.video} src={`blob:${lessonSource}`} poster={lessonImage}>
         //   Sorry, your browser doesn't support embedded videos, but don't worry, you can
