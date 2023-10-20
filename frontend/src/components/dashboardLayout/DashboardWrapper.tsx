@@ -27,11 +27,9 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    if (user && !user.emailVerified) {
-      navigate('/login', { replace: true });
-    }
-  }, [user, navigate]);
+  if (!user?.emailVerified) {
+    navigate('/login', { replace: true });
+  }
 
   const handleLogout = async (): Promise<void> => {
     setUser(null);
