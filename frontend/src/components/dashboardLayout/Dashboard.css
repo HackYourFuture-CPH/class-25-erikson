@@ -209,6 +209,11 @@
     display: none;
   }
 
+  .sidebar.open {
+    display: block;
+    width: 258px;
+  }
+  
   .top-bar form {
     display: none;
   }
