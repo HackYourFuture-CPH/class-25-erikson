@@ -50,7 +50,6 @@ const useAxiosFetch = <T>(
           throw new Error('User has not verified his email');
         }
       } catch (error: any) {
-        setNotification({ message: error.message, severity: 'error' });
         if (isMounted) {
           setError(error as Error);
           setData(null);

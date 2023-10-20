@@ -107,10 +107,6 @@ p {
   color: #7d7a79;
 }
 
-.video {
-  width: 100%;
-}
-
 @media screen and (max-width: 769px) {
   .courseHeader h2 {
     font-size: 1.5em;

@@ -72,7 +72,7 @@ const MyCourses: React.FC = () => {
             <div
               className={styles.singleCard}
               key={course.id}
-              onClick={() => navigate(`/course/${course.id}`)}
+              onClick={() => navigate(`/course/${course.id}/lessons`)}
             >
               <div className={styles.imageDiv}>
                 <img alt='course' src={course.course_image} />

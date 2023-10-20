@@ -11,6 +11,7 @@ import MyCourses from './pages/myCourses/MyCourses';
 import UnderConstruction from './pages/underConstruction/underConstruction';
 import './App.css';
 import DashboardWrapper from './components/dashboardLayout/DashboardWrapper';
+import Lessons from './pages/lessons/Lessons.component';
 
 function App(): JSX.Element {
   const { notification } = useNotificationStore();
@@ -52,6 +53,14 @@ function App(): JSX.Element {
       element: (
         <DashboardWrapper>
           <CourseDetails />
+        </DashboardWrapper>
+      ),
+    },
+    {
+      path: '/course/:id/lessons',
+      element: (
+        <DashboardWrapper>
+          <Lessons />
         </DashboardWrapper>
       ),
     },

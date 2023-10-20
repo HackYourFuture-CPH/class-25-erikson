@@ -23,7 +23,7 @@
 }
 
 .cardImage {
-  object-fit: unset;
+  object-fit: unset !important;
 }
 
 .cardContent {

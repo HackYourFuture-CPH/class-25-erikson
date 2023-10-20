@@ -239,9 +239,7 @@ const checkEnrollment = async (req: Request, res: Response) => {
       })
       .first();
 
-    existingEnrollment
-      ? res.status(200).json(existingEnrollment)
-      : res.status(404).json({ error: 'Enrollment information not found' });
+    res.status(200).json(existingEnrollment);
   } catch (error) {
     res.status(500).json({ error: `Error fetching enrollment information: ${error}` });
   }

@@ -1,20 +1,23 @@
 import React from 'react';
-import Schedule from '../../assets/icons/schedule.svg';
 import styles from './CourseComponents.module.css';
 import tags from '../courses/CourseList.module.css';
 
 interface CourseHeaderProps {
   courseName: string;
   tag: string;
-  formattedDuration: string;
   link: string;
+  lessonTitle?: string;
+  lessonSource?: string;
+  lessonImage?: string;
 }
 
 const CourseHeader: React.FC<CourseHeaderProps> = ({
   courseName,
   tag,
-  formattedDuration,
   link,
+  lessonTitle,
+  lessonSource,
+  lessonImage,
 }) => {
   return (
     <div className={styles.courseHeader}>
@@ -31,13 +34,25 @@ const CourseHeader: React.FC<CourseHeaderProps> = ({
         >
           {tag}
         </p>
-        <h1>.</h1>
-        <img src={Schedule} alt='schedule-icon' />
-        <p>{formattedDuration}</p>
       </div>
-      <div className={styles.imageContainer}>
-        <img src={link} className={styles.photo} alt='course-img' />
-      </div>
+      {lessonSource && (
+        <iframe
+          title={lessonTitle}
+          width='420'
+          height='315'
+          src={lessonSource}
+          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+        ></iframe>
+        // <video controls className={styles.video} src={`blob:${lessonSource}`} poster={lessonImage}>
+        //   Sorry, your browser doesn't support embedded videos, but don't worry, you can
+        // </video>
+      )}
+
+      {!lessonSource && (
+        <div className={styles.imageContainer}>
+          <img src={link} className={styles.photo} alt='course-img' />
+        </div>
+      )}
     </div>
   );
 };
