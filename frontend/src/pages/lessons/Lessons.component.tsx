@@ -8,7 +8,6 @@ import BackArrow from '../../assets/icons/arrow_back.svg';
 import styles from './Lessons.module.css';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
 import AboutSection from '../../components/courseDetails/aboutSection/AboutSection';
-import { useAuthContext } from '../../hooks/useAuthContext';
 import LessonActions from '../../components/lessonDetails/LessonActions.component';
 
 const Lessons: React.FC = () => {
@@ -16,8 +15,6 @@ const Lessons: React.FC = () => {
   const [selectedLesson, setSelectedLesson] = useState(0);
   const [lesson, setLesson] = useState<any>(null);
   const navigate = useNavigate();
-  const { user } = useAuthContext();
-  const { data: currentUser } = useAxiosFetch<any>(`/api/user/uid/${user?.uid}`);
 
   const { id } = useParams<{ id: string }>();
 
