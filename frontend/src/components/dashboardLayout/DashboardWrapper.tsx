@@ -12,7 +12,6 @@ import Calender from '../../assets/dashboard/calendar.svg';
 import Goals from '../../assets/dashboard/goals.svg';
 import Dashboard from '../../assets/dashboard/dashboard.svg';
 import Dashboard2 from '../../assets/dashboard/dashboard2.svg';
-import Mobile from '../../assets/dashboard/mobile.svg';
 import Menu from '../../assets/dashboard/menu.svg';
 import './Dashboard.css';
 
@@ -157,7 +156,7 @@ const DashboardWrapper = ({ children }: FormWrapperProps) => {
             <p className='sidebar-toggle-button' onClick={toggleSidebar}>
               <img src={Menu} alt='menu' />
             </p>
-            {isSidebarOpen ? null : <img className='logo-mobile' src={Mobile} alt='logo-mobile' />}
+            {isSidebarOpen ? null : <img className='logo-mobile' src='images/auth-logo.svg' alt='logo-mobile' />}
           </div>
         </div>
 
